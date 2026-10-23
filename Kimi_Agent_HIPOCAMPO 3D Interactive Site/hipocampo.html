@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>hipocampo 🧠</title>
+<!--
+  HIPOCAMPO — site da instalação
+  ============================================================
+  para trocar as fontes oficiais (botch / strange muse), adicione
+  os arquivos .woff2 na pasta /fonts e descomente os @font-face
+  abaixo. enquanto isso, o site usa fallbacks.
+
+  listas editáveis (procure no <script>):
+    FILMES  → nomes dos 7 fotofilmes (editar após cada sessão)
+    PESSOAS → nomes e funções da equipe
+    ILHAS   → objetos de cada ilha
+  fotos reais: troque os blocos .ph-pic por <img> mantendo a
+  classe .duotone para o efeito azul.
+  ============================================================
+-->
+<style>
+/* @font-face{font-family:'Botch';src:url('fonts/botch.woff2')} */
+/* @font-face{font-family:'Strange Muse';src:url('fonts/strange-muse.woff2')} */
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root{
+  --bg:#0c0c0d;
+  --papel:#efe9dc;
+  --tinta:#141412;
+  --amarelo:#ffd23f;
+  --amarelo-esc:#d9a400;
+  --azul:#3b5bdb;
+  --azul-claro:#91a7ff;
+  --azul-noite:#101a33;
+  --vermelho:#e03131;
+  --f-display:'Botch','Strange Muse',Georgia,'Times New Roman',serif;
+  --f-mono:'Space Mono',ui-monospace,Menlo,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--papel);
+  font-family:var(--f-mono);
+  font-size:15px;
+  line-height:1.65;
+  overflow-x:hidden;
+  cursor:crosshair;
+}
+::selection{background:var(--amarelo);color:var(--tinta)}
+a{color:var(--amarelo)}
+a:hover{background:var(--amarelo);color:var(--tinta)}
+img{max-width:100%}
+
+/* ---------- grão / pixel ---------- */
+.grain{
+  position:fixed;inset:-50%;z-index:60;pointer-events:none;opacity:.09;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grain 1.2s steps(4) infinite;
+}
+@keyframes grain{
+  0%{transform:translate(0,0)}25%{transform:translate(-2%,3%)}
+  50%{transform:translate(3%,-2%)}75%{transform:translate(-3%,-3%)}100%{transform:translate(2%,2%)}
+}
+.scanlines{
+  position:fixed;inset:0;z-index:59;pointer-events:none;opacity:.05;
+  background:repeating-linear-gradient(0deg,transparent 0 2px,#000 2px 3px);
+}
+
+/* ---------- nav ---------- */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:70;
+  display:flex;justify-content:space-between;align-items:baseline;
+  padding:14px 22px;
+  background:linear-gradient(#0c0c0df2,#0c0c0d00);
+  mix-blend-mode:normal;
+}
+nav .logo{font-family:var(--f-display);font-size:20px;letter-spacing:.05em;color:var(--papel);text-decoration:none;transform:rotate(-1.5deg);display:inline-block}
+nav .logo:hover{background:none;color:var(--amarelo)}
+nav ul{display:flex;gap:20px;list-style:none;flex-wrap:wrap}
+nav ul a{color:var(--papel);text-decoration:none;font-size:13px;letter-spacing:.08em;transform:rotate(var(--r,0deg));display:inline-block}
+nav ul a.ativo,nav ul a:hover{background:var(--amarelo);color:var(--tinta);padding:1px 6px}
+
+/* ---------- páginas ---------- */
+.page{display:none;min-height:100vh;padding:110px 5vw 80px}
+.page.ativa{display:block;animation:entrada .5s ease}
+@keyframes entrada{from{filter:blur(8px);opacity:.2}to{filter:blur(0);opacity:1}}
+h1,h2,h3{font-family:var(--f-display);font-weight:400;letter-spacing:.02em}
+h2{font-size:clamp(28px,4.5vw,48px);color:var(--amarelo);margin-bottom:8px;transform:rotate(-.6deg)}
+.sub{font-size:12px;letter-spacing:.2em;color:var(--azul-claro);margin-bottom:40px;text-transform:lowercase}
+
+/* ---------- hero ---------- */
+#hero{min-height:calc(100vh - 110px);position:relative;display:flex;flex-direction:column;justify-content:center}
+#ascii{
+  position:absolute;inset:0;overflow:hidden;white-space:pre;
+  font-size:11px;line-height:1.1;color:#ffffff10;pointer-events:none;
+  user-select:none;
+}
+#hero h1{
+  font-size:clamp(56px,12vw,150px);line-height:.95;color:var(--papel);
+  text-shadow:4px 4px 0 var(--azul);position:relative;
+}
+#hero h1 .am{color:var(--amarelo)}
+#hero .falas{max-width:560px;margin-top:34px;position:relative;font-size:14px;color:#c9c4b4}
+#hero .falas p{margin-bottom:14px}
+#hero .falas .marcador{color:var(--amarelo)}
+
+/* recortes soltos */
+.cutout{
+  background:var(--papel);color:var(--tinta);
+  border:1.5px solid var(--tinta);
+  border-radius:255px 15px 225px 15px/15px 225px 15px 255px;
+  padding:8px 10px;display:inline-flex;align-items:center;gap:8px;
+  box-shadow:4px 5px 0 rgba(0,0,0,.6);
+  transform:rotate(var(--r,0deg));
+  font-size:11px;user-select:none;
+}
+.fantasma{position:fixed;z-index:90;pointer-events:none;opacity:.9}
+.flotante{position:absolute;animation:flutua 6s ease-in-out infinite alternate;z-index:5}
+@keyframes flutua{from{margin-top:0}to{margin-top:-16px}}
+
+/* ---------- manifesto ---------- */
+.manifesto{
+  margin:80px 0 0;max-width:640px;position:relative;
+  border:2px solid var(--amarelo);padding:34px 30px 30px;
+  background:#0c0c0dcc;box-shadow:8px 8px 0 #ffd23f22;
+  transform:rotate(.5deg);
+}
+.manifesto h3{color:var(--amarelo);font-size:24px;margin-bottom:16px}
+.manifesto ol{list-style:none;counter-reset:m}
+.manifesto li{counter-increment:m;margin:12px 0;font-size:14px}
+.manifesto li::before{content:counter(m) ".";color:var(--azul-claro);margin-right:12px}
+
+/* ---------- referências ---------- */
+.refs{margin-top:70px;font-size:12px;color:#8f8a7c;max-width:640px}
+.refs h3{color:var(--papel);font-size:16px;margin-bottom:10px}
+.refs li{margin:5px 0;list-style:none}
+.refs a{color:#8f8a7c;text-decoration:none;border-bottom:1px dotted #8f8a7c}
+
+/* ---------- instalação: planta ---------- */
+.planta{
+  position:relative;height:300px;border:2px solid #3a3a3a;margin:10px 0 50px;
+  background:
+    linear-gradient(#ffffff08 1px,transparent 1px) 0 0/100% 40px,
+    linear-gradient(90deg,#ffffff08 1px,transparent 1px) 0 0/40px 100%;
+}
+.planta div{position:absolute;font-size:11px;letter-spacing:.15em}
+.pl-p{left:5%;top:40%;color:var(--amarelo);border-left:3px solid var(--amarelo);padding-left:10px}
+.pl-pr{right:5%;top:40%;color:var(--azul-claro);border-right:3px solid var(--azul-claro);padding-right:10px;text-align:right}
+.pl-t{left:50%;top:8%;transform:translateX(-50%);color:var(--vermelho);border:1.5px dashed var(--vermelho);padding:4px 12px}
+.pl-m{left:50%;bottom:8%;transform:translateX(-50%);color:var(--papel);background:var(--azul);padding:6px 16px;box-shadow:0 0 30px #3b5bdb66}
+.planta svg.cone{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none}
+
+/* ---------- ilhas ---------- */
+.ilhas{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:26px;margin-bottom:60px}
+.ilha{
+  position:relative;border:1.5px solid #333;padding:52px 18px 18px;min-height:250px;
+  background:radial-gradient(ellipse 120px 200px at 50% 0%,#ffd23f14,transparent 70%),#101010;
+  overflow:hidden;
+}
+.ilha.azul{background:radial-gradient(ellipse 120px 200px at 50% 0%,#3b5bdb22,transparent 70%),#101010}
+.ilha.verm{background:radial-gradient(ellipse 120px 200px at 50% 0%,#e0313122,transparent 70%),#140c0c;border-color:#5c2222}
+.ilha h3{
+  position:absolute;top:10px;left:14px;font-size:22px;
+}
+.ilha .tag{position:absolute;top:16px;right:14px;font-size:10px;letter-spacing:.2em;color:#777}
+.ilha .objetos{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end}
+.ilha .nota{font-size:11px;color:#6d685b;margin-top:14px}
+
+/* ---------- mesa de luz ---------- */
+.mesa-wrap{margin-top:20px}
+#mesa{
+  position:relative;height:420px;border:2px solid var(--azul-claro);
+  background:
+    radial-gradient(ellipse at 50% 40%,#3b5bdb33,transparent 65%),
+    #0d1428;
+  box-shadow:inset 0 0 80px #3b5bdb22, 0 0 40px #3b5bdb22;
+  overflow:hidden;touch-action:none;
+}
+#mesa .rotulo{position:absolute;top:8px;left:12px;font-size:11px;letter-spacing:.25em;color:var(--azul-claro)}
+#mesaLayer{position:absolute;inset:0}
+#mesaSvg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.mesa-obj{position:absolute;cursor:grab;padding:5px 7px;font-size:9px}
+.mesa-obj.selecionado{outline:2px solid var(--amarelo);outline-offset:2px}
+.mesa-obj svg{width:38px;height:38px;display:block;margin:0 auto}
+#mesa.vazia::after{
+  content:"arraste objetos das ilhas para cá. organize, ligue, fotografe.";
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  color:#91a7ff66;font-size:13px;letter-spacing:.1em;pointer-events:none;text-align:center;padding:0 30px;
+}
+.mesa-botoes{display:flex;gap:10px;margin:16px 0 30px;flex-wrap:wrap}
+button{
+  font-family:var(--f-mono);font-size:12px;letter-spacing:.1em;
+  background:transparent;color:var(--papel);border:1.5px solid var(--papel);
+  padding:9px 18px;cursor:pointer;transition:.15s;
+}
+button:hover{background:var(--amarelo);color:var(--tinta);border-color:var(--amarelo)}
+button.on{background:var(--amarelo);color:var(--tinta);border-color:var(--amarelo)}
+button.azul{border-color:var(--azul-claro);color:var(--azul-claro)}
+button.azul:hover{background:var(--azul-claro);color:var(--tinta)}
+
+/* tira de filme */
+.filmstrip{
+  display:flex;gap:8px;overflow-x:auto;padding:14px;
+  border:2px solid #2c2c2c;background:#080808;
+}
+.frame-mini{
+  flex:0 0 auto;width:110px;height:76px;border:1px solid #444;position:relative;
+  background:var(--azul-noite);cursor:pointer;
+}
+.frame-mini svg{width:100%;height:100%}
+.frame-mini .num{
+  position:absolute;top:2px;left:5px;font-size:9px;color:var(--amarelo);letter-spacing:.1em;
+}
+.frame-mini:hover{border-color:var(--amarelo)}
+#flash{position:fixed;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:80;transition:opacity .4s}
+#flash.brilho{opacity:.9;transition:none}
+
+/* ---------- fotofilmes ---------- */
+.filmes{display:flex;flex-direction:column;gap:34px;max-width:900px}
+.tira{
+  display:flex;gap:6px;align-items:stretch;cursor:pointer;
+  border-top:8px solid #1c1c1c;border-bottom:8px solid #1c1c1c;position:relative;
+  padding:10px 6px;background:#0a0a0a;transition:transform .2s;
+}
+.tira:hover{transform:translateX(8px)}
+.tira::before,.tira::after{
+  content:"";position:absolute;left:0;right:0;height:6px;
+  background:repeating-linear-gradient(90deg,#0a0a0a 0 10px,transparent 10px 20px);
+}
+.tira::before{top:-7px}.tira::after{bottom:-7px}
+.tira .celula{
+  flex:1;height:74px;background:var(--azul-noite);position:relative;
+  filter:none;transition:.4s;overflow:hidden;
+}
+.tira.neg .celula{filter:invert(.92) hue-rotate(180deg) saturate(2.2) brightness(.9)}
+.tira .nome{
+  position:absolute;left:12px;bottom:-2px;z-index:2;font-size:12px;color:var(--amarelo);
+  background:#0a0a0add;padding:2px 8px;letter-spacing:.08em;
+}
+.tira .vez{
+  position:absolute;right:12px;top:8px;z-index:2;font-size:9px;color:var(--azul-claro);
+  border:1px solid var(--azul-claro);padding:2px 7px;letter-spacing:.15em;
+}
+.tira.revelada .celula{filter:none}
+.tira .aviso{
+  position:absolute;inset:0;display:none;align-items:center;justify-content:center;
+  font-size:11px;color:#91a7ffcc;background:#0a0a0add;z-index:3;text-align:center;padding:0 20px;
+}
+.tira.revelada .aviso{display:flex}
+
+/* ---------- player (estilo skowhegan) ---------- */
+#player{
+  position:fixed;inset:0;z-index:100;display:none;
+  background:#050505ee;backdrop-filter:blur(4px);
+  align-items:center;justify-content:center;padding:20px;
+}
+#player.aberto{display:flex}
+.player-card{
+  position:relative;width:min(880px,94vw);background:#0a0f1e;
+  border:1px solid var(--azul);box-shadow:0 0 60px #3b5bdb44;
+  display:grid;grid-template-columns:56px 1fr;grid-template-rows:1fr auto;
+}
+.pv-nome{
+  grid-row:1/3;writing-mode:vertical-rl;transform:rotate(180deg);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--f-display);font-size:20px;color:var(--azul-claro);letter-spacing:.15em;
+  border-left:1px solid var(--azul);padding:16px 0;
+}
+.pv-quadro{position:relative;min-height:min(56vh,460px);background:linear-gradient(160deg,#0a1628,#122046 60%,#0a1628);overflow:hidden}
+.pv-quadro svg{width:100%;height:100%;display:block}
+.pv-rodape{
+  grid-column:2;display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;border-top:1px solid var(--azul);
+}
+.pv-contador{font-size:11px;letter-spacing:.2em;color:var(--amarelo)}
+.pv-nav{display:flex;gap:8px}
+#pvFechar{
+  position:absolute;top:-38px;right:0;background:none;border:none;color:var(--papel);
+  font-size:22px;cursor:pointer;
+}
+#pvFechar:hover{background:var(--vermelho);color:#fff}
+
+/* ---------- sobre ---------- */
+.equipe{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:22px;max-width:1100px}
+.pessoa{border:1.5px solid #2e2e2e;padding:10px;background:#101010;position:relative;transition:.2s}
+.pessoa:hover{border-color:var(--amarelo);transform:translateY(-4px)}
+.ph-pic{aspect-ratio:3/4;position:relative;overflow:hidden;background:#16213f;margin-bottom:10px}
+.ph-pic::after{
+  content:"";position:absolute;inset:0;background:var(--azul);mix-blend-mode:color;opacity:.75;
+}
+.ph-pic svg{position:absolute;inset:0;width:100%;height:100%;filter:grayscale(1) contrast(1.1) brightness(.85)}
+.pessoa .nm{font-family:var(--f-display);font-size:17px;color:var(--papel)}
+.pessoa .fn{font-size:10px;letter-spacing:.12em;color:var(--azul-claro);margin-top:3px}
+.pessoa .ph-num{position:absolute;top:14px;left:14px;font-size:9px;color:var(--amarelo);z-index:2}
+
+/* ---------- ouvir ---------- */
+.ouvir-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px;max-width:1000px;margin:30px 0 50px}
+.faixa{
+  border:1.5px solid #333;padding:20px;cursor:pointer;background:#101010;
+  position:relative;overflow:hidden;transition:.2s;
+}
+.faixa:hover{border-color:var(--amarelo)}
+.faixa.tocando{border-color:var(--amarelo);box-shadow:0 0 30px #ffd23f22}
+.faixa h3{font-size:20px;color:var(--papel)}
+.faixa .tipo{font-size:10px;letter-spacing:.2em;color:#777;margin-bottom:10px}
+.faixa .eq{position:absolute;right:14px;bottom:12px;display:none;gap:3px;align-items:flex-end;height:18px}
+.faixa.tocando .eq{display:flex}
+.faixa .eq i{width:3px;background:var(--amarelo);animation:eq .7s ease-in-out infinite alternate}
+.faixa .eq i:nth-child(2){animation-delay:.15s}.faixa .eq i:nth-child(3){animation-delay:.3s}
+@keyframes eq{from{height:4px}to{height:16px}}
+.transcricao{
+  max-width:680px;border-left:3px solid var(--azul);padding:6px 0 6px 22px;
+  color:#b9b4a5;font-size:13.5px;
+}
+.transcricao h3{color:var(--amarelo);margin:18px 0 10px;font-size:20px}
+.transcricao p{margin:10px 0}
+.transcricao .laco{color:var(--azul-claro)}
+#btnSom{
+  position:fixed;bottom:18px;right:18px;z-index:75;display:none;
+  border-radius:50%;width:52px;height:52px;padding:0;font-size:18px;
+  background:var(--tinta);border:1.5px solid var(--amarelo);color:var(--amarelo);
+}
+#btnSom:hover{background:var(--amarelo);color:var(--tinta)}
+
+/* ---------- rodapé ---------- */
+footer{
+  margin-top:80px;padding-top:24px;border-top:1px dashed #333;
+  font-size:11px;color:#6d685b;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
+}
+
+@media (max-width:640px){
+  .page{padding:90px 5vw 60px}
+  nav ul{gap:10px}
+  .player-card{grid-template-columns:40px 1fr}
+  #mesa{height:340px}
+}
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+<div class="scanlines"></div>
+<div id="flash"></div>
+
+<nav>
+  <a class="logo" href="#inicio" data-page="inicio">hipocampo 🧠</a>
+  <ul>
+    <li><a href="#inicio" data-page="inicio" style="--r:-1deg">início</a></li>
+    <li><a href="#instalacao" data-page="instalacao" style="--r:1deg">instalação</a></li>
+    <li><a href="#fotofilmes" data-page="fotofilmes" style="--r:-1.5deg">fotofilmes</a></li>
+    <li><a href="#sobre" data-page="sobre" style="--r:1deg">sobre nós</a></li>
+    <li><a href="#ouvir" data-page="ouvir" style="--r:-.5deg">ouvir</a></li>
+  </ul>
+</nav>
+
+<main>
+
+<!-- ============ início ============ -->
+<section id="inicio" class="page ativa">
+  <div id="hero">
+    <pre id="ascii"></pre>
+
+    <span class="cutout flotante" style="--r:-8deg;top:6%;right:12%;animation-delay:.4s" id="cut-tel"></span>
+    <span class="cutout flotante" style="--r:6deg;top:38%;right:4%;animation-delay:1.2s" id="cut-mold"></span>
+    <span class="cutout flotante" style="--r:-4deg;bottom:16%;right:20%;animation-delay:2s" id="cut-vela"></span>
+
+    <h1>hipo<br><span class="am">campo</span></h1>
+    <div class="falas">
+      <p><span class="marcador">//</span> uma memória desapareceu.</p>
+      <p>não se sabe exatamente o que aconteceu com a pessoa que a carregava — talvez ela tenha morrido, ou esquecido quem era, ou se transformado a ponto de não reconhecer mais a própria história.</p>
+      <p>o que resta são fragmentos: fotografias, negativos, slides, objetos, vestígios materiais de uma existência que já não pode ser acessada diretamente.</p>
+      <p><span class="marcador">//</span> a partir dessa ausência, a experiência começa.</p>
+    </div>
+  </div>
+
+  <div class="manifesto">
+    <h3>regras da oficina — um manifesto</h3>
+    <ol>
+      <li>não existe ordem correta para os fragmentos.</li>
+      <li>nenhum objeto precisa pertencer à história. talvez todos pertençam.</li>
+      <li>o que você preserva diz mais sobre você do que sobre a memória.</li>
+      <li>ligar dois fragmentos é um ato de imaginação, não de certeza.</li>
+      <li>toda versão é provisória. inclusive esta.</li>
+      <li>quem observa a imagem também a inventa.</li>
+    </ol>
+  </div>
+
+  <div class="refs">
+    <h3>referências</h3>
+    <ul>
+      <li>— <a href="https://youtu.be/O-tcRQ0ouns" target="_blank" rel="noopener">intervenção com retroprojetor</a></li>
+      <li>— <a href="https://youtu.be/Ca7sHcDV8us" target="_blank" rel="noopener">fotografar imagens no retroprojetor</a></li>
+      <li>— <a href="https://www1.folha.uol.com.br/fsp/ilustrad/fq2306200908.html" target="_blank" rel="noopener">fotofilme e la jetée — folha de s.paulo</a></li>
+      <li>— <a href="https://www.instagram.com/p/DdkdbGFlKJH/" target="_blank" rel="noopener">fotografias de joseph radford</a></li>
+      <li>— <a href="https://youtube.com/@criterioncollection" target="_blank" rel="noopener">vídeos do criterion (closet)</a></li>
+      <li>— <a href="https://youtu.be/6-R_DK7efhE" target="_blank" rel="noopener">brilho eterno de uma mente sem lembranças — michel gondry</a></li>
+      <li>— <a href="https://youtu.be/VT4DYv64ZhI" target="_blank" rel="noopener">divertida mente</a></li>
+    </ul>
+  </div>
+
+  <footer>
+    <span>hipocampo — instalação e experiência hipermidiática · estúdio b128 · senac</span>
+    <span>16–17/11 · sessões coletivas de 30–50 min</span>
+  </footer>
+</section>
+
+<!-- ============ instalação ============ -->
+<section id="instalacao" class="page">
+  <h2>a instalação</h2>
+  <p class="sub">quatro ilhas, uma memória desaparecida, nenhuma resposta pronta</p>
+
+  <div class="planta">
+    <svg class="cone" viewBox="0 0 1000 300" preserveAspectRatio="none">
+      <polygon points="120,0 220,0 260,180 80,180" fill="#ffd23f0d"/>
+      <polygon points="780,0 880,0 920,180 740,180" fill="#3b5bdb14"/>
+      <polygon points="470,0 530,0 560,90 440,90" fill="#e0313114"/>
+      <polygon points="470,300 530,300 600,190 400,190" fill="#3b5bdb14"/>
+    </svg>
+    <div class="pl-p">passado<br>← cabideiro, banco do hall</div>
+    <div class="pl-pr">presente<br>escrivaninha, abajur de slides →</div>
+    <div class="pl-t">temporalidade — a geladeira</div>
+    <div class="pl-m">mesa de luz — os futuros</div>
+  </div>
+
+  <div class="ilhas" id="ilhas"></div>
+
+  <div class="mesa-wrap">
+    <h2 style="font-size:26px">a mesa de luz</h2>
+    <p class="sub">onde os objetos se reúnem e o fotofilme nasce</p>
+    <div id="mesa" class="vazia">
+      <span class="rotulo">futuros — construa a vida do protagonista</span>
+      <div id="mesaLayer"></div>
+      <svg id="mesaSvg"></svg>
+    </div>
+    <div class="mesa-botoes">
+      <button id="btnLigar">ligar fragmentos</button>
+      <button id="btnFoto" class="azul">📸 fotografar quadro</button>
+      <button id="btnLimpar">limpar mesa</button>
+      <button id="btnVerFilme" class="azul">▶ ver meu fotofilme</button>
+    </div>
+    <div class="filmstrip" id="tira"></div>
+  </div>
+
+  <footer><span>arraste com mouse ou dedo · guarde objetos · ligue · fotografe</span><span>a sequência de quadros vira o seu fotofilme</span></footer>
+</section>
+
+<!-- ============ fotofilmes ============ -->
+<section id="fotofilmes" class="page">
+  <h2>fotofilmes</h2>
+  <p class="sub">sete versões de uma mesma memória · folha de contato</p>
+  <div class="filmes" id="listaFilmes"></div>
+  <footer><span>o fotofilme da equipe está marcado e visível desde o início</span><span>os demais são revelados após cada sessão</span></footer>
+</section>
+
+<!-- ============ sobre ============ -->
+<section id="sobre" class="page">
+  <h2>sobre nós</h2>
+  <p class="sub">as pessoas por trás da memória</p>
+  <div class="equipe" id="equipe"></div>
+  <footer><span>fotos em duotone azul, mesmo enquadramento — substitua os placeholders</span><span>13 nomes + 1 a definir</span></footer>
+</section>
+
+<!-- ============ ouvir ============ -->
+<section id="ouvir" class="page">
+  <h2>ouvir</h2>
+  <p class="sub">o roteiro falado e as paisagens sonoras — quem não foi, escuta aqui</p>
+
+  <button id="btnEntrar">🔊 clicar para entrar no som</button>
+
+  <div class="ouvir-grid" id="faixas"></div>
+
+  <div class="transcricao">
+    <h3>o roteiro, por escrito</h3>
+    <p>[fragmento 01] <span class="laco">…ela guardava tudo. ou quase tudo.</span> fotografias em caixas que não abria há anos. um diário que começava em janeiro e terminava sempre em março.</p>
+    <p>[fragmento 02] dizem que aos domingos ela telefonava para alguém que não atendia. dizem. ninguém sabe ao certo se o telefone era dela ou da casa.</p>
+    <p>[fragmento 03] <span class="laco">havia um casaco pendurado na entrada, como se alguém fosse voltar.</span> um sapato de criança embaixo da cama. uma passagem comprada e nunca usada.</p>
+    <p>[fragmento 04] a geladeira funcionava sem parar. dentro: uma vela, três ímãs e uma carta endereçada a ninguém.</p>
+    <p>[fragmento 05] <span class="laco">e então a memória desapareceu.</span> não a pessoa — a memória. os objetos ficaram. as imagens ficaram. o sentido, não.</p>
+    <p>[lacuna] o resto, o grupo inventa.</p>
+  </div>
+
+  <footer><span>o som só toca após um clique (regra dos navegadores)</span><span>transcrição disponível para quem não pode ouvir</span></footer>
+</section>
+
+</main>
+
+<!-- ============ player ============ -->
+<div id="player">
+  <div class="player-card">
+    <button id="pvFechar" title="fechar">✕</button>
+    <div class="pv-nome" id="pvNome">fotofilme</div>
+    <div class="pv-quadro" id="pvQuadro"></div>
+    <div class="pv-rodape">
+      <span class="pv-contador" id="pvContador">1 de 1</span>
+      <div class="pv-nav">
+        <button id="pvPrev">← anterior</button>
+        <button id="pvNext">próximo →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button id="btnSom" title="silenciar">🔊</button>
+
+<script>
+/* ================================================================
+   listas editáveis
+================================================================ */
+const ILHAS = {
+  passado:{
+    titulo:'passado', tag:'ancestralidade · infância · nostalgia', cls:'',
+    nota:'cabideiro e banco do hall — o que ficou pendurado esperando volta',
+    objetos:['casaco','tenis','postal','chave','caixa','postit']
+  },
+  presente:{
+    titulo:'presente', tag:'a ilha mais lúcida', cls:'azul',
+    nota:'escrivaninha e abajur de slides — onde as memórias se concretizam',
+    objetos:['documento','caderno','carteira','negativo','slides','diario','foto']
+  },
+  temporalidade:{
+    titulo:'temporalidade', tag:'a geladeira — o vermelho mora aqui', cls:'verm',
+    nota:'a geladeira nunca desliga. o tempo, dentro dela, é outro.',
+    objetos:['ima','vela','carta']
+  }
+};
+
+const FILMES = [
+  {nome:'o fotofilme da equipe', equipe:true,  revelado:true,  frames:null}, // frames null = usa o DEMO abaixo
+  {nome:'grupo 1 — sessão 16/11 noite',  revelado:false},
+  {nome:'grupo 2 — sessão 16/11 noite',  revelado:false},
+  {nome:'grupo 1 — sessão 17/11 manhã',  revelado:false},
+  {nome:'grupo 2 — sessão 17/11 manhã',  revelado:false},
+  {nome:'grupo 3 — sessão 17/11 manhã',  revelado:false},
+  {nome:'grupo 4 — sessão 17/11 manhã',  revelado:false}
+];
+
+const PESSOAS = [
+  ['mariana teixeira','direção criativa + produção'],
+  ['raphael cardoso','direção de experiência + mediação'],
+  ['guilherme brandão','direção de experiência + mediação'],
+  ['lara sanchez','direção de arte + cenografia'],
+  ['gabriel orlando','direção de arte + cenografia'],
+  ['heloísa miranda','direção de fotografia + documentação'],
+  ['heitor lopes','direção de fotografia + documentação'],
+  ['beatriz rangel','direção de som'],
+  ['max','assistência de arte, experiência e montagem'],
+  ['julia','assistência de arte, experiência e montagem'],
+  ['maria clara','assistência de arte e montagem'],
+  ['tiago chaves','assistência de som'],
+  ['marcos bonavita','assistência de som'],
+  ['a definir','assistência de fotografia']
+];
+
+const OUVIDO = [
+  {id:'passado',      titulo:'passado',      tipo:'paisagem sonora · ilha 1', freq:98},
+  {id:'presente',     titulo:'presente',     tipo:'paisagem sonora · ilha 2', freq:196},
+  {id:'temporalidade',titulo:'temporalidade',tipo:'paisagem sonora · ilha 3', freq:147},
+  {id:'roteiro',      titulo:'o roteiro falado', tipo:'voz · narração', freq:65},
+  {id:'futuros',      titulo:'mesa de luz',  tipo:'paisagem sonora · ilha 4', freq:220}
+];
+
+/* ================================================================
+   ícones (recortes) — viewBox 0 0 64 64
+================================================================ */
+const ICONS = {
+  'chave':'<circle cx="20" cy="46" r="8"/><path d="M27 40 L52 15 M44 23 L50 29 M37 30 L43 36" fill="none"/>',
+  'casaco':'<path d="M22 12 L10 24 L15 50 L24 46 L24 54 L40 54 L40 46 L49 50 L54 24 L42 12 Q32 21 22 12 Z" fill="none"/><path d="M32 20 V54" fill="none"/>',
+  'tenis':'<path d="M8 46 V34 Q18 38 27 31 Q35 25 40 30 L52 38 Q57 41 56 46 Z" fill="none"/><path d="M8 46 H56" fill="none"/>',
+  'postal':'<rect x="10" y="16" width="44" height="32" fill="none"/><rect x="40" y="20" width="10" height="9" fill="none"/><path d="M14 36 H36 M14 41 H30" fill="none"/>',
+  'caixa':'<path d="M12 26 L32 16 L52 26 V50 L32 58 L12 50 Z" fill="none"/><path d="M12 26 L32 34 L52 26 M32 34 V58" fill="none"/>',
+  'postit':'<path d="M16 12 H48 V44 L40 52 H16 Z" fill="none"/><path d="M24 24 H40 M24 32 H36" fill="none"/>',
+  'documento':'<path d="M18 8 H40 L48 16 V56 H18 Z" fill="none"/><path d="M40 8 V16 H48 M24 26 H42 M24 34 H42 M24 42 H34" fill="none"/>',
+  'caderno':'<rect x="16" y="10" width="34" height="44" fill="none"/><path d="M24 10 V54 M30 20 H44 M30 28 H44 M30 36 H40" fill="none"/>',
+  'carteira':'<rect x="10" y="18" width="44" height="30" fill="none"/><path d="M10 28 H54 M42 37 H48" fill="none"/>',
+  'negativo':'<rect x="8" y="20" width="48" height="24" fill="none"/><path d="M8 26 H56 M8 38 H56 M16 20 V26 M28 20 V26 M40 20 V26 M16 38 V44 M28 38 V44 M40 38 V44" fill="none"/><rect x="22" y="28" width="20" height="8" fill="none"/>',
+  'slides':'<rect x="14" y="12" width="36" height="24" fill="none"/><rect x="20" y="18" width="24" height="12" fill="none"/><rect x="20" y="42" width="24" height="10" fill="none"/>',
+  'diario':'<rect x="16" y="8" width="34" height="48" fill="none"/><path d="M26 8 V56 M34 22 H44 M34 30 H44 M34 38 H44" fill="none"/>',
+  'foto':'<rect x="12" y="12" width="40" height="40" fill="none"/><circle cx="25" cy="25" r="5"/><path d="M14 46 L30 32 L38 39 L44 34 L52 42" fill="none"/>',
+  'ima':'<path d="M20 12 V34 A12 12 0 0 0 44 34 V12" fill="none"/><path d="M14 12 H26 V22 H14 Z M38 12 H50 V22 H38 Z" fill="none"/>',
+  'vela':'<rect x="24" y="28" width="16" height="26" fill="none"/><path d="M32 12 Q38 20 32 26 Q26 20 32 12 Z" fill="none"/>',
+  'carta':'<rect x="12" y="18" width="40" height="28" fill="none"/><path d="M12 18 L32 34 L52 18" fill="none"/>',
+  'telefone':'<path d="M14 20 Q14 12 22 12 H42 Q50 12 50 20 V44 Q50 52 42 52 H22 Q14 52 14 44 Z" fill="none"/><circle cx="32" cy="32" r="8" fill="none"/>',
+  'moldura':'<rect x="10" y="10" width="44" height="44" fill="none"/><rect x="18" y="18" width="28" height="28" fill="none" stroke-dasharray="4 3"/>',
+  'vinil':'<circle cx="32" cy="32" r="22" fill="none"/><circle cx="32" cy="32" r="6" fill="none"/><path d="M32 10 V16 M32 48 V54 M10 32 H16 M48 32 H54" fill="none"/>',
+  'camera':'<rect x="10" y="20" width="44" height="30" fill="none"/><circle cx="32" cy="35" r="8" fill="none"/><path d="M24 20 L27 14 H37 L40 20" fill="none"/>'
+};
+function iconSvg(nome,size,color){
+  size = size||44; color = color||'currentColor';
+  return '<svg viewBox="0 0 64 64" width="'+size+'" height="'+size+'" fill="none" stroke="'+color+'" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">'+(ICONS[nome]||ICONS['foto'])+'</svg>';
+}
+
+/* ================================================================
+   navegação entre páginas
+================================================================ */
+const paginas = document.querySelectorAll('.page');
+function irPara(id){
+  paginas.forEach(p=>p.classList.remove('ativa'));
+  const alvo = document.getElementById(id);
+  if(alvo) alvo.classList.add('ativa');
+  document.querySelectorAll('nav a[data-page]').forEach(a=>{
+    a.classList.toggle('ativo', a.dataset.page===id);
+  });
+  window.scrollTo(0,0);
+  history.replaceState(null,'','#'+id);
+}
+document.querySelectorAll('nav a[data-page]').forEach(a=>{
+  a.addEventListener('click',e=>{e.preventDefault(); irPara(a.dataset.page);});
+});
+irPara(location.hash ? location.hash.slice(1) : 'inicio');
+
+/* ================================================================
+   hero: fundo ascii + recortes
+================================================================ */
+(function(){
+  const pre = document.getElementById('ascii');
+  const chars = ' .:-=+*#%@▓░▒';
+  let s='';
+  for(let y=0;y<46;y++){
+    for(let x=0;x<130;x++){
+      const v = Math.sin(x*0.14)+Math.cos(y*0.32)+Math.sin((x+y)*0.06);
+      s += chars[Math.abs(Math.floor(v*4)) % chars.length];
+    }
+    s+='\n';
+  }
+  pre.textContent = s;
+  document.getElementById('cut-tel').innerHTML  = iconSvg('telefone',30)+' telefone fixo';
+  document.getElementById('cut-mold').innerHTML = iconSvg('moldura',30)+' moldura vazia';
+  document.getElementById('cut-vela').innerHTML = iconSvg('vela',30)+' vela';
+})();
+
+/* ================================================================
+   ilhas + arrastar objetos
+================================================================ */
+const ilhasEl = document.getElementById('ilhas');
+Object.entries(ILHAS).forEach(([id,cfg])=>{
+  const div = document.createElement('div');
+  div.className = 'ilha '+cfg.cls;
+  const cor = cfg.cls==='verm' ? '#e03131' : (cfg.cls==='azul' ? '#91a7ff' : '#ffd23f');
+  div.innerHTML = '<h3 style="color:'+cor+'">'+cfg.titulo+'</h3><span class="tag">'+cfg.tag+'</span>'+
+    '<div class="objetos"></div><p class="nota">'+cfg.nota+'</p>';
+  const caixa = div.querySelector('.objetos');
+  cfg.objetos.forEach(o=>{
+    const el = document.createElement('span');
+    el.className = 'cutout draggable';
+    el.dataset.obj = o;
+    el.style.setProperty('--r',(Math.random()*10-5).toFixed(1)+'deg');
+    el.innerHTML = iconSvg(o,34,cfg.cls==='verm'?'#8a1f1f':'#141412')+'<span>'+o+'</span>';
+    caixa.appendChild(el);
+  });
+  ilhasEl.appendChild(div);
+});
+
+/* ---------- sistema de arrasto (ilhas → mesa; dentro da mesa) ---------- */
+const mesa = document.getElementById('mesa');
+const mesaLayer = document.getElementById('mesaLayer');
+const mesaSvg = document.getElementById('mesaSvg');
+let mesaObjs = [];   // {uid, obj, x, y} em %
+let mesaLines = [];  // pares de uid
+let ghost = null, dragInfo = null, ligarMode = false, selUid = null;
+
+function mesaRect(){ return mesa.getBoundingClientRect(); }
+
+document.addEventListener('pointerdown',e=>{
+  const alvo = e.target.closest('.draggable') || e.target.closest('.mesa-obj');
+  if(!alvo) return;
+  e.preventDefault();
+  dragInfo = {el:alvo, x0:e.clientX, y0:e.clientY, moved:false,
+              obj:alvo.dataset.obj, uid:alvo.dataset.uid||null};
+}, {passive:false});
+
+document.addEventListener('pointermove',e=>{
+  if(!dragInfo) return;
+  if(!dragInfo.moved && Math.hypot(e.clientX-dragInfo.x0, e.clientY-dragInfo.y0) > 7){
+    dragInfo.moved = true;
+    ghost = dragInfo.el.cloneNode(true);
+    ghost.classList.add('fantasma');
+    ghost.classList.remove('mesa-obj');
+    document.body.appendChild(ghost);
+  }
+  if(ghost){
+    ghost.style.left = (e.clientX-30)+'px';
+    ghost.style.top  = (e.clientY-30)+'px';
+  }
+});
+
+document.addEventListener('pointerup',e=>{
+  if(!dragInfo) return;
+  const d = dragInfo; dragInfo = null;
+  if(ghost){ ghost.remove(); ghost = null; }
+  if(!d.moved) return;
+
+  const r = mesaRect();
+  const dentro = e.clientX>=r.left && e.clientX<=r.right && e.clientY>=r.top && e.clientY<=r.bottom;
+
+  if(d.uid){
+    /* reposicionar objeto já na mesa */
+    const o = mesaObjs.find(m=>m.uid===d.uid);
+    if(o && dentro){
+      o.x = Math.min(92,Math.max(0,(e.clientX-r.left)/r.width*100));
+      o.y = Math.min(85,Math.max(0,(e.clientY-r.top)/r.height*100));
+      renderMesa();
+    }
+  } else if(d.obj && dentro){
+    /* novo objeto vindo de uma ilha */
+    mesaObjs.push({uid:'u'+Date.now()+Math.floor(Math.random()*999), obj:d.obj,
+      x:Math.min(85,Math.max(3,(e.clientX-r.left)/r.width*100-5)),
+      y:Math.min(80,Math.max(4,(e.clientY-r.top)/r.height*100-8))});
+    renderMesa();
+  }
+});
+
+function renderMesa(){
+  mesa.classList.toggle('vazia', mesaObjs.length===0);
+  /* linhas */
+  let s = '';
+  mesaLines.forEach(par=>{
+    const a = mesaObjs.find(m=>m.uid===par[0]), b = mesaObjs.find(m=>m.uid===par[1]);
+    if(a&&b) s += '<line x1="'+a.x+'%" y1="'+(a.y+5)+'%" x2="'+b.x+'%" y2="'+(b.y+5)+'%" stroke="#ffd23f" stroke-width="1.2" opacity=".85"/>';
+  });
+  mesaSvg.innerHTML = s;
+  /* objetos */
+  mesaLayer.innerHTML = '';
+  mesaObjs.forEach(o=>{
+    const el = document.createElement('div');
+    el.className = 'cutout mesa-obj'+(o.uid===selUid?' selecionado':'');
+    el.dataset.uid = o.uid;
+    el.style.left = o.x+'%'; el.style.top = o.y+'%';
+    el.style.setProperty('--r',((o.uid.length%7)-3)+'deg');
+    el.innerHTML = iconSvg(o.obj,38,'#141412')+'<span>'+o.obj+'</span>';
+    mesaLayer.appendChild(el);
+  });
+}
+
+/* clique na mesa: selecionar para ligar */
+mesa.addEventListener('click',e=>{
+  if(!ligarMode) return;
+  const alvo = e.target.closest('.mesa-obj');
+  if(!alvo){ selUid=null; renderMesa(); return; }
+  const uid = alvo.dataset.uid;
+  if(!selUid){ selUid = uid; renderMesa(); return; }
+  if(selUid!==uid){
+    const ja = mesaLines.some(l=>(l[0]===selUid&&l[1]===uid)||(l[1]===selUid&&l[0]===uid));
+    if(!ja) mesaLines.push([selUid,uid]);
+  }
+  selUid = null; renderMesa();
+});
+
+document.getElementById('btnLigar').addEventListener('click',function(){
+  ligarMode = !ligarMode; this.classList.toggle('on',ligarMode);
+  this.textContent = ligarMode ? 'ligando… clique em dois objetos' : 'ligar fragmentos';
+  selUid = null; renderMesa();
+});
+document.getElementById('btnLimpar').addEventListener('click',()=>{
+  mesaObjs=[]; mesaLines=[]; selUid=null; renderMesa();
+});
+
+/* ================================================================
+   fotografar + tira + player
+================================================================ */
+let frames = [];
+function fotoFlash(){
+  const f = document.getElementById('flash');
+  f.classList.add('brilho');
+  setTimeout(()=>f.classList.remove('brilho'),60);
+}
+document.getElementById('btnFoto').addEventListener('click',()=>{
+  if(mesaObjs.length===0) return;
+  frames.push({
+    objs: mesaObjs.map(o=>({obj:o.obj,x:o.x,y:o.y})),
+    lines: mesaLines.map(l=>l.slice())
+  });
+  fotoFlash(); renderTira();
+});
+function renderTira(){
+  const t = document.getElementById('tira');
+  t.innerHTML = '';
+  frames.forEach((f,i)=>{
+    const c = document.createElement('div');
+    c.className = 'frame-mini';
+    c.innerHTML = '<span class="num">'+(i+1)+'</span>'+frameSvg(f,110,76);
+    c.addEventListener('click',()=>abrirPlayer('o seu fotofilme', frames, i));
+    t.appendChild(c);
+  });
+}
+function frameSvg(f,w,h){
+  const uidPos = f.objs.map(o=>o);
+  let linhas='';
+  (f.lines||[]).forEach(par=>{
+    const a = uidPos[par[0]>=uidPos.length?0:par[0]], b = uidPos[par[1]>=uidPos.length?0:par[1]];
+    if(a&&b) linhas += '<line x1="'+(a.x/100*w+20)+'" y1="'+(a.y/100*h+18)+'" x2="'+(b.x/100*w+20)+'" y2="'+(b.y/100*h+18)+'" stroke="#ffd23f" stroke-width="1.4"/>';
+  });
+  let objs='';
+  f.objs.forEach(o=>{
+    objs += '<g transform="translate('+(o.x/100*w)+','+(o.y/100*h)+')" color="#dbe4ff">'+iconSvg(o.obj,40,'#c7d4ff')+'</g>';
+  });
+  return '<svg viewBox="0 0 '+w+' '+h+'" width="100%" height="100%"><rect width="'+w+'" height="'+h+'" fill="#0d1730"/>'+linhas+objs+'</svg>';
+}
+
+/* player */
+const DEMO = [
+  {objs:[{obj:'moldura',x:20,y:25},{obj:'vela',x:62,y:45},{obj:'carta',x:40,y:58}],lines:[[0,1],[1,2]]},
+  {objs:[{obj:'casaco',x:15,y:40},{obj:'chave',x:55,y:25},{obj:'postal',x:45,y:55}],lines:[[0,2]]},
+  {objs:[{obj:'negativo',x:30,y:30},{obj:'foto',x:60,y:50},{obj:'ima',x:20,y:60}],lines:[[0,1],[0,2]]}
+];
+let pvFrames = [], pvIdx = 0, pvNome = '';
+function abrirPlayer(nome, fr, idx){
+  pvNome = nome; pvFrames = fr; pvIdx = idx||0;
+  document.getElementById('pvNome').textContent = nome;
+  document.getElementById('player').classList.add('aberto');
+  pvRender();
+}
+function pvRender(){
+  if(pvIdx<0) pvIdx = pvFrames.length-1;
+  if(pvIdx>=pvFrames.length) pvIdx = 0;
+  const q = document.getElementById('pvQuadro');
+  q.innerHTML = '<svg viewBox="0 0 800 460" preserveAspectRatio="xMidYMid meet" style="width:100%;height:100%">'+
+    '<rect width="800" height="460" fill="#0b1734"/>'+
+    '<rect width="800" height="460" fill="url(#g)"/>'+
+    '<defs><radialGradient id="g" cx="50%" cy="42%" r="70%">'+
+    '<stop offset="0%" stop-color="#3b5bdb" stop-opacity=".28"/>'+
+    '<stop offset="100%" stop-color="#0b1734" stop-opacity="0"/></radialGradient></defs>'+
+    frameSvgInner(pvFrames[pvIdx])+
+    '</svg>';
+  document.getElementById('pvContador').textContent = (pvIdx+1)+' de '+pvFrames.length;
+}
+function frameSvgInner(f){
+  let linhas='';
+  (f.lines||[]).forEach(par=>{
+    const a=f.objs[par[0]], b=f.objs[par[1]];
+    if(a&&b) linhas += '<line x1="'+(a.x*8+40)+'" y1="'+(a.y*4.6+30)+'" x2="'+(b.x*8+40)+'" y2="'+(b.y*4.6+30)+'" stroke="#ffd23f" stroke-width="2"/>';
+  });
+  let objs='';
+  f.objs.forEach(o=>{
+    objs += '<g transform="translate('+(o.x*8)+','+(o.y*4.6)+')">'+iconSvg(o.obj,64,'#c7d4ff')+'</g>';
+  });
+  return linhas+objs;
+}
+document.getElementById('pvPrev').addEventListener('click',()=>{pvIdx--;pvRender();});
+document.getElementById('pvNext').addEventListener('click',()=>{pvIdx++;pvRender();});
+document.getElementById('pvFechar').addEventListener('click',()=>document.getElementById('player').classList.remove('aberto'));
+document.getElementById('player').addEventListener('click',e=>{
+  if(e.target.id==='player') e.target.classList.remove('aberto');
+});
+document.getElementById('btnVerFilme').addEventListener('click',()=>{
+  if(frames.length) abrirPlayer('o seu fotofilme', frames, 0);
+});
+
+/* ================================================================
+   página de fotofilmes — folha de contato
+================================================================ */
+const listaFilmes = document.getElementById('listaFilmes');
+FILMES.forEach((f,i)=>{
+  const t = document.createElement('div');
+  t.className = 'tira '+(f.revelado?'revelada':'neg');
+  let cel='';
+  for(let c=0;c<4;c++) cel += '<div class="celula"></div>';
+  t.innerHTML = cel+
+    '<span class="nome">'+(i+1)+' · '+f.nome+'</span>'+
+    (f.equipe?'<span class="vez">da equipe</span>':'')+
+    '<span class="aviso">negativo revelado — aguardando a sessão.<br>volte depois de 16–17/11.</span>';
+  t.addEventListener('click',()=>{
+    if(f.equipe){
+      abrirPlayer(f.nome, f.frames||DEMO, 0);
+    } else if(t.classList.contains('neg')){
+      t.classList.remove('neg'); t.classList.add('revelada');
+      t.querySelector('.aviso').innerHTML = 'este fotofilme será montado aqui após a sessão.<br>o nome do grupo entra na lista no código.';
+    } else {
+      abrirPlayer(f.nome, [{objs:[{obj:'negativo',x:35,y:35}],lines:[]}], 0);
+    }
+  });
+  listaFilmes.appendChild(t);
+});
+
+/* ================================================================
+   sobre nós
+================================================================ */
+const equipe = document.getElementById('equipe');
+PESSOAS.forEach((p,i)=>{
+  const d = document.createElement('div');
+  d.className = 'pessoa';
+  d.innerHTML =
+    '<span class="ph-num">'+(i+1)+'</span>'+
+    '<div class="ph-pic"><svg viewBox="0 0 60 80"><rect width="60" height="80" fill="#26355f"/>'+
+    '<circle cx="30" cy="28" r="12" fill="#0e1730"/>'+
+    '<path d="M12 78 Q12 50 30 50 Q48 50 48 78 Z" fill="#0e1730"/></svg></div>'+
+    '<div class="nm">'+p[0]+'</div><div class="fn">'+p[1]+'</div>';
+  equipe.appendChild(d);
+});
+
+/* ================================================================
+   ouvir — paisagens sonoras sintetizadas (substituir por áudios reais)
+================================================================ */
+let AC=null, master=null, tocando={nodes:[],faixa:null};
+const btnSom = document.getElementById('btnSom');
+
+function entrarSom(){
+  if(AC) return;
+  AC = new (window.AudioContext||window.webkitAudioContext)();
+  master = AC.createGain(); master.gain.value = .8;
+  master.connect(AC.destination);
+  document.getElementById('btnEntrar').style.display='none';
+  btnSom.style.display='block';
+}
+document.getElementById('btnEntrar').addEventListener('click',entrarSom);
+
+function pararSom(){
+  tocando.nodes.forEach(n=>{try{n.stop&&n.stop()}catch(e){} try{n.disconnect()}catch(e){}});
+  tocando = {nodes:[],faixa:null};
+  document.querySelectorAll('.faixa.tocando').forEach(f=>f.classList.remove('tocando'));
+}
+function tocarFaixa(cfg,el){
+  if(!AC) return;
+  if(tocando.faixa===cfg.id){ pararSom(); return; }
+  pararSom();
+  const g = AC.createGain(); g.gain.value=0; g.connect(master);
+  g.gain.linearRampToValueAtTime(.14, AC.currentTime+2);
+  const o1 = AC.createOscillator(); o1.type='sine'; o1.frequency.value=cfg.freq;
+  const o2 = AC.createOscillator(); o2.type='sine'; o2.frequency.value=cfg.freq*1.005;
+  const lp = AC.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=900;
+  o1.connect(lp); o2.connect(lp); lp.connect(g);
+  o1.start(); o2.start();
+  /* brilho lento */
+  const lfo = AC.createOscillator(); lfo.frequency.value=.08;
+  const lg = AC.createGain(); lg.gain.value=cfg.freq*.06;
+  lfo.connect(lg); lg.connect(o1.frequency); lfo.start();
+  tocando = {nodes:[o1,o2,lfo,g],faixa:cfg.id};
+  el.classList.add('tocando');
+  /* desliga sozinha em 40s */
+  setTimeout(()=>{ if(tocando.faixa===cfg.id) pararSom(); }, 40000);
+}
+btnSom.addEventListener('click',()=>{
+  if(!master) return;
+  const mudo = master.gain.value===0;
+  master.gain.value = mudo ? .8 : 0;
+  btnSom.textContent = mudo ? '🔊' : '🔇';
+});
+
+const faixas = document.getElementById('faixas');
+OUVIDO.forEach(cfg=>{
+  const d = document.createElement('div');
+  d.className = 'faixa';
+  d.innerHTML = '<div class="tipo">'+cfg.tipo+'</div><h3>'+cfg.titulo+'</h3>'+
+    '<div class="eq"><i></i><i></i><i></i></div>';
+  d.addEventListener('click',()=>{ entrarSom(); AC.resume(); tocarFaixa(cfg,d); });
+  faixas.appendChild(d);
+});
+</script>
+</body>
+</html>
