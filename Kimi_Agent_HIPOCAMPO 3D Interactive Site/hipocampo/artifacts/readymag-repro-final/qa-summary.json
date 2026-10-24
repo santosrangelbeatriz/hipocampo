@@ -1,0 +1,1482 @@
+[
+  {
+    "viewport": "1920x1080",
+    "trigger": {
+      "start": -0.001,
+      "end": 1188
+    },
+    "states": {
+      "initial": {
+        "scrollY": 0,
+        "trigger": {
+          "start": -0.001,
+          "end": 1188,
+          "progress": 8.417501332069586e-07,
+          "pin": true,
+          "scrub": true
+        },
+        "triggerIds": [
+          "hipocampo-hero-transition",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "phase": "initial",
+        "scale": 1,
+        "circle": {
+          "x": 850,
+          "y": 908,
+          "width": 220,
+          "height": 220,
+          "top": 908,
+          "right": 1070,
+          "bottom": 1128,
+          "left": 850
+        },
+        "circleCoversViewport": false,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "left": 0
+        },
+        "project": {
+          "x": 0,
+          "y": 2268,
+          "width": 1920,
+          "height": 1725.859375,
+          "top": 2268,
+          "right": 1920,
+          "bottom": 3993.859375,
+          "left": 0
+        },
+        "projectBeforeViewport": true,
+        "projectBackground": "rgb(255, 223, 96)",
+        "projectOpacity": "1",
+        "header": {
+          "position": "fixed",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(255, 255, 255)"
+        },
+        "logoCount": 1,
+        "navColor": "rgb(255, 255, 255)",
+        "overflowX": 0,
+        "fonts": {
+          "squid": true,
+          "aquiline": true
+        },
+        "sections": [
+          "projeto",
+          "oficina",
+          "instalacao",
+          "fragmentos",
+          "fotofilmes",
+          "informacoes"
+        ]
+      },
+      "circle-30": {
+        "scrollY": 441,
+        "trigger": {
+          "start": -0.001,
+          "end": 1188,
+          "progress": 0.37121265049440194,
+          "pin": true,
+          "scrub": true
+        },
+        "triggerIds": [
+          "hipocampo-hero-transition",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "phase": "expanding",
+        "scale": 3.830315,
+        "circle": {
+          "x": 538.6653442382812,
+          "y": 596.6653442382812,
+          "width": 842.6693725585938,
+          "height": 842.6693725585938,
+          "top": 596.6653442382812,
+          "right": 1381.334716796875,
+          "bottom": 1439.334716796875,
+          "left": 538.6653442382812
+        },
+        "circleCoversViewport": false,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "left": 0
+        },
+        "project": {
+          "x": 0,
+          "y": 1827,
+          "width": 1920,
+          "height": 1725.859375,
+          "top": 1827,
+          "right": 1920,
+          "bottom": 3552.859375,
+          "left": 0
+        },
+        "projectBeforeViewport": true,
+        "projectBackground": "rgb(255, 223, 96)",
+        "projectOpacity": "1",
+        "header": {
+          "position": "fixed",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(255, 255, 255)"
+        },
+        "logoCount": 1,
+        "navColor": "rgb(255, 255, 255)",
+        "overflowX": 0,
+        "fonts": {
+          "squid": true,
+          "aquiline": true
+        },
+        "sections": [
+          "projeto",
+          "oficina",
+          "instalacao",
+          "fragmentos",
+          "fotofilmes",
+          "informacoes"
+        ]
+      },
+      "circle-60": {
+        "scrollY": 578,
+        "trigger": {
+          "start": -0.001,
+          "end": 1188,
+          "progress": 0.48653241874375525,
+          "pin": true,
+          "scrub": true
+        },
+        "triggerIds": [
+          "hipocampo-hero-transition",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "phase": "expanding",
+        "scale": 8.795736,
+        "circle": {
+          "x": -7.531005859375,
+          "y": 50.468994140625,
+          "width": 1935.06201171875,
+          "height": 1935.06201171875,
+          "top": 50.468994140625,
+          "right": 1927.531005859375,
+          "bottom": 1985.531005859375,
+          "left": -7.531005859375
+        },
+        "circleCoversViewport": false,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "left": 0
+        },
+        "project": {
+          "x": 0,
+          "y": 1690,
+          "width": 1920,
+          "height": 1725.859375,
+          "top": 1690,
+          "right": 1920,
+          "bottom": 3415.859375,
+          "left": 0
+        },
+        "projectBeforeViewport": true,
+        "projectBackground": "rgb(255, 223, 96)",
+        "projectOpacity": "1",
+        "header": {
+          "position": "fixed",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(255, 255, 255)"
+        },
+        "logoCount": 1,
+        "navColor": "rgb(255, 255, 255)",
+        "overflowX": 0,
+        "fonts": {
+          "squid": true,
+          "aquiline": true
+        },
+        "sections": [
+          "projeto",
+          "oficina",
+          "instalacao",
+          "fragmentos",
+          "fotofilmes",
+          "informacoes"
+        ]
+      },
+      "covered": {
+        "scrollY": 974,
+        "trigger": {
+          "start": -0.001,
+          "end": 1188,
+          "progress": 0.8198654714937108,
+          "pin": true,
+          "scrub": true
+        },
+        "triggerIds": [
+          "hipocampo-hero-transition",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "phase": "covered",
+        "scale": 13.165749,
+        "circle": {
+          "x": -488.2322998046875,
+          "y": -430.2322998046875,
+          "width": 2896.46484375,
+          "height": 2896.46484375,
+          "top": -430.2322998046875,
+          "right": 2408.2325439453125,
+          "bottom": 2466.2325439453125,
+          "left": -488.2322998046875
+        },
+        "circleCoversViewport": true,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "left": 0
+        },
+        "project": {
+          "x": 0,
+          "y": 1294,
+          "width": 1920,
+          "height": 1725.859375,
+          "top": 1294,
+          "right": 1920,
+          "bottom": 3019.859375,
+          "left": 0
+        },
+        "projectBeforeViewport": true,
+        "projectBackground": "rgb(255, 223, 96)",
+        "projectOpacity": "1",
+        "header": {
+          "position": "fixed",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(255, 255, 255)"
+        },
+        "logoCount": 1,
+        "navColor": "rgb(255, 255, 255)",
+        "overflowX": 0,
+        "fonts": {
+          "squid": true,
+          "aquiline": true
+        },
+        "sections": [
+          "projeto",
+          "oficina",
+          "instalacao",
+          "fragmentos",
+          "fotofilmes",
+          "informacoes"
+        ]
+      },
+      "section": {
+        "scrollY": 2268,
+        "progress": 1,
+        "project": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1725.859375,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1725.859375,
+          "left": 0
+        },
+        "heading": "Toda imagem\né uma lacuna.",
+        "headingRect": {
+          "x": 72,
+          "y": 213.59375,
+          "width": 856,
+          "height": 172.1875,
+          "top": 213.59375,
+          "right": 928,
+          "bottom": 385.78125,
+          "left": 72
+        },
+        "background": "rgb(255, 223, 96)",
+        "opacity": "1"
+      }
+    },
+    "reverse": {
+      "circle-60": {
+        "progress": 0.48653241874375525,
+        "scale": 8.795736,
+        "phase": "expanding",
+        "projectTop": 1690,
+        "covers": false
+      },
+      "circle-30": {
+        "progress": 0.37121265049440194,
+        "scale": 3.830315,
+        "phase": "expanding",
+        "projectTop": 1827,
+        "covers": false
+      },
+      "initial": {
+        "progress": 8.417501332069586e-07,
+        "scale": 1,
+        "phase": "initial",
+        "projectTop": 2268,
+        "covers": false
+      }
+    },
+    "consoleErrors": [],
+    "failed": [],
+    "badResponses": []
+  },
+  {
+    "viewport": "1440x900",
+    "trigger": {
+      "start": -0.001,
+      "end": 990
+    },
+    "states": {
+      "initial": {
+        "scrollY": 0,
+        "trigger": {
+          "start": -0.001,
+          "end": 990,
+          "progress": 1.01009998979799e-06,
+          "pin": true,
+          "scrub": true
+        },
+        "triggerIds": [
+          "hipocampo-hero-transition",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "phase": "initial",
+        "scale": 1,
+        "circle": {
+          "x": 619.203125,
+          "y": 746.40625,
+          "width": 201.59375,
+          "height": 201.59375,
+          "top": 746.40625,
+          "right": 820.796875,
+          "bottom": 948,
+          "left": 619.203125
+        },
+        "circleCoversViewport": false,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 900,
+          "top": 0,
+          "right": 1440,
+          "bottom": 900,
+          "left": 0
+        },
+        "project": {
+          "x": 0,
+          "y": 1890,
+          "width": 1440,
+          "height": 1693.859375,
+          "top": 1890,
+          "right": 1440,
+          "bottom": 3583.859375,
+          "left": 0
+        },
+        "projectBeforeViewport": true,
+        "projectBackground": "rgb(255, 223, 96)",
+        "projectOpacity": "1",
+        "header": {
+          "position": "fixed",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(255, 255, 255)"
+        },
+        "logoCount": 1,
+        "navColor": "rgb(255, 255, 255)",
+        "overflowX": 0,
+        "fonts": {
+          "squid": true,
+          "aquiline": true
+        },
+        "sections": [
+          "projeto",
+          "oficina",
+          "instalacao",
+          "fragmentos",
+          "fotofilmes",
+          "informacoes"
+        ]
+      },
+      "circle-30": {
+        "scrollY": 367,
+        "trigger": {
+          "start": -0.001,
+          "end": 990,
+          "progress": 0.37070770635585215,
+          "pin": true,
+          "scrub": true
+        },
+        "triggerIds": [
+          "hipocampo-hero-transition",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "phase": "expanding",
+        "scale": 3.404147,
+        "circle": {
+          "x": 376.87261962890625,
+          "y": 504.07574462890625,
+          "width": 686.2548217773438,
+          "height": 686.2548217773438,
+          "top": 504.07574462890625,
+          "right": 1063.12744140625,
+          "bottom": 1190.33056640625,
+          "left": 376.87261962890625
+        },
+        "circleCoversViewport": false,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 900,
+          "top": 0,
+          "right": 1440,
+          "bottom": 900,
+          "left": 0
+        },
+        "project": {
+          "x": 0,
+          "y": 1523,
+          "width": 1440,
+          "height": 1693.859375,
+          "top": 1523,
+          "right": 1440,
+          "bottom": 3216.859375,
+          "left": 0
+        },
+        "projectBeforeViewport": true,
+        "projectBackground": "rgb(255, 223, 96)",
+        "projectOpacity": "1",
+        "header": {
+          "position": "fixed",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(255, 255, 255)"
+        },
+        "logoCount": 1,
+        "navColor": "rgb(255, 255, 255)",
+        "overflowX": 0,
+        "fonts": {
+          "squid": true,
+          "aquiline": true
+        },
+        "sections": [
+          "projeto",
+          "oficina",
+          "instalacao",
+          "fragmentos",
+          "fotofilmes",
+          "informacoes"
+        ]
+      },
+      "circle-60": {
+        "scrollY": 482,
+        "trigger": {
+          "start": -0.001,
+          "end": 990,
+          "progress": 0.486869205182621,
+          "pin": true,
+          "scrub": true
+        },
+        "triggerIds": [
+          "hipocampo-hero-transition",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "phase": "expanding",
+        "scale": 7.671059,
+        "circle": {
+          "x": -53.21881103515625,
+          "y": 73.98431396484375,
+          "width": 1546.4375,
+          "height": 1546.4375,
+          "top": 73.98431396484375,
+          "right": 1493.2186889648438,
+          "bottom": 1620.4218139648438,
+          "left": -53.21881103515625
+        },
+        "circleCoversViewport": false,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 900,
+          "top": 0,
+          "right": 1440,
+          "bottom": 900,
+          "left": 0
+        },
+        "project": {
+          "x": 0,
+          "y": 1408,
+          "width": 1440,
+          "height": 1693.859375,
+          "top": 1408,
+          "right": 1440,
+          "bottom": 3101.859375,
+          "left": 0
+        },
+        "projectBeforeViewport": true,
+        "projectBackground": "rgb(255, 223, 96)",
+        "projectOpacity": "1",
+        "header": {
+          "position": "fixed",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(255, 255, 255)"
+        },
+        "logoCount": 1,
+        "navColor": "rgb(255, 255, 255)",
+        "overflowX": 0,
+        "fonts": {
+          "squid": true,
+          "aquiline": true
+        },
+        "sections": [
+          "projeto",
+          "oficina",
+          "instalacao",
+          "fragmentos",
+          "fotofilmes",
+          "informacoes"
+        ]
+      },
+      "covered": {
+        "scrollY": 812,
+        "trigger": {
+          "start": -0.001,
+          "end": 990,
+          "progress": 0.8202022018159577,
+          "pin": true,
+          "scrub": true
+        },
+        "triggerIds": [
+          "hipocampo-hero-transition",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "phase": "covered",
+        "scale": 11.39186,
+        "circle": {
+          "x": -428.263916015625,
+          "y": -301.060791015625,
+          "width": 2296.52783203125,
+          "height": 2296.52783203125,
+          "top": -301.060791015625,
+          "right": 1868.263916015625,
+          "bottom": 1995.467041015625,
+          "left": -428.263916015625
+        },
+        "circleCoversViewport": true,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 900,
+          "top": 0,
+          "right": 1440,
+          "bottom": 900,
+          "left": 0
+        },
+        "project": {
+          "x": 0,
+          "y": 1078,
+          "width": 1440,
+          "height": 1693.859375,
+          "top": 1078,
+          "right": 1440,
+          "bottom": 2771.859375,
+          "left": 0
+        },
+        "projectBeforeViewport": true,
+        "projectBackground": "rgb(255, 223, 96)",
+        "projectOpacity": "1",
+        "header": {
+          "position": "fixed",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(255, 255, 255)"
+        },
+        "logoCount": 1,
+        "navColor": "rgb(255, 255, 255)",
+        "overflowX": 0,
+        "fonts": {
+          "squid": true,
+          "aquiline": true
+        },
+        "sections": [
+          "projeto",
+          "oficina",
+          "instalacao",
+          "fragmentos",
+          "fotofilmes",
+          "informacoes"
+        ]
+      },
+      "section": {
+        "scrollY": 1890,
+        "progress": 1,
+        "project": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 1693.859375,
+          "top": 0,
+          "right": 1440,
+          "bottom": 1693.859375,
+          "left": 0
+        },
+        "heading": "Toda imagem\né uma lacuna.",
+        "headingRect": {
+          "x": 57.59375,
+          "y": 197.59375,
+          "width": 630.40625,
+          "height": 145.0625,
+          "top": 197.59375,
+          "right": 688,
+          "bottom": 342.65625,
+          "left": 57.59375
+        },
+        "background": "rgb(255, 223, 96)",
+        "opacity": "1"
+      }
+    },
+    "reverse": {
+      "circle-60": {
+        "progress": 0.486869205182621,
+        "scale": 7.671059,
+        "phase": "expanding",
+        "projectTop": 1408,
+        "covers": false
+      },
+      "circle-30": {
+        "progress": 0.37070770635585215,
+        "scale": 3.404147,
+        "phase": "expanding",
+        "projectTop": 1523,
+        "covers": false
+      },
+      "initial": {
+        "progress": 1.01009998979799e-06,
+        "scale": 1,
+        "phase": "initial",
+        "projectTop": 1890,
+        "covers": false
+      }
+    },
+    "consoleErrors": [],
+    "failed": [],
+    "badResponses": []
+  },
+  {
+    "viewport": "768x1024",
+    "trigger": {
+      "start": -0.001,
+      "end": 1126
+    },
+    "states": {
+      "initial": {
+        "scrollY": 0,
+        "trigger": {
+          "start": -0.001,
+          "end": 1126,
+          "progress": 8.880986784203567e-07,
+          "pin": true,
+          "scrub": true
+        },
+        "triggerIds": [
+          "hipocampo-hero-transition",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "phase": "initial",
+        "scale": 1,
+        "circle": {
+          "x": 296,
+          "y": 896,
+          "width": 176,
+          "height": 176,
+          "top": 896,
+          "right": 472,
+          "bottom": 1072,
+          "left": 296
+        },
+        "circleCoversViewport": false,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 768,
+          "height": 1024,
+          "top": 0,
+          "right": 768,
+          "bottom": 1024,
+          "left": 0
+        },
+        "project": {
+          "x": 0,
+          "y": 2150,
+          "width": 768,
+          "height": 1332.53125,
+          "top": 2150,
+          "right": 768,
+          "bottom": 3482.53125,
+          "left": 0
+        },
+        "projectBeforeViewport": true,
+        "projectBackground": "rgb(255, 223, 96)",
+        "projectOpacity": "1",
+        "header": {
+          "position": "fixed",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(255, 255, 255)"
+        },
+        "logoCount": 1,
+        "navColor": "rgb(255, 255, 255)",
+        "overflowX": 0,
+        "fonts": {
+          "squid": true,
+          "aquiline": true
+        },
+        "sections": [
+          "projeto",
+          "oficina",
+          "instalacao",
+          "fragmentos",
+          "fotofilmes",
+          "informacoes"
+        ]
+      },
+      "circle-30": {
+        "scrollY": 418,
+        "trigger": {
+          "start": -0.001,
+          "end": 1126,
+          "progress": 0.37122613567838747,
+          "pin": true,
+          "scrub": true
+        },
+        "triggerIds": [
+          "hipocampo-hero-transition",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "phase": "expanding",
+        "scale": 3.65796,
+        "circle": {
+          "x": 62.099517822265625,
+          "y": 662.0994873046875,
+          "width": 643.801025390625,
+          "height": 643.8009033203125,
+          "top": 662.0994873046875,
+          "right": 705.9005432128906,
+          "bottom": 1305.900390625,
+          "left": 62.099517822265625
+        },
+        "circleCoversViewport": false,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 768,
+          "height": 1024,
+          "top": 0,
+          "right": 768,
+          "bottom": 1024,
+          "left": 0
+        },
+        "project": {
+          "x": 0,
+          "y": 1732,
+          "width": 768,
+          "height": 1332.53125,
+          "top": 1732,
+          "right": 768,
+          "bottom": 3064.53125,
+          "left": 0
+        },
+        "projectBeforeViewport": true,
+        "projectBackground": "rgb(255, 223, 96)",
+        "projectOpacity": "1",
+        "header": {
+          "position": "fixed",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(255, 255, 255)"
+        },
+        "logoCount": 1,
+        "navColor": "rgb(255, 255, 255)",
+        "overflowX": 0,
+        "fonts": {
+          "squid": true,
+          "aquiline": true
+        },
+        "sections": [
+          "projeto",
+          "oficina",
+          "instalacao",
+          "fragmentos",
+          "fotofilmes",
+          "informacoes"
+        ]
+      },
+      "circle-60": {
+        "scrollY": 548,
+        "trigger": {
+          "start": -0.001,
+          "end": 1126,
+          "progress": 0.48667896387303383,
+          "pin": true,
+          "scrub": true
+        },
+        "triggerIds": [
+          "hipocampo-hero-transition",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "phase": "expanding",
+        "scale": 8.325674,
+        "circle": {
+          "x": -348.6593017578125,
+          "y": 251.3406982421875,
+          "width": 1465.318603515625,
+          "height": 1465.318603515625,
+          "top": 251.3406982421875,
+          "right": 1116.6593017578125,
+          "bottom": 1716.6593017578125,
+          "left": -348.6593017578125
+        },
+        "circleCoversViewport": false,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 768,
+          "height": 1024,
+          "top": 0,
+          "right": 768,
+          "bottom": 1024,
+          "left": 0
+        },
+        "project": {
+          "x": 0,
+          "y": 1602,
+          "width": 768,
+          "height": 1332.53125,
+          "top": 1602,
+          "right": 768,
+          "bottom": 2934.53125,
+          "left": 0
+        },
+        "projectBeforeViewport": true,
+        "projectBackground": "rgb(255, 223, 96)",
+        "projectOpacity": "1",
+        "header": {
+          "position": "fixed",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(255, 255, 255)"
+        },
+        "logoCount": 1,
+        "navColor": "rgb(255, 255, 255)",
+        "overflowX": 0,
+        "fonts": {
+          "squid": true,
+          "aquiline": true
+        },
+        "sections": [
+          "projeto",
+          "oficina",
+          "instalacao",
+          "fragmentos",
+          "fotofilmes",
+          "informacoes"
+        ]
+      },
+      "covered": {
+        "scrollY": 923,
+        "trigger": {
+          "start": -0.001,
+          "end": 1126,
+          "progress": 0.8197159682806676,
+          "pin": true,
+          "scrub": true
+        },
+        "triggerIds": [
+          "hipocampo-hero-transition",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "phase": "covered",
+        "scale": 12.423207,
+        "circle": {
+          "x": -709.2421875,
+          "y": -109.2421875,
+          "width": 2186.484375,
+          "height": 2186.484375,
+          "top": -109.2421875,
+          "right": 1477.2421875,
+          "bottom": 2077.2421875,
+          "left": -709.2421875
+        },
+        "circleCoversViewport": true,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 768,
+          "height": 1024,
+          "top": 0,
+          "right": 768,
+          "bottom": 1024,
+          "left": 0
+        },
+        "project": {
+          "x": 0,
+          "y": 1227,
+          "width": 768,
+          "height": 1332.53125,
+          "top": 1227,
+          "right": 768,
+          "bottom": 2559.53125,
+          "left": 0
+        },
+        "projectBeforeViewport": true,
+        "projectBackground": "rgb(255, 223, 96)",
+        "projectOpacity": "1",
+        "header": {
+          "position": "fixed",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(255, 255, 255)"
+        },
+        "logoCount": 1,
+        "navColor": "rgb(255, 255, 255)",
+        "overflowX": 0,
+        "fonts": {
+          "squid": true,
+          "aquiline": true
+        },
+        "sections": [
+          "projeto",
+          "oficina",
+          "instalacao",
+          "fragmentos",
+          "fotofilmes",
+          "informacoes"
+        ]
+      },
+      "section": {
+        "scrollY": 2150,
+        "progress": 1,
+        "project": {
+          "x": 0,
+          "y": 0,
+          "width": 768,
+          "height": 1332.53125,
+          "top": 0,
+          "right": 768,
+          "bottom": 1332.53125,
+          "left": 0
+        },
+        "heading": "Toda imagem\né uma lacuna.",
+        "headingRect": {
+          "x": 30.71875,
+          "y": 144,
+          "width": 321.28125,
+          "height": 77.96875,
+          "top": 144,
+          "right": 352,
+          "bottom": 221.96875,
+          "left": 30.71875
+        },
+        "background": "rgb(255, 223, 96)",
+        "opacity": "1"
+      }
+    },
+    "reverse": {
+      "circle-60": {
+        "progress": 0.48667896387303383,
+        "scale": 8.325674,
+        "phase": "expanding",
+        "projectTop": 1602,
+        "covers": false
+      },
+      "circle-30": {
+        "progress": 0.37122613567838747,
+        "scale": 3.65796,
+        "phase": "expanding",
+        "projectTop": 1732,
+        "covers": false
+      },
+      "initial": {
+        "progress": 8.880986784203567e-07,
+        "scale": 1,
+        "phase": "initial",
+        "projectTop": 2150,
+        "covers": false
+      }
+    },
+    "consoleErrors": [],
+    "failed": [],
+    "badResponses": []
+  },
+  {
+    "viewport": "390x844",
+    "trigger": {
+      "start": -0.001,
+      "end": 928
+    },
+    "states": {
+      "initial": {
+        "scrollY": 0,
+        "trigger": {
+          "start": -0.001,
+          "end": 928,
+          "progress": 1.0775850457057698e-06,
+          "pin": true,
+          "scrub": true
+        },
+        "triggerIds": [
+          "hipocampo-hero-transition",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "phase": "initial",
+        "scale": 1,
+        "circle": {
+          "x": 105.3046875,
+          "y": 716.609375,
+          "width": 179.390625,
+          "height": 179.390625,
+          "top": 716.609375,
+          "right": 284.6953125,
+          "bottom": 896,
+          "left": 105.3046875
+        },
+        "circleCoversViewport": false,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844,
+          "top": 0,
+          "right": 390,
+          "bottom": 844,
+          "left": 0
+        },
+        "project": {
+          "x": 0,
+          "y": 1772,
+          "width": 390,
+          "height": 1244.28125,
+          "top": 1772,
+          "right": 390,
+          "bottom": 3016.28125,
+          "left": 0
+        },
+        "projectBeforeViewport": true,
+        "projectBackground": "rgb(255, 223, 96)",
+        "projectOpacity": "1",
+        "header": {
+          "position": "fixed",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(255, 255, 255)"
+        },
+        "logoCount": 1,
+        "navColor": "rgb(255, 255, 255)",
+        "overflowX": 0,
+        "fonts": {
+          "squid": true,
+          "aquiline": true
+        },
+        "sections": [
+          "projeto",
+          "oficina",
+          "instalacao",
+          "fragmentos",
+          "fotofilmes",
+          "informacoes"
+        ]
+      },
+      "circle-30": {
+        "scrollY": 344,
+        "trigger": {
+          "start": -0.001,
+          "end": 928,
+          "progress": 0.37069033330783047,
+          "pin": true,
+          "scrub": true
+        },
+        "triggerIds": [
+          "hipocampo-hero-transition",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "phase": "expanding",
+        "scale": 2.988133,
+        "circle": {
+          "x": -73.02151489257812,
+          "y": 538.283203125,
+          "width": 536.0430297851562,
+          "height": 536.04296875,
+          "top": 538.283203125,
+          "right": 463.0215148925781,
+          "bottom": 1074.326171875,
+          "left": -73.02151489257812
+        },
+        "circleCoversViewport": false,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844,
+          "top": 0,
+          "right": 390,
+          "bottom": 844,
+          "left": 0
+        },
+        "project": {
+          "x": 0,
+          "y": 1428,
+          "width": 390,
+          "height": 1244.28125,
+          "top": 1428,
+          "right": 390,
+          "bottom": 2672.28125,
+          "left": 0
+        },
+        "projectBeforeViewport": true,
+        "projectBackground": "rgb(255, 223, 96)",
+        "projectOpacity": "1",
+        "header": {
+          "position": "fixed",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(255, 255, 255)"
+        },
+        "logoCount": 1,
+        "navColor": "rgb(255, 255, 255)",
+        "overflowX": 0,
+        "fonts": {
+          "squid": true,
+          "aquiline": true
+        },
+        "sections": [
+          "projeto",
+          "oficina",
+          "instalacao",
+          "fragmentos",
+          "fotofilmes",
+          "informacoes"
+        ]
+      },
+      "circle-60": {
+        "scrollY": 452,
+        "trigger": {
+          "start": -0.001,
+          "end": 928,
+          "progress": 0.4870695182440536,
+          "pin": true,
+          "scrub": true
+        },
+        "triggerIds": [
+          "hipocampo-hero-transition",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "phase": "expanding",
+        "scale": 6.523664,
+        "circle": {
+          "x": -390.14208984375,
+          "y": 221.16259765625,
+          "width": 1170.2841796875,
+          "height": 1170.2841796875,
+          "top": 221.16259765625,
+          "right": 780.14208984375,
+          "bottom": 1391.44677734375,
+          "left": -390.14208984375
+        },
+        "circleCoversViewport": false,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844,
+          "top": 0,
+          "right": 390,
+          "bottom": 844,
+          "left": 0
+        },
+        "project": {
+          "x": 0,
+          "y": 1320,
+          "width": 390,
+          "height": 1244.28125,
+          "top": 1320,
+          "right": 390,
+          "bottom": 2564.28125,
+          "left": 0
+        },
+        "projectBeforeViewport": true,
+        "projectBackground": "rgb(255, 223, 96)",
+        "projectOpacity": "1",
+        "header": {
+          "position": "fixed",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(255, 255, 255)"
+        },
+        "logoCount": 1,
+        "navColor": "rgb(255, 255, 255)",
+        "overflowX": 0,
+        "fonts": {
+          "squid": true,
+          "aquiline": true
+        },
+        "sections": [
+          "projeto",
+          "oficina",
+          "instalacao",
+          "fragmentos",
+          "fotofilmes",
+          "informacoes"
+        ]
+      },
+      "covered": {
+        "scrollY": 761,
+        "trigger": {
+          "start": -0.001,
+          "end": 928,
+          "progress": 0.8200432973671364,
+          "pin": true,
+          "scrub": true
+        },
+        "triggerIds": [
+          "hipocampo-hero-transition",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "phase": "covered",
+        "scale": 9.595309,
+        "circle": {
+          "x": -665.6542358398438,
+          "y": -54.34954833984375,
+          "width": 1721.30859375,
+          "height": 1721.30859375,
+          "top": -54.34954833984375,
+          "right": 1055.6543579101562,
+          "bottom": 1666.9590454101562,
+          "left": -665.6542358398438
+        },
+        "circleCoversViewport": true,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844,
+          "top": 0,
+          "right": 390,
+          "bottom": 844,
+          "left": 0
+        },
+        "project": {
+          "x": 0,
+          "y": 1011,
+          "width": 390,
+          "height": 1244.28125,
+          "top": 1011,
+          "right": 390,
+          "bottom": 2255.28125,
+          "left": 0
+        },
+        "projectBeforeViewport": true,
+        "projectBackground": "rgb(255, 223, 96)",
+        "projectOpacity": "1",
+        "header": {
+          "position": "fixed",
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(255, 255, 255)"
+        },
+        "logoCount": 1,
+        "navColor": "rgb(255, 255, 255)",
+        "overflowX": 0,
+        "fonts": {
+          "squid": true,
+          "aquiline": true
+        },
+        "sections": [
+          "projeto",
+          "oficina",
+          "instalacao",
+          "fragmentos",
+          "fotofilmes",
+          "informacoes"
+        ]
+      },
+      "section": {
+        "scrollY": 1772,
+        "progress": 1,
+        "project": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 1244.28125,
+          "top": 0,
+          "right": 390,
+          "bottom": 1244.28125,
+          "left": 0
+        },
+        "heading": "Toda imagem\né uma lacuna.",
+        "headingRect": {
+          "x": 17.59375,
+          "y": 144,
+          "width": 354.8125,
+          "height": 77.96875,
+          "top": 144,
+          "right": 372.40625,
+          "bottom": 221.96875,
+          "left": 17.59375
+        },
+        "background": "rgb(255, 223, 96)",
+        "opacity": "1"
+      }
+    },
+    "reverse": {
+      "circle-60": {
+        "progress": 0.4870695182440536,
+        "scale": 6.523664,
+        "phase": "expanding",
+        "projectTop": 1320,
+        "covers": false
+      },
+      "circle-30": {
+        "progress": 0.37069033330783047,
+        "scale": 2.988133,
+        "phase": "expanding",
+        "projectTop": 1428,
+        "covers": false
+      },
+      "initial": {
+        "progress": 1.0775850457057698e-06,
+        "scale": 1,
+        "phase": "initial",
+        "projectTop": 1772,
+        "covers": false
+      }
+    },
+    "consoleErrors": [],
+    "failed": [],
+    "badResponses": []
+  }
+]
