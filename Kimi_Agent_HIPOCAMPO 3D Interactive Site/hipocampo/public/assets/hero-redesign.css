@@ -1,0 +1,198 @@
+@font-face {
+  font-family: "SquidBoy";
+  src: url("/fonts/SquidBoy-Thin.otf") format("opentype");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 300 500;
+}
+
+:root {
+  --hip-blue: #1729ff;
+  --hip-blue-dot: #1022dc;
+  --hip-yellow-text: #d8d83d;
+  --hip-yellow-circle: #ffdf60;
+}
+
+body > #root > header {
+  z-index: 2000;
+  align-items: flex-start;
+  padding: 1rem clamp(1.1rem, 4vw, 4.5rem);
+  color: #fff;
+  background: transparent;
+  border: 0;
+  mix-blend-mode: normal !important;
+  backdrop-filter: none;
+}
+
+body > #root > header > a {
+  color: #fff;
+  font-family: "AquilineTwo", Georgia, serif;
+  font-size: 2.5rem;
+  font-weight: 400;
+  line-height: 0.75;
+  opacity: 1;
+  text-shadow: 0 1px 2px rgba(13, 10, 8, 0.36);
+}
+
+body > #root > header nav {
+  color: #fff;
+  background: transparent;
+  border: 0;
+  backdrop-filter: none;
+}
+
+body > #root > header nav a,
+body > #root > header > button {
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(13, 10, 8, 0.36);
+}
+
+body > #root > header nav span {
+  color: rgba(255, 255, 255, 0.68);
+}
+
+body > #root > header nav a:hover,
+body > #root > header nav a:focus-visible,
+body > #root > header > button:hover,
+body > #root > header > button:focus-visible {
+  color: #fff;
+  opacity: 0.72;
+}
+
+body > #root > header a:focus-visible,
+body > #root > header button:focus-visible {
+  outline: 2px solid var(--hip-yellow-text);
+  outline-offset: 0.3rem;
+}
+
+#abertura.hipocampo-hero {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  min-height: 38rem;
+  margin: 0;
+  padding: 0 !important;
+  overflow: hidden !important;
+  background: var(--hip-blue) !important;
+  isolation: isolate;
+}
+
+.hipocampo-hero-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--hip-blue);
+  color: white;
+  contain: paint;
+}
+
+.hipocampo-hero-texture {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.24;
+  background-image: radial-gradient(circle, var(--hip-blue-dot) 0 1.55px, transparent 1.9px);
+  background-position: 0 0;
+  background-size: 20px 20px;
+  pointer-events: none;
+}
+
+.hipocampo-hero-title {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.hipocampo-memory-field {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 3;
+  display: grid;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  grid-template-columns: minmax(0, 1fr);
+  place-items: center;
+  color: var(--hip-yellow-text);
+  font-family: "SquidBoy", sans-serif;
+  font-size: clamp(2.15rem, 3.2vw, 3.45rem);
+  font-weight: 500;
+  letter-spacing: -0.032em;
+  line-height: 1.08;
+  text-align: center;
+  white-space: nowrap;
+  transform: translate(-50%, -49%);
+  pointer-events: none;
+}
+
+.hipocampo-memory-field span {
+  display: block;
+  width: max-content;
+}
+
+.hipocampo-transition-circle {
+  position: absolute;
+  left: 50%;
+  bottom: -3rem;
+  z-index: 2;
+  width: clamp(11rem, 14vw, 13.75rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--hip-yellow-circle);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+@media (max-width: 767px) {
+  #abertura.hipocampo-hero {
+    min-height: 34rem;
+  }
+
+  body > #root > header {
+    align-items: flex-start;
+    padding: 1rem 1.1rem;
+  }
+
+  body > #root > header > a {
+    font-size: 2.5rem;
+  }
+
+  body > #root > header nav {
+    color: #fff;
+    background: transparent;
+    border: 0;
+  }
+
+  .hipocampo-memory-field {
+    top: 51%;
+    width: 100%;
+    font-size: clamp(1.45rem, 7vw, 2.15rem);
+    line-height: 1.12;
+    transform: translate(-50%, -50%);
+  }
+
+  .hipocampo-transition-circle {
+    bottom: -3.25rem;
+    width: clamp(9.75rem, 46vw, 12.5rem);
+  }
+}
+
+@media (max-height: 700px) and (min-width: 768px) {
+  .hipocampo-memory-field {
+    top: 52%;
+    font-size: clamp(1.8rem, 5.1vh, 2.8rem);
+    line-height: 1.04;
+  }
+
+  .hipocampo-transition-circle {
+    bottom: -4.5rem;
+  }
+}
