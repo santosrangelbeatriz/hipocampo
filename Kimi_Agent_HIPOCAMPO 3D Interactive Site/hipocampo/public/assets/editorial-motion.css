@@ -231,6 +231,12 @@ main#conteudo > section:not(#abertura):not(#projeto)::before {
 }
 
 /* Seção 03 — Instalação 3D moldura editorial */
+#instalacao {
+  contain: layout paint;
+  content-visibility: auto;
+  contain-intrinsic-size: 900px;
+}
+
 #instalacao > div:nth-of-type(3) {
   transition: border-color 480ms ease;
   box-shadow: 0 1.8rem 4.2rem rgba(0, 0, 0, 0.48);

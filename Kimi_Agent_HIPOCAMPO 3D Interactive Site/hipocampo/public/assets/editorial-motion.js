@@ -605,23 +605,31 @@ function initializeEditorialRedesign() {
       const xTo = gsap.quickTo(element, 'x', { duration: 0.35, ease: 'power3.out' })
       const yTo = gsap.quickTo(element, 'y', { duration: 0.35, ease: 'power3.out' })
 
+      let cachedRect = null
+      const onEnter = () => {
+        cachedRect = element.getBoundingClientRect()
+      }
+
       const onMove = (e) => {
         if (reducedMotionQuery.matches) return
-        const rect = element.getBoundingClientRect()
-        const relX = e.clientX - (rect.left + rect.width / 2)
-        const relY = e.clientY - (rect.top + rect.height / 2)
+        if (!cachedRect) cachedRect = element.getBoundingClientRect()
+        const relX = e.clientX - (cachedRect.left + cachedRect.width / 2)
+        const relY = e.clientY - (cachedRect.top + cachedRect.height / 2)
         xTo(clamp(relX * 0.18, -8, 8))
         yTo(clamp(relY * 0.22, -5, 5))
       }
 
       const onLeave = () => {
+        cachedRect = null
         xTo(0)
         yTo(0)
       }
 
+      element.addEventListener('pointerenter', onEnter)
       element.addEventListener('pointermove', onMove)
       element.addEventListener('pointerleave', onLeave)
       magneticCleanups.push(() => {
+        element.removeEventListener('pointerenter', onEnter)
         element.removeEventListener('pointermove', onMove)
         element.removeEventListener('pointerleave', onLeave)
         gsap.set(element, { clearProps: 'x,y' })

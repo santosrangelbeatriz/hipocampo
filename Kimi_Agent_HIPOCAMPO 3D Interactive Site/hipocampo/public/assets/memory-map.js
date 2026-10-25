@@ -1,3 +1,5 @@
+import { n as gsap } from './index-BXEErpTi.js'
+
 const MANIFEST_URL = '/images/map/manifest.json'
 const INTERPOLATION = 0.08
 const REDUCED_MOTION_FACTOR = 0.5
@@ -77,10 +79,15 @@ async function mountMemoryMap(container) {
   const pointer = { x: 0, y: 0, active: false }
   let visible = false
   let destroyed = false
-  let animationFrame = 0
+  let tickerActive = false
   let canvasWidth = 0
   let canvasHeight = 0
   let devicePixelRatio = 1
+
+  let containerWidth = 0
+  let containerHeight = 0
+  let containerLeft = 0
+  let containerTop = 0
 
   const resizeCanvas = (width, height) => {
     const nextDpr = clamp(window.devicePixelRatio || 1, 1, 2)
@@ -95,6 +102,23 @@ async function mountMemoryMap(container) {
     canvas.style.height = `${height}px`
     context.setTransform(nextDpr, 0, 0, nextDpr, 0, 0)
   }
+
+  const updateContainerGeometry = () => {
+    if (!container.isConnected) return
+    const rect = container.getBoundingClientRect()
+    containerWidth = rect.width
+    containerHeight = rect.height
+    containerLeft = rect.left
+    containerTop = rect.top
+    if (containerWidth && containerHeight) {
+      resizeCanvas(containerWidth, containerHeight)
+    }
+  }
+
+  const resizeObserver = new ResizeObserver(() => {
+    updateContainerGeometry()
+  })
+  resizeObserver.observe(container)
 
   const pieceGeometry = (piece, width, height) => {
     const centerX = piece.data.center.xPct / 100 * width
@@ -128,22 +152,16 @@ async function mountMemoryMap(container) {
   }
 
   const render = (time) => {
-    animationFrame = 0
     if (destroyed || !visible || !container.isConnected) return
 
-    const rect = container.getBoundingClientRect()
-    const width = rect.width
-    const height = rect.height
-    if (!width || !height) {
-      animationFrame = window.requestAnimationFrame(render)
-      return
-    }
+    const width = containerWidth
+    const height = containerHeight
+    if (!width || !height) return
 
-    resizeCanvas(width, height)
     const motionFactor = reducedMotion.matches ? REDUCED_MOTION_FACTOR : 1
     const allowRepulsion = !coarsePointer.matches && pointer.active
-    const localPointerX = pointer.x - rect.left
-    const localPointerY = pointer.y - rect.top
+    const localPointerX = pointer.x - containerLeft
+    const localPointerY = pointer.y - containerTop
     const repulsionRadius = Math.max(width, height) * 0.4
     const maximumPush = Math.min(width, height) * 0.095 * motionFactor
 
@@ -203,17 +221,25 @@ async function mountMemoryMap(container) {
       context.lineTo(geometry.anchorX, geometry.anchorY)
     })
     context.stroke()
+  }
 
-    animationFrame = window.requestAnimationFrame(render)
+  const tickerRender = (time) => {
+    render(time * 1000)
   }
 
   const start = () => {
-    if (!destroyed && visible && !animationFrame) animationFrame = window.requestAnimationFrame(render)
+    if (!destroyed && visible && !tickerActive) {
+      tickerActive = true
+      updateContainerGeometry()
+      gsap.ticker.add(tickerRender)
+    }
   }
 
   const stop = () => {
-    window.cancelAnimationFrame(animationFrame)
-    animationFrame = 0
+    if (tickerActive) {
+      gsap.ticker.remove(tickerRender)
+      tickerActive = false
+    }
   }
 
   const onPointerMove = (event) => {
@@ -236,6 +262,8 @@ async function mountMemoryMap(container) {
 
   intersectionObserver.observe(container)
   window.addEventListener('pointermove', onPointerMove, { passive: true })
+  window.addEventListener('scroll', updateContainerGeometry, { passive: true })
+  window.addEventListener('resize', updateContainerGeometry, { passive: true })
   window.addEventListener('blur', clearPointer)
   document.addEventListener('pointerout', onPointerOut, { passive: true })
   reducedMotion.addEventListener('change', onMotionPreferenceChange)
@@ -246,8 +274,11 @@ async function mountMemoryMap(container) {
     destroyed = true
     controller.abort()
     stop()
+    resizeObserver.disconnect()
     intersectionObserver.disconnect()
     window.removeEventListener('pointermove', onPointerMove)
+    window.removeEventListener('scroll', updateContainerGeometry)
+    window.removeEventListener('resize', updateContainerGeometry)
     window.removeEventListener('blur', clearPointer)
     document.removeEventListener('pointerout', onPointerOut)
     reducedMotion.removeEventListener('change', onMotionPreferenceChange)
