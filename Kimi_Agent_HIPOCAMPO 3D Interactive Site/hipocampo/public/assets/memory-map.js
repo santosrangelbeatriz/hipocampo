@@ -46,6 +46,7 @@ async function mountMemoryMap(container) {
     image.className = 'memory-map-piece'
     image.src = data.src
     image.alt = ''
+    image.loading = 'lazy'
     image.decoding = 'async'
     image.draggable = false
     image.style.transformOrigin = `${(data.center.xPct / 100 * manifest.width - data.x) / data.w * 100}% ${(data.center.yPct / 100 * manifest.height - data.y) / data.h * 100}%`

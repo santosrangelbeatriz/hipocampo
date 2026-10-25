@@ -10,7 +10,7 @@
     {
       "id": "peca-01",
       "tipo": "mao",
-      "src": "/images/map/peca-01.png",
+      "src": "/images/map/peca-01.webp",
       "x": 194,
       "y": 65,
       "w": 35,
@@ -31,7 +31,7 @@
     {
       "id": "peca-02",
       "tipo": "mao",
-      "src": "/images/map/peca-02.png",
+      "src": "/images/map/peca-02.webp",
       "x": 518,
       "y": 65,
       "w": 42,
@@ -52,7 +52,7 @@
     {
       "id": "peca-03",
       "tipo": "mao",
-      "src": "/images/map/peca-03.png",
+      "src": "/images/map/peca-03.webp",
       "x": 421,
       "y": 115,
       "w": 38,
@@ -73,7 +73,7 @@
     {
       "id": "peca-04",
       "tipo": "pessoa",
-      "src": "/images/map/peca-04.png",
+      "src": "/images/map/peca-04.webp",
       "x": 242,
       "y": 144,
       "w": 34,
@@ -94,7 +94,7 @@
     {
       "id": "peca-05",
       "tipo": "pessoa",
-      "src": "/images/map/peca-05.png",
+      "src": "/images/map/peca-05.webp",
       "x": 455,
       "y": 154,
       "w": 41,
@@ -115,7 +115,7 @@
     {
       "id": "peca-06",
       "tipo": "mao",
-      "src": "/images/map/peca-06.png",
+      "src": "/images/map/peca-06.webp",
       "x": 327,
       "y": 166,
       "w": 25,
@@ -136,7 +136,7 @@
     {
       "id": "peca-07",
       "tipo": "mao",
-      "src": "/images/map/peca-07.png",
+      "src": "/images/map/peca-07.webp",
       "x": 526,
       "y": 226,
       "w": 41,
@@ -157,7 +157,7 @@
     {
       "id": "peca-08",
       "tipo": "mao",
-      "src": "/images/map/peca-08.png",
+      "src": "/images/map/peca-08.webp",
       "x": 187,
       "y": 239,
       "w": 31,
@@ -178,7 +178,7 @@
     {
       "id": "peca-09",
       "tipo": "pessoa",
-      "src": "/images/map/peca-09.png",
+      "src": "/images/map/peca-09.webp",
       "x": 285,
       "y": 247,
       "w": 30,
@@ -199,7 +199,7 @@
     {
       "id": "peca-10",
       "tipo": "mao",
-      "src": "/images/map/peca-10.png",
+      "src": "/images/map/peca-10.webp",
       "x": 50,
       "y": 258,
       "w": 74,
@@ -220,7 +220,7 @@
     {
       "id": "peca-11",
       "tipo": "objeto",
-      "src": "/images/map/peca-11.png",
+      "src": "/images/map/peca-11.webp",
       "x": 372,
       "y": 259,
       "w": 49,
@@ -241,7 +241,7 @@
     {
       "id": "peca-12",
       "tipo": "pessoa",
-      "src": "/images/map/peca-12.png",
+      "src": "/images/map/peca-12.webp",
       "x": 226,
       "y": 314,
       "w": 24,
@@ -262,7 +262,7 @@
     {
       "id": "peca-13",
       "tipo": "objeto",
-      "src": "/images/map/peca-13.png",
+      "src": "/images/map/peca-13.webp",
       "x": 418,
       "y": 319,
       "w": 37,
@@ -283,7 +283,7 @@
     {
       "id": "peca-14",
       "tipo": "objeto",
-      "src": "/images/map/peca-14.png",
+      "src": "/images/map/peca-14.webp",
       "x": 128,
       "y": 318,
       "w": 23,
@@ -304,7 +304,7 @@
     {
       "id": "peca-15",
       "tipo": "pessoa",
-      "src": "/images/map/peca-15.png",
+      "src": "/images/map/peca-15.webp",
       "x": 175,
       "y": 348,
       "w": 23,
@@ -325,7 +325,7 @@
     {
       "id": "peca-16",
       "tipo": "casa",
-      "src": "/images/map/peca-16.png",
+      "src": "/images/map/peca-16.webp",
       "x": 215,
       "y": 378,
       "w": 214,
@@ -346,7 +346,7 @@
     {
       "id": "peca-17",
       "tipo": "pessoa",
-      "src": "/images/map/peca-17.png",
+      "src": "/images/map/peca-17.webp",
       "x": 437,
       "y": 385,
       "w": 53,
@@ -367,7 +367,7 @@
     {
       "id": "peca-18",
       "tipo": "mao",
-      "src": "/images/map/peca-18.png",
+      "src": "/images/map/peca-18.webp",
       "x": 480,
       "y": 429,
       "w": 73,
@@ -388,7 +388,7 @@
     {
       "id": "peca-19",
       "tipo": "mao",
-      "src": "/images/map/peca-19.png",
+      "src": "/images/map/peca-19.webp",
       "x": 64,
       "y": 448,
       "w": 56,
@@ -409,7 +409,7 @@
     {
       "id": "peca-20",
       "tipo": "pessoa",
-      "src": "/images/map/peca-20.png",
+      "src": "/images/map/peca-20.webp",
       "x": 105,
       "y": 519,
       "w": 32,
@@ -430,7 +430,7 @@
     {
       "id": "peca-21",
       "tipo": "pessoa",
-      "src": "/images/map/peca-21.png",
+      "src": "/images/map/peca-21.webp",
       "x": 430,
       "y": 537,
       "w": 49,
@@ -451,7 +451,7 @@
     {
       "id": "peca-22",
       "tipo": "objeto",
-      "src": "/images/map/peca-22.png",
+      "src": "/images/map/peca-22.webp",
       "x": 371,
       "y": 576,
       "w": 60,
@@ -472,7 +472,7 @@
     {
       "id": "peca-23",
       "tipo": "mao",
-      "src": "/images/map/peca-23.png",
+      "src": "/images/map/peca-23.webp",
       "x": 29,
       "y": 613,
       "w": 64,
@@ -493,7 +493,7 @@
     {
       "id": "peca-24",
       "tipo": "pessoa",
-      "src": "/images/map/peca-24.png",
+      "src": "/images/map/peca-24.webp",
       "x": 270,
       "y": 611,
       "w": 30,
@@ -514,7 +514,7 @@
     {
       "id": "peca-25",
       "tipo": "pessoa",
-      "src": "/images/map/peca-25.png",
+      "src": "/images/map/peca-25.webp",
       "x": 136,
       "y": 616,
       "w": 77,
@@ -535,7 +535,7 @@
     {
       "id": "peca-26",
       "tipo": "objeto",
-      "src": "/images/map/peca-26.png",
+      "src": "/images/map/peca-26.webp",
       "x": 469,
       "y": 620,
       "w": 70,
@@ -556,7 +556,7 @@
     {
       "id": "peca-27",
       "tipo": "pessoa",
-      "src": "/images/map/peca-27.png",
+      "src": "/images/map/peca-27.webp",
       "x": 337,
       "y": 679,
       "w": 53,
@@ -577,7 +577,7 @@
     {
       "id": "peca-28",
       "tipo": "mao",
-      "src": "/images/map/peca-28.png",
+      "src": "/images/map/peca-28.webp",
       "x": 411,
       "y": 676,
       "w": 33,
@@ -598,7 +598,7 @@
     {
       "id": "peca-29",
       "tipo": "mao",
-      "src": "/images/map/peca-29.png",
+      "src": "/images/map/peca-29.webp",
       "x": 261,
       "y": 706,
       "w": 25,
@@ -619,7 +619,7 @@
     {
       "id": "peca-30",
       "tipo": "mao",
-      "src": "/images/map/peca-30.png",
+      "src": "/images/map/peca-30.webp",
       "x": 528,
       "y": 747,
       "w": 57,
@@ -640,7 +640,7 @@
     {
       "id": "peca-31",
       "tipo": "mao",
-      "src": "/images/map/peca-31.png",
+      "src": "/images/map/peca-31.webp",
       "x": 90,
       "y": 782,
       "w": 29,
@@ -661,7 +661,7 @@
     {
       "id": "peca-32",
       "tipo": "objeto",
-      "src": "/images/map/peca-32.png",
+      "src": "/images/map/peca-32.webp",
       "x": 342,
       "y": 814,
       "w": 27,
