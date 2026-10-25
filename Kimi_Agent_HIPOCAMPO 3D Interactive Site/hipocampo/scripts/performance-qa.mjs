@@ -1,16 +1,22 @@
 import { spawn } from 'node:child_process'
 import { existsSync } from 'node:fs'
-import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises'
+import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import WebSocket from 'ws'
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
-const label = process.argv[2] || 'sample'
+const workerMode = process.env.HIPOCAMPO_PERF_WORKER === '1'
+const label = process.env.HIPOCAMPO_PERF_LABEL || 'sample'
 const outputDir = path.join(projectRoot, 'artifacts', 'performance-optimization', label)
 const siteUrl = process.env.HIPOCAMPO_URL || 'http://127.0.0.1:8443/'
-const viewport = { width: 1600, height: 900, deviceScaleFactor: 1, mobile: false }
+const viewport = {
+  width: Number(process.env.HIPOCAMPO_WIDTH || 1916),
+  height: Number(process.env.HIPOCAMPO_HEIGHT || 851),
+  deviceScaleFactor: 1,
+  mobile: process.env.HIPOCAMPO_MOBILE === '1',
+}
 const forceFinePointer = process.env.HIPOCAMPO_FINE_POINTER === '1'
 
 const browserPath = [
@@ -21,6 +27,93 @@ const browserPath = [
 
 if (!browserPath) {
   throw new Error('Chrome/Edge não encontrado para o benchmark.')
+}
+
+if (!workerMode) {
+  const reportPath = path.resolve(projectRoot, process.argv[2] || 'docs/perf-sample.json')
+  const suiteLabel = process.argv[3] || path.basename(reportPath, path.extname(reportPath))
+  const viewports = [
+    { key: '1916x851', width: 1916, height: 851, mobile: false },
+    { key: '390x844', width: 390, height: 844, mobile: true },
+  ]
+
+  const runWorker = (entry) => new Promise((resolve, reject) => {
+    const child = spawn(process.execPath, [fileURLToPath(import.meta.url)], {
+      cwd: projectRoot,
+      windowsHide: true,
+      stdio: 'inherit',
+      env: {
+        ...process.env,
+        HIPOCAMPO_PERF_WORKER: '1',
+        HIPOCAMPO_PERF_LABEL: `${suiteLabel}-${entry.key}`,
+        HIPOCAMPO_WIDTH: String(entry.width),
+        HIPOCAMPO_HEIGHT: String(entry.height),
+        HIPOCAMPO_MOBILE: entry.mobile ? '1' : '0',
+        HIPOCAMPO_FINE_POINTER: '1',
+      },
+    })
+    child.on('exit', (code) => {
+      if (code === 0) resolve()
+      else reject(new Error(`Benchmark ${entry.key} terminou com código ${code}.`))
+    })
+    child.on('error', reject)
+  })
+
+  const compactScenario = (scenario) => ({
+    fpsAverage: scenario.fpsAverage,
+    fpsP5: scenario.fpsP5,
+    frameP50Ms: scenario.medianFrameMs,
+    frameP95Ms: scenario.p95FrameMs,
+    frameMaxMs: scenario.maxFrameMs,
+    framesOver20Ms: scenario.framesOver20Ms,
+    framesOver33Ms: scenario.framesOver33Ms,
+    longTasks: {
+      count: scenario.longTasks.length,
+      totalMs: Number(scenario.longTasks.reduce((sum, task) => sum + task.duration, 0).toFixed(3)),
+      maxMs: Number(Math.max(0, ...scenario.longTasks.map((task) => task.duration)).toFixed(3)),
+    },
+    taskMs: scenario.taskMs,
+    scriptMs: scenario.scriptMs,
+    layoutMs: scenario.layoutMs,
+    styleMs: scenario.styleMs,
+  })
+
+  const reports = {}
+  for (const entry of viewports) {
+    await runWorker(entry)
+    const metricsPath = path.join(
+      projectRoot,
+      'artifacts',
+      'performance-optimization',
+      `${suiteLabel}-${entry.key}`,
+      'metrics.json',
+    )
+    const report = JSON.parse(await readFile(metricsPath, 'utf8'))
+    reports[entry.key] = {
+      viewport: report.viewport,
+      initialTransferBytes: report.initialTransferBytes,
+      initialTransferKB: Number((report.initialTransferBytes / 1024).toFixed(2)),
+      scenarios: {
+        heroScroll: compactScenario(report.scenarios.heroScroll),
+        heroPointer: compactScenario(report.scenarios.heroPointer),
+        mapPointer: compactScenario(report.scenarios.page2Pointer),
+      },
+      pageErrors: report.pageErrors,
+      failedRequests: report.failedRequests,
+    }
+  }
+
+  const suite = {
+    label: suiteLabel,
+    capturedAt: new Date().toISOString(),
+    browserPath,
+    siteUrl,
+    viewports: reports,
+  }
+  await mkdir(path.dirname(reportPath), { recursive: true })
+  await writeFile(reportPath, `${JSON.stringify(suite, null, 2)}\n`)
+  console.log(`Relatório consolidado salvo em ${reportPath}`)
+  process.exit(0)
 }
 
 await mkdir(outputDir, { recursive: true })
@@ -156,12 +249,16 @@ try {
   const { sessionId } = await send('Target.attachToTarget', { targetId, flatten: true })
   const pageErrors = []
   const failedRequests = []
+  let transferBytes = 0
 
   on('Runtime.exceptionThrown', ({ exceptionDetails }) => {
     pageErrors.push(exceptionDetails.exception?.description || exceptionDetails.text || 'Erro desconhecido')
   })
   on('Network.responseReceived', ({ response }) => {
     if (response.status >= 400) failedRequests.push(`${response.status} ${response.url}`)
+  })
+  on('Network.loadingFinished', ({ encodedDataLength }) => {
+    transferBytes += encodedDataLength || 0
   })
 
   await send('Runtime.enable', {}, sessionId)
@@ -183,6 +280,7 @@ try {
   await sleep(2500)
   await send('Runtime.evaluate', { expression: 'document.fonts.ready', awaitPromise: true }, sessionId)
   await sleep(1200)
+  const initialTransferBytes = Math.round(transferBytes)
 
   const evaluate = async (expression, awaitPromise = false) => {
     const result = await send('Runtime.evaluate', {
@@ -275,6 +373,8 @@ try {
       durationMs: duration,
       frames: frames.length,
       estimatedFps: Number((frames.length / (duration / 1000)).toFixed(2)),
+      fpsAverage: Number((frames.length / (duration / 1000)).toFixed(2)),
+      fpsP5: Number((1000 / Math.max(1, percentile(frames, 0.95))).toFixed(2)),
       medianFrameMs: Number(percentile(frames, 0.5).toFixed(3)),
       p95FrameMs: Number(percentile(frames, 0.95).toFixed(3)),
       p99FrameMs: Number(percentile(frames, 0.99).toFixed(3)),
@@ -339,7 +439,6 @@ try {
   }
 
   const viewportHeight = viewport.height
-  const heroEnd = viewportHeight * 1.8
   const documentInfo = await evaluate(`(() => ({
     height: document.documentElement.scrollHeight,
     installationTop: document.querySelector('#instalacao')?.offsetTop || 0,
@@ -347,6 +446,7 @@ try {
     projectTop: document.querySelector('#projeto')?.offsetTop || 0,
     canvasCount: document.querySelectorAll('#instalacao canvas').length,
   }))()`)
+  const heroEnd = documentInfo.projectTop || viewportHeight * 1.8
 
   const results = {}
   results.idleTop = await measure('idleTop', {
@@ -373,13 +473,13 @@ try {
   results.page2Pointer = await measure('page2Pointer', {
     duration: 3000,
     setup: async () => {
-      await setScroll(heroEnd + viewportHeight * 0.55)
+      await setScroll(documentInfo.projectTop + viewportHeight * 0.08)
     },
     action: async (duration) => {
-      const rects = await evaluate(`[...document.querySelectorAll('.page2-photo')].map((photo) => {
-        const rect = photo.getBoundingClientRect();
+      const rects = await evaluate(`[...document.querySelectorAll('.hipocampo-memory-map, .memory-map-piece-frame')].map((element) => {
+        const rect = element.getBoundingClientRect();
         return { x: rect.left, y: rect.top, width: rect.width, height: rect.height };
-      }).filter((rect) => rect.bottom !== 0 && rect.y < innerHeight && rect.y + rect.height > 0)`)
+      }).filter((rect) => rect.width > 0 && rect.height > 0 && rect.y < innerHeight && rect.y + rect.height > 0)`)
       const visible = rects.length ? rects : [{ x: 400, y: 250, width: 500, height: 350 }]
       const points = Array.from({ length: 90 }, (_, index) => {
         const rect = visible[index % visible.length]
@@ -465,6 +565,7 @@ try {
     browserPath,
     siteUrl,
     viewport,
+    initialTransferBytes,
     capturedAt: new Date().toISOString(),
     documentInfo,
     runtimeState,
