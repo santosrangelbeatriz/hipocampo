@@ -1,0 +1,574 @@
+/* ==========================================================================
+   HIPOCAMPO — REDESIGN EDITORIAL & ANIMAÇÕES (Referência: Untold)
+   Identidade visual, cores, tipografia e conteúdos 100% preservados.
+   ========================================================================== */
+
+:root {
+  --hip-paper: #f4f0e7;
+  --hip-paper-light: #fffdf8;
+  --hip-brown: #6b311c;
+  --hip-brown-soft: #8e5a43;
+  --hip-yellow: #f0d765;
+  --hip-yellow-circle: #ffdf60;
+  --hip-yellow-text: #d8d83d;
+  --hip-blue: #1729ff;
+  --hip-accent: #2626fc;
+  --hip-dark: #17120f;
+  --hip-ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
+  --hip-ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* --------------------------------------------------------------------------
+   1. BARRA DE PROGRESSO DE NARRATIVA & NAVEGAÇÃO EDITORIAL
+   -------------------------------------------------------------------------- */
+.hipocampo-scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2100;
+  width: 100%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hipocampo-scroll-progress-fill {
+  width: 100%;
+  height: 100%;
+  background: var(--hip-yellow-circle);
+  transform: scaleX(var(--hip-page-progress, 0));
+  transform-origin: 0 50%;
+  will-change: transform;
+}
+
+body > #root > header.hipocampo-global-header {
+  transition:
+    background-color 480ms var(--hip-ease-editorial),
+    padding 420ms var(--hip-ease-editorial),
+    border-color 420ms var(--hip-ease-editorial),
+    color 320ms ease !important;
+  border-bottom: 1px solid transparent;
+}
+
+body > #root > header.hipocampo-global-header[data-nav-theme="light"] {
+  color: var(--hip-brown);
+}
+
+body > #root > header.hipocampo-global-header[data-nav-theme="light"] > a,
+body > #root > header.hipocampo-global-header[data-nav-theme="light"] nav a,
+body > #root > header.hipocampo-global-header[data-nav-theme="light"] > button {
+  color: var(--hip-brown);
+  text-shadow: none;
+}
+
+body > #root > header.hipocampo-global-header[data-nav-theme="light"].hipocampo-header-scrolled {
+  background: rgba(244, 240, 231, 0.86) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom-color: rgba(38, 38, 252, 0.14);
+}
+
+body > #root > header.hipocampo-global-header[data-nav-theme="yellow"] {
+  color: var(--hip-brown);
+}
+
+body > #root > header.hipocampo-global-header[data-nav-theme="yellow"] > a,
+body > #root > header.hipocampo-global-header[data-nav-theme="yellow"] nav a,
+body > #root > header.hipocampo-global-header[data-nav-theme="yellow"] > button {
+  color: var(--hip-brown);
+  text-shadow: none;
+}
+
+body > #root > header.hipocampo-global-header[data-nav-theme="yellow"].hipocampo-header-scrolled {
+  background: rgba(255, 223, 96, 0.86) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom-color: rgba(107, 49, 28, 0.14);
+}
+
+body > #root > header.hipocampo-global-header[data-nav-theme="dark"].hipocampo-header-scrolled {
+  background: rgba(17, 15, 24, 0.72) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom-color: rgba(240, 215, 101, 0.16);
+}
+
+body > #root > header nav a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding-bottom: 0.2rem;
+  transition:
+    color 280ms ease,
+    opacity 280ms ease,
+    transform 340ms var(--hip-ease-editorial);
+}
+
+body > #root > header nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: 100% 50%;
+  transition: transform 380ms var(--hip-ease-editorial);
+}
+
+body > #root > header nav a:hover::after,
+body > #root > header nav a:focus-visible::after,
+body > #root > header nav a.is-active-section::after {
+  transform: scaleX(1);
+  transform-origin: 0% 50%;
+}
+
+body > #root > header nav a.is-active-section {
+  opacity: 1 !important;
+}
+
+/* --------------------------------------------------------------------------
+   2. ABERTURA (HERO) — LINHAS TIPOGRAFICAS CINÉTICAS E TRANSIÇÃO
+   -------------------------------------------------------------------------- */
+.hipocampo-memory-field > .hipocampo-memory-line {
+  transition:
+    color 320ms ease,
+    opacity 320ms ease,
+    letter-spacing 420ms var(--hip-ease-editorial),
+    transform 420ms var(--hip-ease-editorial);
+  will-change: transform, opacity;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hipocampo-memory-field:hover > .hipocampo-memory-line:not(.hipocampo-photo-active) {
+    opacity: 0.42;
+  }
+
+  .hipocampo-memory-field > .hipocampo-memory-line.hipocampo-photo-active {
+    color: #fffdf8;
+    opacity: 1;
+    letter-spacing: -0.015em;
+  }
+}
+
+/* Indicador editorial sutil de scroll na abertura */
+.hipocampo-hero-scroll-cue {
+  position: absolute;
+  bottom: 1.5rem;
+  left: clamp(1.1rem, 4vw, 4.5rem);
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: rgba(255, 255, 255, 0.78);
+  font-family: "Drowner", ui-monospace, monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: clamp(0, calc(1 - var(--hipocampo-scroll-progress, 0) * 4), 1);
+  transform: translate3d(0, calc(var(--hipocampo-scroll-progress, 0) * 1.5rem), 0);
+  pointer-events: none;
+  will-change: opacity, transform;
+}
+
+.hipocampo-hero-scroll-cue::before {
+  content: "";
+  width: 1.75rem;
+  height: 1px;
+  background: var(--hip-yellow-circle);
+  transform-origin: 0 50%;
+  animation: hipocampo-cue-pulse 2.4s var(--hip-ease-editorial) infinite;
+}
+
+@keyframes hipocampo-cue-pulse {
+  0%, 100% {
+    transform: scaleX(0.35);
+    opacity: 0.55;
+  }
+  50% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3. ARQUITETURA EDITORIAL DE SEÇÕES & TRANSIÇÕES NARRATIVAS
+   -------------------------------------------------------------------------- */
+main#conteudo > section {
+  position: relative;
+}
+
+/* Linha de grade editorial contínua sutil */
+main#conteudo > section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: clamp(1.1rem, 4vw, 4.5rem);
+  right: clamp(1.1rem, 4vw, 4.5rem);
+  height: 1px;
+  background: currentColor;
+  opacity: 0.14;
+  transform: scaleX(var(--hip-section-rule, 1));
+  transform-origin: 0 50%;
+  pointer-events: none;
+}
+
+#abertura::before {
+  display: none;
+}
+
+/* Tipografia sincronizada ao scroll (máscara editorial estilo Untold) */
+.hip-split-line {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+.hip-split-inner {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/* Destaque em palavras-chave display-word */
+.display-word {
+  display: inline-block;
+  position: relative;
+  transition: transform 520ms var(--hip-ease-editorial);
+}
+
+/* Parágrafos editoriais e notas manuscritas */
+.hip-editorial-paragraph {
+  will-change: transform, opacity;
+}
+
+.script {
+  will-change: transform, opacity;
+}
+
+/* --------------------------------------------------------------------------
+   4. REVELAÇÕES PROGRESSIVAS DE IMAGENS & PARALLAX EDITORIAL
+   -------------------------------------------------------------------------- */
+.hip-image-reveal {
+  position: relative;
+  overflow: hidden;
+  will-change: clip-path, transform;
+}
+
+.hip-image-reveal img {
+  will-change: transform;
+  transition:
+    transform 900ms var(--hip-ease-editorial),
+    filter 650ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  #projeto figure.negative-frame {
+    transition:
+      transform 650ms var(--hip-ease-editorial),
+      box-shadow 650ms var(--hip-ease-editorial);
+  }
+
+  #projeto figure.negative-frame:hover {
+    transform: translate3d(0, -0.35rem, 0) scale(1.012);
+    box-shadow: 0 1.75rem 3.8rem rgba(23, 18, 15, 0.22);
+  }
+
+  #projeto figure.negative-frame:hover img {
+    transform: scale(1.035);
+  }
+}
+
+/* Cartões de etapa na seção 02 — Oficina */
+#oficina .process-slide {
+  will-change: transform, opacity;
+  transition:
+    transform 560ms var(--hip-ease-editorial),
+    box-shadow 560ms var(--hip-ease-editorial),
+    z-index 0s;
+}
+
+#oficina .process-slide > div {
+  transition:
+    border-color 420ms ease,
+    box-shadow 560ms var(--hip-ease-editorial),
+    transform 560ms var(--hip-ease-editorial);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  #oficina .process-slide:hover > div,
+  #oficina .process-slide:focus-visible > div {
+    box-shadow: 0 1.5rem 3.2rem rgba(13, 10, 8, 0.42);
+    border-color: var(--hip-yellow-circle) !important;
+  }
+
+  #oficina .process-slide:hover img {
+    filter: grayscale(40%) contrast(1.18);
+    transform: scale(1.04);
+  }
+}
+
+/* Seção 03 — Instalação 3D moldura editorial */
+#instalacao > div:nth-of-type(3) {
+  transition:
+    border-color 480ms ease,
+    box-shadow 650ms var(--hip-ease-editorial);
+  box-shadow: 0 1.8rem 4.2rem rgba(0, 0, 0, 0.48);
+}
+
+#instalacao > div:nth-of-type(3):hover {
+  border-color: rgba(240, 215, 101, 0.52);
+}
+
+/* Seção 04 — Espaço dos fragmentos */
+#fragmentos [data-fragment] {
+  will-change: transform;
+  transition:
+    transform 440ms var(--hip-ease-editorial),
+    filter 440ms ease;
+}
+
+#fragmentos [data-fragment]:hover {
+  z-index: 12;
+}
+
+#fragmentos [data-fragment] > span:first-child {
+  box-shadow: 0 0.85rem 2.2rem rgba(23, 18, 15, 0.16);
+  transition:
+    box-shadow 440ms var(--hip-ease-editorial),
+    transform 440ms var(--hip-ease-editorial);
+}
+
+#fragmentos [data-fragment]:hover > span:first-child {
+  box-shadow: 0 1.35rem 2.85rem rgba(23, 18, 15, 0.26);
+}
+
+/* Seção 05 — Fotofilmes */
+#fotofilmes article {
+  will-change: transform, opacity;
+}
+
+#fotofilmes article > div:nth-child(2),
+#fotofilmes article > div.md\:order-1 > div {
+  transition:
+    transform 650ms var(--hip-ease-editorial),
+    box-shadow 650ms var(--hip-ease-editorial);
+  box-shadow: 0 1.5rem 3.5rem rgba(10, 10, 68, 0.28);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  #fotofilmes article:hover > div:nth-child(2),
+  #fotofilmes article:hover > div.md\:order-1 > div {
+    transform: translate3d(0, -0.3rem, 0);
+    box-shadow: 0 2rem 4.4rem rgba(10, 10, 68, 0.4);
+  }
+}
+
+/* Seção 06 — Informações (linhas da tabela dl com hover editorial) */
+#informacoes dl > div {
+  position: relative;
+  transition:
+    padding-left 380ms var(--hip-ease-editorial),
+    background-color 380ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  #informacoes dl > div:hover {
+    padding-left: 0.75rem;
+    background-color: rgba(107, 49, 28, 0.045);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. CURSOR CUSTOMIZADO CONTEXTUAL COM SUAVIZAÇÃO (UNTOLD-INSPIRED)
+   -------------------------------------------------------------------------- */
+/* Ocultar o cursor antigo do bundle para evitar duplicidade de loops/DOM */
+body > #root > div.fixed.z-\[999\].w-6.h-6 {
+  display: none !important;
+}
+
+.hipocampo-editorial-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2200;
+  width: 2.2rem;
+  height: 2.2rem;
+  margin-left: -1.1rem;
+  margin-top: -1.1rem;
+  border-radius: 50%;
+  border: 1px solid var(--hip-accent);
+  background: rgba(38, 38, 252, 0.04);
+  color: var(--hip-paper-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate3d(-100px, -100px, 0) scale(1);
+  transition:
+    width 340ms var(--hip-ease-editorial),
+    height 340ms var(--hip-ease-editorial),
+    margin 340ms var(--hip-ease-editorial),
+    background-color 280ms ease,
+    border-color 280ms ease,
+    opacity 260ms ease;
+  will-change: transform, width, height, opacity;
+}
+
+.hipocampo-editorial-cursor.is-visible {
+  opacity: 0.85;
+}
+
+.hipocampo-editorial-cursor-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  transition:
+    transform 280ms var(--hip-ease-editorial),
+    opacity 220ms ease;
+}
+
+.hipocampo-editorial-cursor-label {
+  position: absolute;
+  font-family: "Drowner", ui-monospace, monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  transform: scale(0.76);
+  transition:
+    opacity 240ms ease,
+    transform 300ms var(--hip-ease-editorial);
+}
+
+/* Tema adaptativo conforme o fundo da seção sob o cursor */
+.hipocampo-editorial-cursor[data-cursor-theme="on-blue"],
+.hipocampo-editorial-cursor[data-cursor-theme="on-dark"],
+.hipocampo-editorial-cursor[data-cursor-theme="on-brown"] {
+  border-color: var(--hip-yellow-circle);
+  background: rgba(255, 223, 96, 0.08);
+  color: var(--hip-yellow-circle);
+}
+
+.hipocampo-editorial-cursor[data-cursor-theme="on-yellow"],
+.hipocampo-editorial-cursor[data-cursor-theme="on-paper"] {
+  border-color: var(--hip-accent);
+  background: rgba(38, 38, 252, 0.06);
+  color: var(--hip-accent);
+}
+
+/* Estados interativos (link, arrastar, 3D, memória) */
+.hipocampo-editorial-cursor[data-cursor-mode="link"] {
+  width: 3.1rem;
+  height: 3.1rem;
+  margin-left: -1.55rem;
+  margin-top: -1.55rem;
+  background: rgba(38, 38, 252, 0.14);
+}
+
+.hipocampo-editorial-cursor[data-cursor-theme="on-blue"][data-cursor-mode="link"],
+.hipocampo-editorial-cursor[data-cursor-theme="on-dark"][data-cursor-mode="link"],
+.hipocampo-editorial-cursor[data-cursor-theme="on-brown"][data-cursor-mode="link"] {
+  background: rgba(255, 223, 96, 0.18);
+}
+
+.hipocampo-editorial-cursor[data-cursor-mode="interactive"] {
+  width: 4.5rem;
+  height: 4.5rem;
+  margin-left: -2.25rem;
+  margin-top: -2.25rem;
+  background: var(--hip-accent);
+  border-color: var(--hip-accent);
+  color: var(--hip-paper-light);
+  opacity: 0.96;
+}
+
+.hipocampo-editorial-cursor[data-cursor-theme="on-blue"][data-cursor-mode="interactive"],
+.hipocampo-editorial-cursor[data-cursor-theme="on-dark"][data-cursor-mode="interactive"],
+.hipocampo-editorial-cursor[data-cursor-theme="on-brown"][data-cursor-mode="interactive"] {
+  background: var(--hip-yellow-circle);
+  border-color: var(--hip-yellow-circle);
+  color: #17120f;
+}
+
+.hipocampo-editorial-cursor[data-cursor-mode="interactive"] .hipocampo-editorial-cursor-dot {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.hipocampo-editorial-cursor[data-cursor-mode="interactive"] .hipocampo-editorial-cursor-label {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Na hero quando a prévia fotográfica está ativa, suavizar o cursor principal */
+.hipocampo-editorial-cursor[data-cursor-mode="hero-memory"] {
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-left: -0.55rem;
+  margin-top: -0.55rem;
+  opacity: 0.45;
+}
+
+/* --------------------------------------------------------------------------
+   6. ACESSIBILIDADE, REDUCED MOTION E DISPOSITIVOS MÓVEIS
+   -------------------------------------------------------------------------- */
+@media (hover: none), (pointer: coarse) {
+  .hipocampo-editorial-cursor {
+    display: none !important;
+  }
+}
+
+@media (max-width: 767px) {
+  #oficina ol {
+    display: grid;
+    gap: 2.25rem;
+    min-height: 0 !important;
+  }
+
+  #oficina .process-slide {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    width: 100% !important;
+    max-width: 24rem;
+    margin-inline: auto;
+  }
+
+  #fotofilmes article h3 {
+    position: relative !important;
+    line-height: 0.86 !important;
+  }
+
+  #fotofilmes article p.mt-48 {
+    margin-top: 1.75rem !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hipocampo-editorial-cursor {
+    display: none !important;
+  }
+
+  .hipocampo-hero-scroll-cue::before {
+    animation: none !important;
+  }
+
+  .hip-split-inner,
+  .hip-editorial-paragraph,
+  .hip-image-reveal,
+  .hip-image-reveal img {
+    transform: none !important;
+    clip-path: none !important;
+    opacity: 1 !important;
+    transition: none !important;
+    will-change: auto !important;
+  }
+}

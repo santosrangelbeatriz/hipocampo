@@ -1,83 +1,353 @@
-.hipocampo-memory-field > .hipocampo-memory-line {
-  position: relative;
-  isolation: isolate;
+html.lenis,
+html.lenis body {
+  height: auto;
 }
 
-.hipocampo-memory-field > .hipocampo-memory-line.hipocampo-photo-active {
-  z-index: 6;
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
 }
 
-.hipocampo-memory-field .hipocampo-hero-photo-strip {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  z-index: 5;
-  display: flex;
-  width: max-content;
-  align-items: center;
-  transform: translate3d(calc(var(--hipocampo-photo-x, 50%) - 50%), -50%, 0);
+.lenis [data-lenis-prevent],
+.lenis [data-lenis-prevent-wheel],
+.lenis [data-lenis-prevent-touch] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-smooth iframe {
   pointer-events: none;
+}
+
+.hipocampo-memory-experience .hipocampo-memory-field {
+  left: 0;
+  width: 100%;
+  max-width: none;
+  transform: translateY(-49%)
+    translateY(calc(var(--hipocampo-scroll-progress, 0) * -4vh));
+  gap: clamp(0.02em, 0.2vh, 0.11em);
+  overflow: hidden;
+  font-size: clamp(2rem, 3.05vw, 3.4rem);
+  line-height: 0.98;
+  letter-spacing: -0.028em;
+  pointer-events: none;
+}
+
+.hipocampo-memory-experience .hipocampo-memory-line {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+  overflow: hidden;
+  opacity: var(--memory-line-opacity, 1);
+  transform: translate3d(var(--memory-warp-x, 0), 0, 0)
+    skewX(var(--memory-warp-skew, 0));
+  transform-origin: 50% 50%;
+  transition: opacity 260ms ease;
   will-change: transform;
 }
 
-.hipocampo-hero-photo {
-  display: block;
-  flex: 0 0 auto;
-  width: clamp(1.8em, 3.6vw, 2.65em);
-  height: 1.6em;
-  margin-left: -0.28em;
-  object-fit: cover;
-  border: 0.025em solid rgba(255, 255, 255, 0.9);
-  border-radius: 0.025em;
-  box-shadow: 0 0.11em 0.28em rgba(4, 7, 73, 0.28);
+.hipocampo-memory-text-lens {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  width: clamp(11rem, 15vw, 15rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(23, 41, 255, 0.98) 0,
+    rgba(23, 41, 255, 0.86) 34%,
+    rgba(23, 41, 255, 0.42) 58%,
+    rgba(23, 41, 255, 0) 74%
+  );
   opacity: 0;
-  transform: translateY(var(--hipocampo-photo-y, 0))
-    rotate(var(--hipocampo-photo-rotation, 0deg)) scale(0.85);
+  pointer-events: none;
+  transition: opacity 180ms ease;
+  will-change: transform, opacity;
+}
+
+.hipocampo-memory-text-lens-visible {
+  opacity: 1;
+}
+
+.hipocampo-memory-experience .hipocampo-memory-track,
+.hipocampo-memory-experience .hipocampo-memory-segment {
+  display: flex;
+  flex: none;
+  align-items: center;
+  width: max-content;
+  min-width: max-content;
+  white-space: nowrap;
+}
+
+.hipocampo-memory-experience .hipocampo-memory-track {
+  will-change: transform;
+}
+
+.hipocampo-memory-experience .hipocampo-memory-segment {
+  justify-content: flex-start;
+}
+
+.hipocampo-memory-experience .hipocampo-memory-phrase {
+  display: inline-block;
+  flex: none;
+  width: auto;
+  margin-right: 0.9em;
+}
+
+.hipocampo-memory-photo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 5;
+  width: clamp(13.5rem, 22vw, 25rem);
+  aspect-ratio: 60 / 49;
+  transform: translate3d(-50%, -50%, 0);
+  pointer-events: auto;
+  touch-action: pan-y;
+  transform-origin: 50% 50%;
   transition:
-    opacity 200ms ease,
-    transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 360ms step-end;
+  will-change: opacity, transform, filter;
+}
+
+.hipocampo-memory-photo-reveal {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 50%;
+  will-change: opacity, transform, filter;
+}
+
+.hipocampo-memory-photo-inner {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  border-radius: 0.3rem;
+  background: #eee7d8;
+  box-shadow:
+    0 1.4rem 3.2rem rgba(3, 8, 82, 0.36),
+    0 0 0 1px rgba(255, 223, 96, 0.14) inset;
+  transform-style: preserve-3d;
+  transition: box-shadow 420ms ease;
+  will-change: transform;
+}
+
+.hipocampo-memory-photo-active .hipocampo-memory-photo-inner {
+  box-shadow:
+    0 1.8rem 4rem rgba(3, 8, 82, 0.44),
+    0 0 0 1px rgba(255, 223, 96, 0.3) inset;
+}
+
+.hipocampo-memory-photo-fallback,
+.hipocampo-memory-photo-canvas {
+  position: absolute;
+  inset: -1%;
+  display: block;
+  width: 102%;
+  height: 102%;
+  object-fit: cover;
+  transform: translate3d(
+      var(--memory-parallax-x, 0),
+      var(--memory-parallax-y, 0),
+      0.01px
+    )
+    scale(1.025);
+  transition: opacity 300ms ease;
   user-select: none;
   -webkit-user-drag: none;
-  will-change: opacity, transform;
+  will-change: transform;
 }
 
-.hipocampo-hero-photo:first-child {
-  margin-left: 0;
+.hipocampo-memory-photo-fallback {
+  filter: grayscale(1) sepia(0.18) contrast(0.84) brightness(1.24);
 }
 
-.hipocampo-photo-strip-visible .hipocampo-hero-photo {
+.hipocampo-memory-photo-canvas {
+  z-index: 2;
+  opacity: 0;
+}
+
+.hipocampo-memory-photo-webgl-ready .hipocampo-memory-photo-canvas {
   opacity: 1;
-  transform: translateY(var(--hipocampo-photo-y, 0))
-    rotate(var(--hipocampo-photo-rotation, 0deg)) scale(1);
-  transition-duration: 250ms;
-  transition-delay: var(--hipocampo-photo-delay, 0ms);
 }
 
-.hipocampo-photo-strip-immediate .hipocampo-hero-photo,
-.hipocampo-photo-hover-disabled .hipocampo-hero-photo {
+.hipocampo-memory-photo-webgl-ready .hipocampo-memory-photo-fallback {
+  opacity: 0;
+}
+
+.hipocampo-memory-photo-inner::before,
+.hipocampo-memory-photo-inner::after {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  content: '';
+  pointer-events: none;
+}
+
+.hipocampo-memory-photo-inner::before {
+  background:
+    linear-gradient(105deg, rgba(255, 255, 255, 0.11), transparent 31%),
+    radial-gradient(circle at 48% 42%, transparent 48%, rgba(26, 20, 22, 0.23) 100%);
+  mix-blend-mode: soft-light;
+}
+
+.hipocampo-memory-photo-inner::after {
+  inset: -12%;
+  opacity: 0.2;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.86) 0 0.55px, transparent 0.75px);
+  background-size: 5px 5px;
+  transform: translate3d(0, 0, 0.1px);
+}
+
+.hipocampo-memory-photo-caption {
+  position: absolute;
+  right: 0.7rem;
+  bottom: 0.58rem;
+  z-index: 4;
+  color: rgba(255, 255, 255, 0.82);
+  font-family: 'Drowner', ui-monospace, monospace;
+  font-size: clamp(0.48rem, 0.52vw, 0.62rem);
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translate3d(0, 0.35rem, 0);
+  transition:
+    opacity 280ms ease,
+    transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+.hipocampo-memory-photo-active .hipocampo-memory-photo-caption {
+  opacity: 0.72;
+  transform: translate3d(0, 0, 0);
+}
+
+.hipocampo-memory-transitioning .hipocampo-memory-photo {
+  visibility: hidden !important;
   opacity: 0 !important;
-  transition: none !important;
+  pointer-events: none;
+  transition-timing-function: ease, step-start;
+}
+
+.hipocampo-memory-cursor-trail {
+  position: fixed;
+  inset: 0;
+  z-index: 1995;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 220ms ease;
+}
+
+.hipocampo-memory-cursor-trail-visible {
+  opacity: 0.62;
+}
+
+.hipocampo-memory-cursor-trail > span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(0.34rem - var(--trail-index) * 0.025rem);
+  aspect-ratio: 1;
+  margin: -0.17rem 0 0 -0.17rem;
+  border-radius: calc(42% + var(--trail-index) * 2%);
+  background: rgba(255, 255, 255, calc(0.72 - var(--trail-index) * 0.09));
+  opacity: calc(1 - var(--trail-index) * 0.13);
+  will-change: transform;
+}
+
+.hipocampo-editorial-cursor[data-cursor-mode='hero-memory'] {
+  width: 1.4rem;
+  height: 1.4rem;
+  margin-top: -0.7rem;
+  margin-left: -0.7rem;
+  border-color: rgba(255, 255, 255, 0.86);
+  background: rgba(255, 255, 255, 0.08);
+  opacity: 0.88;
+  mix-blend-mode: difference;
+}
+
+.hipocampo-editorial-cursor[data-cursor-mode='hero-memory-photo'] {
+  width: clamp(4.5rem, 6.2vw, 6.5rem);
+  height: clamp(4.5rem, 6.2vw, 6.5rem);
+  margin-top: clamp(-3.25rem, -3.1vw, -2.25rem);
+  margin-left: clamp(-3.25rem, -3.1vw, -2.25rem);
+  border-color: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 0 0 0.45rem rgba(255, 223, 96, 0.06),
+    inset 0 0 1.4rem rgba(255, 255, 255, 0.1);
+  opacity: 0.94;
+  mix-blend-mode: difference;
+}
+
+.hipocampo-editorial-cursor[data-cursor-mode^='hero-memory'] .hipocampo-editorial-cursor-dot {
+  opacity: 1;
+  transform: scale(0.72);
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .hipocampo-memory-field > .hipocampo-memory-line {
-    pointer-events: auto;
+  .hipocampo-memory-experience {
+    cursor: none;
   }
 }
 
-@media (hover: none), (pointer: coarse) {
-  .hipocampo-memory-field > .hipocampo-memory-line {
-    pointer-events: none;
+@media (max-width: 767px) {
+  .hipocampo-memory-experience .hipocampo-memory-field {
+    top: 51%;
+    font-size: clamp(1.38rem, 6.4vw, 2.05rem);
+    line-height: 1.02;
+    transform: translateY(-50%)
+      translateY(calc(var(--hipocampo-scroll-progress, 0) * -4vh));
   }
 
-  .hipocampo-memory-field .hipocampo-hero-photo-strip {
+  .hipocampo-memory-photo {
+    width: clamp(11rem, 59vw, 15.5rem);
+  }
+
+  .hipocampo-memory-photo-caption,
+  .hipocampo-memory-text-lens,
+  .hipocampo-memory-cursor-trail {
     display: none;
   }
 }
 
+@media (max-height: 700px) and (min-width: 768px) {
+  .hipocampo-memory-experience .hipocampo-memory-field {
+    top: 52%;
+    font-size: clamp(1.72rem, 4.8vh, 2.68rem);
+    line-height: 0.96;
+  }
+
+  .hipocampo-memory-photo {
+    width: clamp(12rem, 25vh, 17rem);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .hipocampo-hero-photo,
-  .hipocampo-photo-strip-visible .hipocampo-hero-photo {
-    transition: none;
+  .hipocampo-memory-experience {
+    cursor: auto;
+  }
+
+  .hipocampo-memory-experience .hipocampo-memory-line,
+  .hipocampo-memory-experience .hipocampo-memory-track,
+  .hipocampo-memory-photo,
+  .hipocampo-memory-photo-reveal,
+  .hipocampo-memory-photo-inner,
+  .hipocampo-memory-photo-fallback,
+  .hipocampo-memory-photo-canvas,
+  .hipocampo-memory-photo-caption {
+    transition: none !important;
+    will-change: auto;
+  }
+
+  .hipocampo-memory-text-lens {
+    display: none;
+  }
+
+  .hipocampo-memory-cursor-trail {
+    display: none;
   }
 }
