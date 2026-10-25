@@ -27,6 +27,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
 SOURCE_PATH = REPOSITORY_ROOT / "pagina2" / "image copy.png"
 OUTPUT_DIR = PROJECT_ROOT / "public" / "images" / "map"
+VERIFICATION_DIR = PROJECT_ROOT / "artifacts" / "memory-map"
 
 CORNER_SAMPLE = 40
 FOREGROUND_THRESHOLD = 18.0
@@ -337,10 +338,13 @@ def main() -> None:
         )
     for piece, sprite in rendered:
         verification.alpha_composite(sprite, dest=(piece.crop[0], piece.crop[1]))
-    verification.convert("RGB").save(OUTPUT_DIR / "recomposicao.png", optimize=True)
+    VERIFICATION_DIR.mkdir(parents=True, exist_ok=True)
+    verification_path = VERIFICATION_DIR / "recomposicao.png"
+    verification.convert("RGB").save(verification_path, optimize=True)
 
     print(f"Mapa fatiado: {len(pieces)} peças em {OUTPUT_DIR}")
     print(f"Casa: {house.identifier}; linha: {color_hex(line_color)} / {manifest['lineWidthPct']}%")
+    print(f"Conferência: {verification_path}")
 
 
 if __name__ == "__main__":
