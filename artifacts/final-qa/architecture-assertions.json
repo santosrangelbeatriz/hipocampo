@@ -1,0 +1,17 @@
+{
+  "projectCount": 1,
+  "projectParentClass": "hipocampo-hero-stage",
+  "sceneHeight": 1536,
+  "viewportHeight": 768,
+  "sceneViewportRatio": 2,
+  "stagePosition": "sticky",
+  "stageTop": "0px",
+  "stageHeight": 768,
+  "projectMarginTop": "0px",
+  "projectTransform": "none",
+  "projectBackground": "rgba(0, 0, 0, 0)",
+  "visualsBackground": "rgb(23, 41, 255)",
+  "sceneBackground": "rgb(255, 223, 96)",
+  "continuationPresent": true,
+  "pinSpacerAncestors": 0
+}

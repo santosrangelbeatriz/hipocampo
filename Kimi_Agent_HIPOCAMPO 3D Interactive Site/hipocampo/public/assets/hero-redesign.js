@@ -2,6 +2,7 @@ import { n as gsap, t as ScrollTrigger } from './index-BXEErpTi.js'
 
 const repeatLine = 'uma memória desapareceu uma memória desapareceu'
 const transitionControllerId = 'hipocampo-figma-sticky-transition'
+const minimumContinuationRatio = 0.3
 
 const clamp = (value, minimum = 0, maximum = 1) => (
   Math.min(maximum, Math.max(minimum, value))
@@ -14,7 +15,7 @@ function calculateCoverageScale(stage, circle) {
     return 1
   }
 
-  const centerX = circle.offsetLeft + radius
+  const centerX = circle.offsetLeft
   const centerY = circle.offsetTop + radius
   const farthestCorner = Math.max(
     Math.hypot(centerX, centerY),
@@ -39,7 +40,7 @@ function stabilizeProjectSection(project) {
   gsap.set(project, { clearProps: 'opacity,transform,translate,rotate,scale' })
 }
 
-function initializeScrollTransition(hero, stage, project) {
+function initializeScrollTransition(scene, stage, project, originalProjectLocation) {
   const circle = stage.querySelector('.hipocampo-transition-circle')
 
   if (!circle) {
@@ -49,53 +50,95 @@ function initializeScrollTransition(hero, stage, project) {
   window.__hipocampoHeroTransitionCleanup?.()
   stabilizeProjectSection(project)
 
-  hero.dataset.transitionController = transitionControllerId
-  hero.classList.add('hipocampo-transition-scene')
+  const continuation = document.createElement('div')
+  continuation.className = 'hipocampo-project-continuation'
+  continuation.setAttribute('aria-hidden', 'true')
+  project.style.setProperty(
+    '--hipocampo-project-color',
+    window.getComputedStyle(project).color,
+  )
+
+  scene.dataset.transitionController = transitionControllerId
+  scene.classList.add('hipocampo-transition-scene')
   project.classList.add('hipocampo-transition-project')
+  stage.append(project)
+  scene.after(continuation)
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
   const projectAnchors = [...document.querySelectorAll('a[href="#projeto"]')]
   let animationFrame = 0
   let coverageScale = 1
+  let sceneTop = 0
+  let scrollDistance = 1
   let viewportWidth = 0
   let viewportHeight = 0
+  let visualViewportHeight = 0
+  let triggerRefreshFrame = 0
 
   const measure = () => {
     viewportWidth = window.innerWidth
     viewportHeight = window.innerHeight
-    hero.style.setProperty('--hipocampo-viewport-height', `${viewportHeight}px`)
+    visualViewportHeight = window.visualViewport?.height || viewportHeight
+    scene.style.setProperty('--hipocampo-viewport-height', `${viewportHeight}px`)
     project.style.setProperty('--hipocampo-viewport-height', `${viewportHeight}px`)
 
+    sceneTop = window.scrollY + scene.getBoundingClientRect().top
+    scrollDistance = Math.max(1, scene.offsetHeight - viewportHeight)
+
+    const referenceInitialDiameterRatio = viewportWidth <= 760 ? 0.32 : 0.15
     const referenceFinalScale = viewportWidth <= 760 ? 21 : 19
-    coverageScale = Math.max(referenceFinalScale, calculateCoverageScale(stage, circle))
+    const referenceFinalDiameter = (
+      viewportWidth * referenceInitialDiameterRatio * referenceFinalScale
+    )
+    const referenceTrajectoryScale = referenceFinalDiameter / circle.offsetWidth
+    const cornerCoverageScale = calculateCoverageScale(stage, circle)
+    coverageScale = Math.max(
+      referenceTrajectoryScale,
+      cornerCoverageScale * 1.01,
+    )
+
+    const projectHeight = Math.ceil(Math.max(
+      project.scrollHeight,
+      project.getBoundingClientRect().height,
+    ))
+    const continuationHeight = reducedMotion.matches
+      ? projectHeight
+      : Math.max(
+          viewportHeight * minimumContinuationRatio,
+          projectHeight - viewportHeight,
+        )
+
+    continuation.style.setProperty(
+      '--hipocampo-project-continuation-height',
+      `${Math.ceil(continuationHeight)}px`,
+    )
   }
 
   const render = () => {
     animationFrame = 0
 
     if (reducedMotion.matches) {
-      hero.style.setProperty('--hipocampo-scroll-progress', '0')
+      scene.style.setProperty('--hipocampo-scroll-progress', '0')
       project.style.setProperty('--hipocampo-scroll-progress', '0')
       circle.style.setProperty('--hipocampo-circle-scale', '1')
       project.style.setProperty('--hipocampo-reveal', '1')
-      project.classList.add('hipocampo-transition-complete')
+      project.classList.add('hipocampo-project-visible')
       stage.dataset.transitionPhase = 'reduced'
       return
     }
 
-    const rect = hero.getBoundingClientRect()
-    const scrollDistance = Math.max(1, hero.offsetHeight - window.innerHeight)
-    const progress = clamp(-rect.top / scrollDistance)
+    const progress = clamp((window.scrollY - sceneTop) / scrollDistance)
     const reveal = clamp((progress - 0.54) * 2.18)
     const circleScale = 1 + progress * (coverageScale - 1)
 
-    hero.style.setProperty('--hipocampo-scroll-progress', progress.toFixed(5))
+    scene.style.setProperty('--hipocampo-scroll-progress', progress.toFixed(5))
     project.style.setProperty('--hipocampo-scroll-progress', progress.toFixed(5))
     circle.style.setProperty('--hipocampo-circle-scale', circleScale.toFixed(5))
     project.style.setProperty('--hipocampo-reveal', reveal.toFixed(5))
 
     const isComplete = progress >= 0.9999
     project.classList.toggle('hipocampo-transition-complete', isComplete)
+    project.classList.toggle('hipocampo-project-visible', reveal > 0)
     stage.dataset.transitionPhase = isComplete
       ? 'complete'
       : progress > 0
@@ -113,6 +156,7 @@ function initializeScrollTransition(hero, stage, project) {
     if (
       window.innerWidth === viewportWidth
       && window.innerHeight === viewportHeight
+      && (window.visualViewport?.height || window.innerHeight) === visualViewportHeight
     ) {
       requestRender()
       return
@@ -120,17 +164,29 @@ function initializeScrollTransition(hero, stage, project) {
 
     measure()
     requestRender()
+    requestTriggerRefresh()
   }
 
   const onMotionPreferenceChange = () => {
     measure()
     requestRender()
+    requestTriggerRefresh()
+  }
+
+  const requestTriggerRefresh = () => {
+    if (triggerRefreshFrame) {
+      return
+    }
+
+    triggerRefreshFrame = window.requestAnimationFrame(() => {
+      triggerRefreshFrame = 0
+      ScrollTrigger.refresh()
+    })
   }
 
   const scrollToProject = (event) => {
     if (
-      reducedMotion.matches
-      || event?.defaultPrevented
+      event?.defaultPrevented
       || event?.button > 0
       || event?.metaKey
       || event?.ctrlKey
@@ -142,10 +198,12 @@ function initializeScrollTransition(hero, stage, project) {
 
     event?.preventDefault()
 
-    const transitionEnd = hero.offsetTop + hero.offsetHeight - window.innerHeight
+    const transitionEnd = reducedMotion.matches
+      ? sceneTop + viewportHeight
+      : sceneTop + scrollDistance
     window.scrollTo({
       top: transitionEnd,
-      behavior: event ? 'smooth' : 'auto',
+      behavior: event && !reducedMotion.matches ? 'smooth' : 'auto',
     })
 
     if (event && window.location.hash !== '#projeto') {
@@ -158,41 +216,71 @@ function initializeScrollTransition(hero, stage, project) {
 
   const stabilizationFrame = window.requestAnimationFrame(() => {
     stabilizeProjectSection(project)
+    measure()
     render()
+    requestTriggerRefresh()
 
     if (window.location.hash === '#projeto') {
       scrollToProject()
     }
   })
 
+  const projectResizeObserver = new ResizeObserver(() => {
+    measure()
+    requestRender()
+    requestTriggerRefresh()
+  })
+  projectResizeObserver.observe(project)
+
+  const onHashChange = () => {
+    if (window.location.hash === '#projeto') {
+      scrollToProject()
+    }
+  }
+
   window.addEventListener('scroll', requestRender, { passive: true })
   window.addEventListener('resize', refresh, { passive: true })
   window.visualViewport?.addEventListener('resize', refresh, { passive: true })
+  window.addEventListener('hashchange', onHashChange)
   reducedMotion.addEventListener('change', onMotionPreferenceChange)
   projectAnchors.forEach((anchor) => anchor.addEventListener('click', scrollToProject))
 
   const cleanup = () => {
     window.cancelAnimationFrame(animationFrame)
     window.cancelAnimationFrame(stabilizationFrame)
+    window.cancelAnimationFrame(triggerRefreshFrame)
+    projectResizeObserver.disconnect()
     window.removeEventListener('scroll', requestRender)
     window.removeEventListener('resize', refresh)
     window.visualViewport?.removeEventListener('resize', refresh)
+    window.removeEventListener('hashchange', onHashChange)
     reducedMotion.removeEventListener('change', onMotionPreferenceChange)
     projectAnchors.forEach((anchor) => anchor.removeEventListener('click', scrollToProject))
     window.removeEventListener('pagehide', cleanup)
-    hero.classList.remove('hipocampo-transition-scene')
+    scene.classList.remove('hipocampo-transition-scene')
     project.classList.remove(
       'hipocampo-transition-project',
       'hipocampo-transition-complete',
+      'hipocampo-project-visible',
     )
-    hero.style.removeProperty('--hipocampo-scroll-progress')
-    hero.style.removeProperty('--hipocampo-viewport-height')
+    scene.style.removeProperty('--hipocampo-scroll-progress')
+    scene.style.removeProperty('--hipocampo-viewport-height')
     project.style.removeProperty('--hipocampo-scroll-progress')
     project.style.removeProperty('--hipocampo-viewport-height')
+    project.style.removeProperty('--hipocampo-project-color')
     circle.style.removeProperty('--hipocampo-circle-scale')
     project.style.removeProperty('--hipocampo-reveal')
+    continuation.remove()
+
+    const { parent, nextSibling } = originalProjectLocation
+    if (nextSibling?.parentNode === parent) {
+      parent.insertBefore(project, nextSibling)
+    } else {
+      parent.append(project)
+    }
+
     delete stage.dataset.transitionPhase
-    delete hero.dataset.transitionController
+    delete scene.dataset.transitionController
     delete window.__hipocampoHeroTransitionCleanup
   }
 
@@ -204,12 +292,14 @@ function createHeroMarkup() {
   const stage = document.createElement('div')
   stage.className = 'hipocampo-hero-stage'
   stage.innerHTML = `
-    <div class="hipocampo-hero-texture" aria-hidden="true"></div>
     <h1 class="hipocampo-hero-title">Uma memória desapareceu</h1>
-    <div class="hipocampo-memory-field" aria-hidden="true">
-      ${Array.from({ length: 8 }, () => `<span>${repeatLine}</span>`).join('')}
+    <div class="hipocampo-hero-visuals">
+      <div class="hipocampo-hero-texture" aria-hidden="true"></div>
+      <div class="hipocampo-transition-circle" aria-hidden="true"></div>
+      <div class="hipocampo-memory-field" aria-hidden="true">
+        ${Array.from({ length: 8 }, () => `<span>${repeatLine}</span>`).join('')}
+      </div>
     </div>
-    <div class="hipocampo-transition-circle" aria-hidden="true"></div>
   `
   return stage
 }
@@ -225,6 +315,10 @@ function initializeHero() {
 
   hero.dataset.redesigned = 'true'
   hero.className = 'hipocampo-hero'
+  const originalProjectLocation = {
+    parent: project.parentNode,
+    nextSibling: project.nextSibling,
+  }
   const stage = createHeroMarkup()
   hero.replaceChildren(stage)
 
@@ -236,7 +330,7 @@ function initializeHero() {
   navigation.classList.remove('hipocampo-nav-on-hero')
   navigation.classList.add('hipocampo-global-header')
   navigation.style.mixBlendMode = 'normal'
-  initializeScrollTransition(hero, stage, project)
+  initializeScrollTransition(hero, stage, project, originalProjectLocation)
   return true
 }
 

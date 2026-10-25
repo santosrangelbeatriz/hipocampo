@@ -1,0 +1,84 @@
+{
+  "reduced_motion": {
+    "top": {
+      "viewport": [
+        390,
+        844
+      ],
+      "scrollY": 0,
+      "sceneHeight": 844,
+      "stagePosition": "relative",
+      "stageTop": 0,
+      "projectTop": 844,
+      "projectHeight": 1244.28125,
+      "continuationHeight": 1245,
+      "phase": "reduced",
+      "reveal": "1",
+      "circleScale": "1",
+      "memoryOpacity": 1,
+      "xOverflow": 0
+    },
+    "project_anchor": {
+      "hash": "",
+      "scrollY": 0,
+      "projectTop": 844,
+      "phase": "reduced",
+      "xOverflow": 0
+    },
+    "page_errors": []
+  },
+  "keyboard": {
+    "project_focus_found": true,
+    "focus_path": [
+      {
+        "tag": "A",
+        "href": "#conteudo",
+        "text": "Ir para o conteúdo",
+        "outline": "auto"
+      },
+      {
+        "tag": "A",
+        "href": "#abertura",
+        "text": "Hipocampo",
+        "outline": "solid"
+      },
+      {
+        "tag": "A",
+        "href": "#projeto",
+        "text": "01projeto",
+        "outline": "solid"
+      }
+    ],
+    "enter_state": {
+      "hash": "#projeto",
+      "scrollY": 768,
+      "sceneEnd": 768,
+      "projectTop": 0,
+      "phase": "complete"
+    },
+    "page_down": {
+      "scrollY": 672,
+      "progress": 0.875,
+      "phase": "expanding"
+    },
+    "page_up": {
+      "scrollY": 0,
+      "progress": 0,
+      "phase": "initial"
+    },
+    "page_errors": []
+  },
+  "touch": {
+    "forward": {
+      "scrollY": 545,
+      "progress": 0.64573,
+      "phase": "expanding"
+    },
+    "reverse": {
+      "scrollY": 0,
+      "progress": 0,
+      "phase": "initial"
+    },
+    "page_errors": []
+  }
+}

@@ -1,0 +1,414 @@
+[
+  {
+    "progress": 0,
+    "scrollY": 0,
+    "documentScrollHeight": 9773,
+    "project": {
+      "parentTag": "DIV",
+      "parentClass": "hipocampo-hero-stage",
+      "className": "min-h-screen py-[clamp(6rem,10vw,10rem)] page-pad grid md:grid-cols-2 gap-16 items-start hipocampo-transition-project",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1600,
+        "height": 1725.859375,
+        "top": 0,
+        "right": 1600,
+        "bottom": 1725.859375,
+        "left": 0
+      },
+      "documentTop": 0,
+      "offsetHeight": 1726,
+      "clientHeight": 1726,
+      "scrollHeight": 1726,
+      "offsetParentClass": "hipocampo-hero-stage",
+      "computed": {
+        "position": "absolute",
+        "top": "0px",
+        "left": "0px",
+        "width": "1600px",
+        "height": "1725.86px",
+        "minHeight": "900px",
+        "maxHeight": "none",
+        "marginTop": "0px",
+        "transform": "none",
+        "translate": "none",
+        "overflow": "visible",
+        "overflowX": "visible",
+        "overflowY": "visible",
+        "opacity": "1",
+        "pointerEvents": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "childCount": 4,
+      "firstChildRect": {
+        "x": 64,
+        "y": 223,
+        "width": 704,
+        "height": 214.90625,
+        "top": 223,
+        "right": 768,
+        "bottom": 437.90625,
+        "left": 64
+      },
+      "firstChildOpacity": "0",
+      "firstChildTranslate": "0px 63px"
+    },
+    "continuation": {
+      "className": "hipocampo-project-continuation",
+      "rect": {
+        "x": 0,
+        "y": 1800,
+        "width": 1600,
+        "height": 826,
+        "top": 1800,
+        "right": 1600,
+        "bottom": 2626,
+        "left": 0
+      },
+      "offsetHeight": 826,
+      "computedHeight": "826px",
+      "backgroundColor": "rgb(255, 223, 96)"
+    },
+    "scene": {
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1600,
+        "height": 1800,
+        "top": 0,
+        "right": 1600,
+        "bottom": 1800,
+        "left": 0
+      },
+      "offsetHeight": 1800
+    },
+    "stage": {
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1600,
+        "height": 900,
+        "top": 0,
+        "right": 1600,
+        "bottom": 900,
+        "left": 0
+      },
+      "position": "sticky",
+      "overflow": "visible"
+    },
+    "viewport": {
+      "width": 1600,
+      "height": 900
+    }
+  },
+  {
+    "progress": 1,
+    "scrollY": 900,
+    "documentScrollHeight": 9773,
+    "project": {
+      "parentTag": "DIV",
+      "parentClass": "hipocampo-hero-stage",
+      "className": "min-h-screen py-[clamp(6rem,10vw,10rem)] page-pad grid md:grid-cols-2 gap-16 items-start hipocampo-transition-project hipocampo-transition-complete hipocampo-project-visible",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1600,
+        "height": 1725.859375,
+        "top": 0,
+        "right": 1600,
+        "bottom": 1725.859375,
+        "left": 0
+      },
+      "documentTop": 900,
+      "offsetHeight": 1726,
+      "clientHeight": 1726,
+      "scrollHeight": 1726,
+      "offsetParentClass": "hipocampo-hero-stage",
+      "computed": {
+        "position": "absolute",
+        "top": "0px",
+        "left": "0px",
+        "width": "1600px",
+        "height": "1725.86px",
+        "minHeight": "900px",
+        "maxHeight": "none",
+        "marginTop": "0px",
+        "transform": "none",
+        "translate": "none",
+        "overflow": "visible",
+        "overflowX": "visible",
+        "overflowY": "visible",
+        "opacity": "1",
+        "pointerEvents": "auto",
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "childCount": 4,
+      "firstChildRect": {
+        "x": 64,
+        "y": 160,
+        "width": 704,
+        "height": 214.90625,
+        "top": 160,
+        "right": 768,
+        "bottom": 374.90625,
+        "left": 64
+      },
+      "firstChildOpacity": "1",
+      "firstChildTranslate": "0px"
+    },
+    "continuation": {
+      "className": "hipocampo-project-continuation",
+      "rect": {
+        "x": 0,
+        "y": 900,
+        "width": 1600,
+        "height": 826,
+        "top": 900,
+        "right": 1600,
+        "bottom": 1726,
+        "left": 0
+      },
+      "offsetHeight": 826,
+      "computedHeight": "826px",
+      "backgroundColor": "rgb(255, 223, 96)"
+    },
+    "scene": {
+      "rect": {
+        "x": 0,
+        "y": -900,
+        "width": 1600,
+        "height": 1800,
+        "top": -900,
+        "right": 1600,
+        "bottom": 900,
+        "left": 0
+      },
+      "offsetHeight": 1800
+    },
+    "stage": {
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1600,
+        "height": 900,
+        "top": 0,
+        "right": 1600,
+        "bottom": 900,
+        "left": 0
+      },
+      "position": "sticky",
+      "overflow": "visible"
+    },
+    "viewport": {
+      "width": 1600,
+      "height": 900
+    }
+  },
+  {
+    "progress": 0,
+    "scrollY": 0,
+    "documentScrollHeight": 7889,
+    "project": {
+      "parentTag": "DIV",
+      "parentClass": "hipocampo-hero-stage",
+      "className": "min-h-screen py-[clamp(6rem,10vw,10rem)] page-pad grid md:grid-cols-2 gap-16 items-start hipocampo-transition-project",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 1244.28125,
+        "top": 0,
+        "right": 390,
+        "bottom": 1244.28125,
+        "left": 0
+      },
+      "documentTop": 0,
+      "offsetHeight": 1244,
+      "clientHeight": 1244,
+      "scrollHeight": 1244,
+      "offsetParentClass": "hipocampo-hero-stage",
+      "computed": {
+        "position": "absolute",
+        "top": "0px",
+        "left": "0px",
+        "width": "390px",
+        "height": "1244.28px",
+        "minHeight": "844px",
+        "maxHeight": "none",
+        "marginTop": "0px",
+        "transform": "none",
+        "translate": "none",
+        "overflow": "visible",
+        "overflowX": "visible",
+        "overflowY": "visible",
+        "opacity": "1",
+        "pointerEvents": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "childCount": 4,
+      "firstChildRect": {
+        "x": 17.59375,
+        "y": 155.0800018310547,
+        "width": 354.8125,
+        "height": 125.96876525878906,
+        "top": 155.0800018310547,
+        "right": 372.40625,
+        "bottom": 281.04876708984375,
+        "left": 17.59375
+      },
+      "firstChildOpacity": "0",
+      "firstChildTranslate": "0px 59.08px"
+    },
+    "continuation": {
+      "className": "hipocampo-project-continuation",
+      "rect": {
+        "x": 0,
+        "y": 1688,
+        "width": 390,
+        "height": 401,
+        "top": 1688,
+        "right": 390,
+        "bottom": 2089,
+        "left": 0
+      },
+      "offsetHeight": 401,
+      "computedHeight": "401px",
+      "backgroundColor": "rgb(255, 223, 96)"
+    },
+    "scene": {
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 1688,
+        "top": 0,
+        "right": 390,
+        "bottom": 1688,
+        "left": 0
+      },
+      "offsetHeight": 1688
+    },
+    "stage": {
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 844,
+        "top": 0,
+        "right": 390,
+        "bottom": 844,
+        "left": 0
+      },
+      "position": "sticky",
+      "overflow": "visible"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    }
+  },
+  {
+    "progress": 1,
+    "scrollY": 844,
+    "documentScrollHeight": 7889,
+    "project": {
+      "parentTag": "DIV",
+      "parentClass": "hipocampo-hero-stage",
+      "className": "min-h-screen py-[clamp(6rem,10vw,10rem)] page-pad grid md:grid-cols-2 gap-16 items-start hipocampo-transition-project hipocampo-transition-complete hipocampo-project-visible",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 1244.28125,
+        "top": 0,
+        "right": 390,
+        "bottom": 1244.28125,
+        "left": 0
+      },
+      "documentTop": 844,
+      "offsetHeight": 1244,
+      "clientHeight": 1244,
+      "scrollHeight": 1244,
+      "offsetParentClass": "hipocampo-hero-stage",
+      "computed": {
+        "position": "absolute",
+        "top": "0px",
+        "left": "0px",
+        "width": "390px",
+        "height": "1244.28px",
+        "minHeight": "844px",
+        "maxHeight": "none",
+        "marginTop": "0px",
+        "transform": "none",
+        "translate": "none",
+        "overflow": "visible",
+        "overflowX": "visible",
+        "overflowY": "visible",
+        "opacity": "1",
+        "pointerEvents": "auto",
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "childCount": 4,
+      "firstChildRect": {
+        "x": 17.59375,
+        "y": 96,
+        "width": 354.8125,
+        "height": 125.96875,
+        "top": 96,
+        "right": 372.40625,
+        "bottom": 221.96875,
+        "left": 17.59375
+      },
+      "firstChildOpacity": "1",
+      "firstChildTranslate": "0px"
+    },
+    "continuation": {
+      "className": "hipocampo-project-continuation",
+      "rect": {
+        "x": 0,
+        "y": 844,
+        "width": 390,
+        "height": 401,
+        "top": 844,
+        "right": 390,
+        "bottom": 1245,
+        "left": 0
+      },
+      "offsetHeight": 401,
+      "computedHeight": "401px",
+      "backgroundColor": "rgb(255, 223, 96)"
+    },
+    "scene": {
+      "rect": {
+        "x": 0,
+        "y": -844,
+        "width": 390,
+        "height": 1688,
+        "top": -844,
+        "right": 390,
+        "bottom": 844,
+        "left": 0
+      },
+      "offsetHeight": 1688
+    },
+    "stage": {
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 844,
+        "top": 0,
+        "right": 390,
+        "bottom": 844,
+        "left": 0
+      },
+      "position": "sticky",
+      "overflow": "visible"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    }
+  }
+]

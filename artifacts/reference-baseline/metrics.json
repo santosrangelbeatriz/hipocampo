@@ -1,0 +1,3121 @@
+{
+  "browser": {
+    "engine": "chromium",
+    "version": "143.0.7499.4",
+    "playwright": "1.57.0"
+  },
+  "runs": [
+    {
+      "app": "figma",
+      "url": "http://127.0.0.1:5174/",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "navigationStatus": 200,
+      "states": [
+        {
+          "requestedProgress": 0,
+          "actualProgress": 0,
+          "targetY": 0,
+          "scrollY": 0,
+          "sceneTop": 0,
+          "scrollDistance": 900,
+          "viewport": {
+            "width": 1600,
+            "height": 900,
+            "dpr": 1
+          },
+          "document": {
+            "documentScrollHeight": 2070,
+            "bodyScrollHeight": 2070,
+            "documentClientWidth": 1600,
+            "documentScrollWidth": 1600,
+            "horizontalOverflow": 0,
+            "fontsStatus": "loaded"
+          },
+          "scene": {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 1600,
+              "height": 1800,
+              "top": 0,
+              "right": 1600,
+              "bottom": 1800,
+              "left": 0
+            },
+            "offsetHeight": 1800,
+            "clientHeight": 1800,
+            "position": "relative",
+            "height": "1800px",
+            "minHeight": "0px",
+            "marginTop": "0px",
+            "transform": "none",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "overflow": "visible",
+            "cssProgress": "0",
+            "hipocampoProgress": ""
+          },
+          "stage": {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 1600,
+              "height": 900,
+              "top": 0,
+              "right": 1600,
+              "bottom": 900,
+              "left": 0
+            },
+            "position": "sticky",
+            "top": "0px",
+            "height": "900px",
+            "backgroundColor": "rgb(24, 45, 255)",
+            "overflow": "hidden",
+            "phase": null
+          },
+          "circle": {
+            "rect": {
+              "x": 680,
+              "y": 780,
+              "width": 240,
+              "height": 240,
+              "top": 780,
+              "right": 920,
+              "bottom": 1020,
+              "left": 680
+            },
+            "center": {
+              "x": 800,
+              "y": 900,
+              "normalizedX": 0.5,
+              "normalizedY": 1
+            },
+            "radius": 120,
+            "farthestCorner": 1204.1594578792294,
+            "coverageRatio": 0.09965457582448797,
+            "coversViewport": false,
+            "diameterToViewportWidth": 0.15,
+            "diameterToViewportDiagonal": 0.1307363305686824,
+            "transform": "matrix(1, 0, 0, 1, -120, 0)",
+            "transformOrigin": "120px 120px",
+            "backgroundColor": "rgb(255, 223, 97)",
+            "scaleVariable": ""
+          },
+          "intro": {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 1600,
+              "height": 900,
+              "top": 0,
+              "right": 1600,
+              "bottom": 900,
+              "left": 0
+            },
+            "opacity": "1",
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "visibility": "visible"
+          },
+          "project": {
+            "rect": {
+              "x": 0,
+              "y": 63,
+              "width": 1600,
+              "height": 900,
+              "top": 63,
+              "right": 1600,
+              "bottom": 963,
+              "left": 0
+            },
+            "documentTop": 63,
+            "scrollHeight": 900,
+            "clientHeight": 900,
+            "offsetHeight": 900,
+            "position": "absolute",
+            "display": "block",
+            "visibility": "visible",
+            "opacity": "0",
+            "transform": "matrix(1, 0, 0, 1, 0, 63)",
+            "marginTop": "0px",
+            "minHeight": "0px",
+            "height": "900px",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "pointerEvents": "auto",
+            "cssReveal": "",
+            "firstChild": {
+              "tag": "DIV",
+              "className": "project-kicker",
+              "rect": {
+                "x": 60.796875,
+                "y": 207,
+                "width": 166.390625,
+                "height": 32.390625,
+                "top": 207,
+                "right": 227.1875,
+                "bottom": 239.390625,
+                "left": 60.796875
+              },
+              "opacity": "1",
+              "transform": "none",
+              "visibility": "visible"
+            }
+          },
+          "screenshot": "figma-1600x900-000.png"
+        },
+        {
+          "requestedProgress": 0.25,
+          "actualProgress": 0.25,
+          "targetY": 225,
+          "scrollY": 225,
+          "sceneTop": 0,
+          "scrollDistance": 900,
+          "viewport": {
+            "width": 1600,
+            "height": 900,
+            "dpr": 1
+          },
+          "document": {
+            "documentScrollHeight": 2070,
+            "bodyScrollHeight": 2070,
+            "documentClientWidth": 1600,
+            "documentScrollWidth": 1600,
+            "horizontalOverflow": 0,
+            "fontsStatus": "loaded"
+          },
+          "scene": {
+            "rect": {
+              "x": 0,
+              "y": -225,
+              "width": 1600,
+              "height": 1800,
+              "top": -225,
+              "right": 1600,
+              "bottom": 1575,
+              "left": 0
+            },
+            "offsetHeight": 1800,
+            "clientHeight": 1800,
+            "position": "relative",
+            "height": "1800px",
+            "minHeight": "0px",
+            "marginTop": "0px",
+            "transform": "none",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "overflow": "visible",
+            "cssProgress": "0.25",
+            "hipocampoProgress": ""
+          },
+          "stage": {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 1600,
+              "height": 900,
+              "top": 0,
+              "right": 1600,
+              "bottom": 900,
+              "left": 0
+            },
+            "position": "sticky",
+            "top": "0px",
+            "height": "900px",
+            "backgroundColor": "rgb(24, 45, 255)",
+            "overflow": "hidden",
+            "phase": null
+          },
+          "circle": {
+            "rect": {
+              "x": 140,
+              "y": 240,
+              "width": 1320,
+              "height": 1320,
+              "top": 240,
+              "right": 1460,
+              "bottom": 1560,
+              "left": 140
+            },
+            "center": {
+              "x": 800,
+              "y": 900,
+              "normalizedX": 0.5,
+              "normalizedY": 1
+            },
+            "radius": 660,
+            "farthestCorner": 1204.1594578792294,
+            "coverageRatio": 0.5481001670346839,
+            "coversViewport": false,
+            "diameterToViewportWidth": 0.825,
+            "diameterToViewportDiagonal": 0.7190498181277531,
+            "transform": "matrix(5.5, 0, 0, 5.5, -120, 0)",
+            "transformOrigin": "120px 120px",
+            "backgroundColor": "rgb(255, 223, 97)",
+            "scaleVariable": ""
+          },
+          "intro": {
+            "rect": {
+              "x": 0,
+              "y": -9,
+              "width": 1600,
+              "height": 900,
+              "top": -9,
+              "right": 1600,
+              "bottom": 891,
+              "left": 0
+            },
+            "opacity": "0.4",
+            "transform": "matrix(1, 0, 0, 1, 0, -9)",
+            "visibility": "visible"
+          },
+          "project": {
+            "rect": {
+              "x": 0,
+              "y": 63,
+              "width": 1600,
+              "height": 900,
+              "top": 63,
+              "right": 1600,
+              "bottom": 963,
+              "left": 0
+            },
+            "documentTop": 288,
+            "scrollHeight": 900,
+            "clientHeight": 900,
+            "offsetHeight": 900,
+            "position": "absolute",
+            "display": "block",
+            "visibility": "visible",
+            "opacity": "0",
+            "transform": "matrix(1, 0, 0, 1, 0, 63)",
+            "marginTop": "0px",
+            "minHeight": "0px",
+            "height": "900px",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "pointerEvents": "auto",
+            "cssReveal": "",
+            "firstChild": {
+              "tag": "DIV",
+              "className": "project-kicker",
+              "rect": {
+                "x": 60.796875,
+                "y": 207,
+                "width": 108.484375,
+                "height": 32.390625,
+                "top": 207,
+                "right": 169.28125,
+                "bottom": 239.390625,
+                "left": 60.796875
+              },
+              "opacity": "1",
+              "transform": "none",
+              "visibility": "visible"
+            }
+          },
+          "screenshot": "figma-1600x900-025.png"
+        },
+        {
+          "requestedProgress": 0.5,
+          "actualProgress": 0.5,
+          "targetY": 450,
+          "scrollY": 450,
+          "sceneTop": 0,
+          "scrollDistance": 900,
+          "viewport": {
+            "width": 1600,
+            "height": 900,
+            "dpr": 1
+          },
+          "document": {
+            "documentScrollHeight": 2070,
+            "bodyScrollHeight": 2070,
+            "documentClientWidth": 1600,
+            "documentScrollWidth": 1600,
+            "horizontalOverflow": 0,
+            "fontsStatus": "loaded"
+          },
+          "scene": {
+            "rect": {
+              "x": 0,
+              "y": -450,
+              "width": 1600,
+              "height": 1800,
+              "top": -450,
+              "right": 1600,
+              "bottom": 1350,
+              "left": 0
+            },
+            "offsetHeight": 1800,
+            "clientHeight": 1800,
+            "position": "relative",
+            "height": "1800px",
+            "minHeight": "0px",
+            "marginTop": "0px",
+            "transform": "none",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "overflow": "visible",
+            "cssProgress": "0.5",
+            "hipocampoProgress": ""
+          },
+          "stage": {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 1600,
+              "height": 900,
+              "top": 0,
+              "right": 1600,
+              "bottom": 900,
+              "left": 0
+            },
+            "position": "sticky",
+            "top": "0px",
+            "height": "900px",
+            "backgroundColor": "rgb(24, 45, 255)",
+            "overflow": "hidden",
+            "phase": null
+          },
+          "circle": {
+            "rect": {
+              "x": -400,
+              "y": -300,
+              "width": 2400,
+              "height": 2400,
+              "top": -300,
+              "right": 2000,
+              "bottom": 2100,
+              "left": -400
+            },
+            "center": {
+              "x": 800,
+              "y": 900,
+              "normalizedX": 0.5,
+              "normalizedY": 1
+            },
+            "radius": 1200,
+            "farthestCorner": 1204.1594578792294,
+            "coverageRatio": 0.9965457582448797,
+            "coversViewport": false,
+            "diameterToViewportWidth": 1.5,
+            "diameterToViewportDiagonal": 1.307363305686824,
+            "transform": "matrix(10, 0, 0, 10, -120, 0)",
+            "transformOrigin": "120px 120px",
+            "backgroundColor": "rgb(255, 223, 97)",
+            "scaleVariable": ""
+          },
+          "intro": {
+            "rect": {
+              "x": 0,
+              "y": -18,
+              "width": 1600,
+              "height": 900,
+              "top": -18,
+              "right": 1600,
+              "bottom": 882,
+              "left": 0
+            },
+            "opacity": "0",
+            "transform": "matrix(1, 0, 0, 1, 0, -18)",
+            "visibility": "visible"
+          },
+          "project": {
+            "rect": {
+              "x": 0,
+              "y": 63,
+              "width": 1600,
+              "height": 900,
+              "top": 63,
+              "right": 1600,
+              "bottom": 963,
+              "left": 0
+            },
+            "documentTop": 513,
+            "scrollHeight": 900,
+            "clientHeight": 900,
+            "offsetHeight": 900,
+            "position": "absolute",
+            "display": "block",
+            "visibility": "visible",
+            "opacity": "0",
+            "transform": "matrix(1, 0, 0, 1, 0, 63)",
+            "marginTop": "0px",
+            "minHeight": "0px",
+            "height": "900px",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "pointerEvents": "auto",
+            "cssReveal": "",
+            "firstChild": {
+              "tag": "DIV",
+              "className": "project-kicker",
+              "rect": {
+                "x": 60.796875,
+                "y": 207,
+                "width": 108.484375,
+                "height": 32.390625,
+                "top": 207,
+                "right": 169.28125,
+                "bottom": 239.390625,
+                "left": 60.796875
+              },
+              "opacity": "1",
+              "transform": "none",
+              "visibility": "visible"
+            }
+          },
+          "screenshot": "figma-1600x900-050.png"
+        },
+        {
+          "requestedProgress": 0.75,
+          "actualProgress": 0.75,
+          "targetY": 675,
+          "scrollY": 675,
+          "sceneTop": 0,
+          "scrollDistance": 900,
+          "viewport": {
+            "width": 1600,
+            "height": 900,
+            "dpr": 1
+          },
+          "document": {
+            "documentScrollHeight": 2070,
+            "bodyScrollHeight": 2070,
+            "documentClientWidth": 1600,
+            "documentScrollWidth": 1600,
+            "horizontalOverflow": 0,
+            "fontsStatus": "loaded"
+          },
+          "scene": {
+            "rect": {
+              "x": 0,
+              "y": -675,
+              "width": 1600,
+              "height": 1800,
+              "top": -675,
+              "right": 1600,
+              "bottom": 1125,
+              "left": 0
+            },
+            "offsetHeight": 1800,
+            "clientHeight": 1800,
+            "position": "relative",
+            "height": "1800px",
+            "minHeight": "0px",
+            "marginTop": "0px",
+            "transform": "none",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "overflow": "visible",
+            "cssProgress": "0.75",
+            "hipocampoProgress": ""
+          },
+          "stage": {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 1600,
+              "height": 900,
+              "top": 0,
+              "right": 1600,
+              "bottom": 900,
+              "left": 0
+            },
+            "position": "sticky",
+            "top": "0px",
+            "height": "900px",
+            "backgroundColor": "rgb(24, 45, 255)",
+            "overflow": "hidden",
+            "phase": null
+          },
+          "circle": {
+            "rect": {
+              "x": -940,
+              "y": -840,
+              "width": 3480,
+              "height": 3480,
+              "top": -840,
+              "right": 2540,
+              "bottom": 2640,
+              "left": -940
+            },
+            "center": {
+              "x": 800,
+              "y": 900,
+              "normalizedX": 0.5,
+              "normalizedY": 1
+            },
+            "radius": 1740,
+            "farthestCorner": 1204.1594578792294,
+            "coverageRatio": 1.4449913494550757,
+            "coversViewport": true,
+            "diameterToViewportWidth": 2.175,
+            "diameterToViewportDiagonal": 1.8956767932458949,
+            "transform": "matrix(14.5, 0, 0, 14.5, -120, 0)",
+            "transformOrigin": "120px 120px",
+            "backgroundColor": "rgb(255, 223, 97)",
+            "scaleVariable": ""
+          },
+          "intro": {
+            "rect": {
+              "x": 0,
+              "y": -27,
+              "width": 1600,
+              "height": 900,
+              "top": -27,
+              "right": 1600,
+              "bottom": 873,
+              "left": 0
+            },
+            "opacity": "0",
+            "transform": "matrix(1, 0, 0, 1, 0, -27)",
+            "visibility": "visible"
+          },
+          "project": {
+            "rect": {
+              "x": 0,
+              "y": 34.158599853515625,
+              "width": 1600,
+              "height": 900,
+              "top": 34.158599853515625,
+              "right": 1600,
+              "bottom": 934.1585998535156,
+              "left": 0
+            },
+            "documentTop": 709.1585998535156,
+            "scrollHeight": 900,
+            "clientHeight": 900,
+            "offsetHeight": 900,
+            "position": "absolute",
+            "display": "block",
+            "visibility": "visible",
+            "opacity": "0.4578",
+            "transform": "matrix(1, 0, 0, 1, 0, 34.1586)",
+            "marginTop": "0px",
+            "minHeight": "0px",
+            "height": "900px",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "pointerEvents": "auto",
+            "cssReveal": "",
+            "firstChild": {
+              "tag": "DIV",
+              "className": "project-kicker",
+              "rect": {
+                "x": 60.796875,
+                "y": 178.15859985351562,
+                "width": 108.484375,
+                "height": 32.390625,
+                "top": 178.15859985351562,
+                "right": 169.28125,
+                "bottom": 210.54922485351562,
+                "left": 60.796875
+              },
+              "opacity": "1",
+              "transform": "none",
+              "visibility": "visible"
+            }
+          },
+          "screenshot": "figma-1600x900-075.png"
+        },
+        {
+          "requestedProgress": 1,
+          "actualProgress": 1,
+          "targetY": 900,
+          "scrollY": 900,
+          "sceneTop": 0,
+          "scrollDistance": 900,
+          "viewport": {
+            "width": 1600,
+            "height": 900,
+            "dpr": 1
+          },
+          "document": {
+            "documentScrollHeight": 2070,
+            "bodyScrollHeight": 2070,
+            "documentClientWidth": 1600,
+            "documentScrollWidth": 1600,
+            "horizontalOverflow": 0,
+            "fontsStatus": "loaded"
+          },
+          "scene": {
+            "rect": {
+              "x": 0,
+              "y": -900,
+              "width": 1600,
+              "height": 1800,
+              "top": -900,
+              "right": 1600,
+              "bottom": 900,
+              "left": 0
+            },
+            "offsetHeight": 1800,
+            "clientHeight": 1800,
+            "position": "relative",
+            "height": "1800px",
+            "minHeight": "0px",
+            "marginTop": "0px",
+            "transform": "none",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "overflow": "visible",
+            "cssProgress": "1",
+            "hipocampoProgress": ""
+          },
+          "stage": {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 1600,
+              "height": 900,
+              "top": 0,
+              "right": 1600,
+              "bottom": 900,
+              "left": 0
+            },
+            "position": "sticky",
+            "top": "0px",
+            "height": "900px",
+            "backgroundColor": "rgb(24, 45, 255)",
+            "overflow": "hidden",
+            "phase": null
+          },
+          "circle": {
+            "rect": {
+              "x": -1480,
+              "y": -1380,
+              "width": 4560,
+              "height": 4560,
+              "top": -1380,
+              "right": 3080,
+              "bottom": 3180,
+              "left": -1480
+            },
+            "center": {
+              "x": 800,
+              "y": 900,
+              "normalizedX": 0.5,
+              "normalizedY": 1
+            },
+            "radius": 2280,
+            "farthestCorner": 1204.1594578792294,
+            "coverageRatio": 1.8934369406652716,
+            "coversViewport": true,
+            "diameterToViewportWidth": 2.85,
+            "diameterToViewportDiagonal": 2.4839902808049654,
+            "transform": "matrix(19, 0, 0, 19, -120, 0)",
+            "transformOrigin": "120px 120px",
+            "backgroundColor": "rgb(255, 223, 97)",
+            "scaleVariable": ""
+          },
+          "intro": {
+            "rect": {
+              "x": 0,
+              "y": -36,
+              "width": 1600,
+              "height": 900,
+              "top": -36,
+              "right": 1600,
+              "bottom": 864,
+              "left": 0
+            },
+            "opacity": "0",
+            "transform": "matrix(1, 0, 0, 1, 0, -36)",
+            "visibility": "visible"
+          },
+          "project": {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 1600,
+              "height": 900,
+              "top": 0,
+              "right": 1600,
+              "bottom": 900,
+              "left": 0
+            },
+            "documentTop": 900,
+            "scrollHeight": 900,
+            "clientHeight": 900,
+            "offsetHeight": 900,
+            "position": "absolute",
+            "display": "block",
+            "visibility": "visible",
+            "opacity": "1",
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "marginTop": "0px",
+            "minHeight": "0px",
+            "height": "900px",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "pointerEvents": "auto",
+            "cssReveal": "",
+            "firstChild": {
+              "tag": "DIV",
+              "className": "project-kicker",
+              "rect": {
+                "x": 60.796875,
+                "y": 144,
+                "width": 108.484375,
+                "height": 32.390625,
+                "top": 144,
+                "right": 169.28125,
+                "bottom": 176.390625,
+                "left": 60.796875
+              },
+              "opacity": "1",
+              "transform": "none",
+              "visibility": "visible"
+            }
+          },
+          "screenshot": "figma-1600x900-100.png"
+        }
+      ],
+      "events": {
+        "console": [
+          {
+            "type": "debug",
+            "text": "[vite] connecting..."
+          },
+          {
+            "type": "debug",
+            "text": "[vite] connected."
+          },
+          {
+            "type": "info",
+            "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"
+          }
+        ],
+        "pageErrors": [],
+        "requestFailures": [],
+        "badResponses": []
+      }
+    },
+    {
+      "app": "hipocampo",
+      "url": "http://127.0.0.1:8443/",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "navigationStatus": 200,
+      "states": [
+        {
+          "requestedProgress": 0,
+          "actualProgress": 0,
+          "targetY": 0,
+          "scrollY": 0,
+          "sceneTop": 0,
+          "scrollDistance": 900,
+          "viewport": {
+            "width": 1600,
+            "height": 900,
+            "dpr": 1
+          },
+          "document": {
+            "documentScrollHeight": 9773,
+            "bodyScrollHeight": 9773,
+            "documentClientWidth": 1600,
+            "documentScrollWidth": 1600,
+            "horizontalOverflow": 0,
+            "fontsStatus": "loaded"
+          },
+          "scene": {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 1600,
+              "height": 1800,
+              "top": 0,
+              "right": 1600,
+              "bottom": 1800,
+              "left": 0
+            },
+            "offsetHeight": 1800,
+            "clientHeight": 1800,
+            "position": "relative",
+            "height": "1800px",
+            "minHeight": "0px",
+            "marginTop": "0px",
+            "transform": "none",
+            "backgroundColor": "rgb(255, 223, 96)",
+            "overflow": "visible",
+            "cssProgress": "",
+            "hipocampoProgress": "0.00000"
+          },
+          "stage": {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 1600,
+              "height": 900,
+              "top": 0,
+              "right": 1600,
+              "bottom": 900,
+              "left": 0
+            },
+            "position": "sticky",
+            "top": "0px",
+            "height": "900px",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "overflow": "visible",
+            "phase": "initial"
+          },
+          "circle": {
+            "rect": {
+              "x": 690,
+              "y": 728,
+              "width": 220,
+              "height": 220,
+              "top": 728,
+              "right": 910,
+              "bottom": 948,
+              "left": 690
+            },
+            "center": {
+              "x": 800,
+              "y": 838,
+              "normalizedX": 0.5,
+              "normalizedY": 0.9311111111111111
+            },
+            "radius": 110,
+            "farthestCorner": 1158.5525452045754,
+            "coverageRatio": 0.09494606045734108,
+            "coversViewport": false,
+            "diameterToViewportWidth": 0.1375,
+            "diameterToViewportDiagonal": 0.11984163635462554,
+            "transform": "matrix(1, 0, 0, 1, -110, 0)",
+            "transformOrigin": "110px 110px",
+            "backgroundColor": "rgb(255, 223, 96)",
+            "scaleVariable": "1.00000"
+          },
+          "intro": {
+            "rect": {
+              "x": 0,
+              "y": 233.2362518310547,
+              "width": 1600,
+              "height": 442.375,
+              "top": 233.2362518310547,
+              "right": 1600,
+              "bottom": 675.6112518310547,
+              "left": 0
+            },
+            "opacity": "1",
+            "transform": "matrix(1, 0, 0, 1, -800, -216.764)",
+            "visibility": "visible"
+          },
+          "project": {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 1600,
+              "height": 1725.859375,
+              "top": 0,
+              "right": 1600,
+              "bottom": 1725.859375,
+              "left": 0
+            },
+            "documentTop": 0,
+            "scrollHeight": 1726,
+            "clientHeight": 1726,
+            "offsetHeight": 1726,
+            "position": "absolute",
+            "display": "grid",
+            "visibility": "visible",
+            "opacity": "1",
+            "transform": "none",
+            "marginTop": "0px",
+            "minHeight": "900px",
+            "height": "1725.86px",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "pointerEvents": "none",
+            "cssReveal": "0.00000",
+            "firstChild": {
+              "tag": "DIV",
+              "className": "",
+              "rect": {
+                "x": 64,
+                "y": 223,
+                "width": 704,
+                "height": 214.90625,
+                "top": 223,
+                "right": 768,
+                "bottom": 437.90625,
+                "left": 64
+              },
+              "opacity": "0",
+              "transform": "none",
+              "visibility": "visible"
+            }
+          },
+          "screenshot": "hipocampo-1600x900-000.png"
+        },
+        {
+          "requestedProgress": 0.25,
+          "actualProgress": 0.25,
+          "targetY": 225,
+          "scrollY": 225,
+          "sceneTop": 0,
+          "scrollDistance": 900,
+          "viewport": {
+            "width": 1600,
+            "height": 900,
+            "dpr": 1
+          },
+          "document": {
+            "documentScrollHeight": 9773,
+            "bodyScrollHeight": 9773,
+            "documentClientWidth": 1600,
+            "documentScrollWidth": 1600,
+            "horizontalOverflow": 0,
+            "fontsStatus": "loaded"
+          },
+          "scene": {
+            "rect": {
+              "x": 0,
+              "y": -225,
+              "width": 1600,
+              "height": 1800,
+              "top": -225,
+              "right": 1600,
+              "bottom": 1575,
+              "left": 0
+            },
+            "offsetHeight": 1800,
+            "clientHeight": 1800,
+            "position": "relative",
+            "height": "1800px",
+            "minHeight": "0px",
+            "marginTop": "0px",
+            "transform": "none",
+            "backgroundColor": "rgb(255, 223, 96)",
+            "overflow": "visible",
+            "cssProgress": "",
+            "hipocampoProgress": "0.25000"
+          },
+          "stage": {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 1600,
+              "height": 900,
+              "top": 0,
+              "right": 1600,
+              "bottom": 900,
+              "left": 0
+            },
+            "position": "sticky",
+            "top": "0px",
+            "height": "900px",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "overflow": "visible",
+            "phase": "expanding"
+          },
+          "circle": {
+            "rect": {
+              "x": 126.4644775390625,
+              "y": 164.4644775390625,
+              "width": 1347.071044921875,
+              "height": 1347.071044921875,
+              "top": 164.4644775390625,
+              "right": 1473.5355224609375,
+              "bottom": 1511.5355224609375,
+              "left": 126.4644775390625
+            },
+            "center": {
+              "x": 800,
+              "y": 838,
+              "normalizedX": 0.5,
+              "normalizedY": 0.9311111111111111
+            },
+            "radius": 673.5355224609375,
+            "farthestCorner": 1158.5525452045754,
+            "coverageRatio": 0.5813594948703907,
+            "coversViewport": false,
+            "diameterToViewportWidth": 0.8419194030761719,
+            "diameterToViewportDiagonal": 0.7337963559516945,
+            "transform": "matrix(6.12305, 0, 0, 6.12305, -110, 0)",
+            "transformOrigin": "110px 110px",
+            "backgroundColor": "rgb(255, 223, 96)",
+            "scaleVariable": "6.12305"
+          },
+          "intro": {
+            "rect": {
+              "x": 0,
+              "y": 224.2362518310547,
+              "width": 1600,
+              "height": 442.375,
+              "top": 224.2362518310547,
+              "right": 1600,
+              "bottom": 666.6112518310547,
+              "left": 0
+            },
+            "opacity": "0.4",
+            "transform": "matrix(1, 0, 0, 1, -800, -225.764)",
+            "visibility": "visible"
+          },
+          "project": {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 1600,
+              "height": 1725.859375,
+              "top": 0,
+              "right": 1600,
+              "bottom": 1725.859375,
+              "left": 0
+            },
+            "documentTop": 225,
+            "scrollHeight": 1726,
+            "clientHeight": 1726,
+            "offsetHeight": 1726,
+            "position": "absolute",
+            "display": "grid",
+            "visibility": "visible",
+            "opacity": "1",
+            "transform": "none",
+            "marginTop": "0px",
+            "minHeight": "900px",
+            "height": "1725.86px",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "pointerEvents": "none",
+            "cssReveal": "0.00000",
+            "firstChild": {
+              "tag": "DIV",
+              "className": "",
+              "rect": {
+                "x": 64,
+                "y": 223,
+                "width": 704,
+                "height": 214.90625,
+                "top": 223,
+                "right": 768,
+                "bottom": 437.90625,
+                "left": 64
+              },
+              "opacity": "0",
+              "transform": "none",
+              "visibility": "visible"
+            }
+          },
+          "screenshot": "hipocampo-1600x900-025.png"
+        },
+        {
+          "requestedProgress": 0.5,
+          "actualProgress": 0.5,
+          "targetY": 450,
+          "scrollY": 450,
+          "sceneTop": 0,
+          "scrollDistance": 900,
+          "viewport": {
+            "width": 1600,
+            "height": 900,
+            "dpr": 1
+          },
+          "document": {
+            "documentScrollHeight": 9773,
+            "bodyScrollHeight": 9773,
+            "documentClientWidth": 1600,
+            "documentScrollWidth": 1600,
+            "horizontalOverflow": 0,
+            "fontsStatus": "loaded"
+          },
+          "scene": {
+            "rect": {
+              "x": 0,
+              "y": -450,
+              "width": 1600,
+              "height": 1800,
+              "top": -450,
+              "right": 1600,
+              "bottom": 1350,
+              "left": 0
+            },
+            "offsetHeight": 1800,
+            "clientHeight": 1800,
+            "position": "relative",
+            "height": "1800px",
+            "minHeight": "0px",
+            "marginTop": "0px",
+            "transform": "none",
+            "backgroundColor": "rgb(255, 223, 96)",
+            "overflow": "visible",
+            "cssProgress": "",
+            "hipocampoProgress": "0.50000"
+          },
+          "stage": {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 1600,
+              "height": 900,
+              "top": 0,
+              "right": 1600,
+              "bottom": 900,
+              "left": 0
+            },
+            "position": "sticky",
+            "top": "0px",
+            "height": "900px",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "overflow": "visible",
+            "phase": "expanding"
+          },
+          "circle": {
+            "rect": {
+              "x": -437.071044921875,
+              "y": -399.071044921875,
+              "width": 2474.14208984375,
+              "height": 2474.14208984375,
+              "top": -399.071044921875,
+              "right": 2037.071044921875,
+              "bottom": 2075.071044921875,
+              "left": -437.071044921875
+            },
+            "center": {
+              "x": 800,
+              "y": 838,
+              "normalizedX": 0.5,
+              "normalizedY": 0.9311111111111111
+            },
+            "radius": 1237.071044921875,
+            "farthestCorner": 1158.5525452045754,
+            "coverageRatio": 1.0677729292834404,
+            "coversViewport": true,
+            "diameterToViewportWidth": 1.5463388061523438,
+            "diameterToViewportDiagonal": 1.3477510755487634,
+            "transform": "matrix(11.2461, 0, 0, 11.2461, -110, 0)",
+            "transformOrigin": "110px 110px",
+            "backgroundColor": "rgb(255, 223, 96)",
+            "scaleVariable": "11.24610"
+          },
+          "intro": {
+            "rect": {
+              "x": 0,
+              "y": 215.2362518310547,
+              "width": 1600,
+              "height": 442.375,
+              "top": 215.2362518310547,
+              "right": 1600,
+              "bottom": 657.6112518310547,
+              "left": 0
+            },
+            "opacity": "0",
+            "transform": "matrix(1, 0, 0, 1, -800, -234.764)",
+            "visibility": "visible"
+          },
+          "project": {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 1600,
+              "height": 1725.859375,
+              "top": 0,
+              "right": 1600,
+              "bottom": 1725.859375,
+              "left": 0
+            },
+            "documentTop": 450,
+            "scrollHeight": 1726,
+            "clientHeight": 1726,
+            "offsetHeight": 1726,
+            "position": "absolute",
+            "display": "grid",
+            "visibility": "visible",
+            "opacity": "1",
+            "transform": "none",
+            "marginTop": "0px",
+            "minHeight": "900px",
+            "height": "1725.86px",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "pointerEvents": "none",
+            "cssReveal": "0.00000",
+            "firstChild": {
+              "tag": "DIV",
+              "className": "",
+              "rect": {
+                "x": 64,
+                "y": 223,
+                "width": 704,
+                "height": 214.90625,
+                "top": 223,
+                "right": 768,
+                "bottom": 437.90625,
+                "left": 64
+              },
+              "opacity": "0",
+              "transform": "none",
+              "visibility": "visible"
+            }
+          },
+          "screenshot": "hipocampo-1600x900-050.png"
+        },
+        {
+          "requestedProgress": 0.75,
+          "actualProgress": 0.75,
+          "targetY": 675,
+          "scrollY": 675,
+          "sceneTop": 0,
+          "scrollDistance": 900,
+          "viewport": {
+            "width": 1600,
+            "height": 900,
+            "dpr": 1
+          },
+          "document": {
+            "documentScrollHeight": 9773,
+            "bodyScrollHeight": 9773,
+            "documentClientWidth": 1600,
+            "documentScrollWidth": 1600,
+            "horizontalOverflow": 0,
+            "fontsStatus": "loaded"
+          },
+          "scene": {
+            "rect": {
+              "x": 0,
+              "y": -675,
+              "width": 1600,
+              "height": 1800,
+              "top": -675,
+              "right": 1600,
+              "bottom": 1125,
+              "left": 0
+            },
+            "offsetHeight": 1800,
+            "clientHeight": 1800,
+            "position": "relative",
+            "height": "1800px",
+            "minHeight": "0px",
+            "marginTop": "0px",
+            "transform": "none",
+            "backgroundColor": "rgb(255, 223, 96)",
+            "overflow": "visible",
+            "cssProgress": "",
+            "hipocampoProgress": "0.75000"
+          },
+          "stage": {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 1600,
+              "height": 900,
+              "top": 0,
+              "right": 1600,
+              "bottom": 900,
+              "left": 0
+            },
+            "position": "sticky",
+            "top": "0px",
+            "height": "900px",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "overflow": "visible",
+            "phase": "expanding"
+          },
+          "circle": {
+            "rect": {
+              "x": -1000.6065673828125,
+              "y": -962.6065673828125,
+              "width": 3601.212890625,
+              "height": 3601.212890625,
+              "top": -962.6065673828125,
+              "right": 2600.6063232421875,
+              "bottom": 2638.6063232421875,
+              "left": -1000.6065673828125
+            },
+            "center": {
+              "x": 799.9998779296875,
+              "y": 837.9998779296875,
+              "normalizedX": 0.49999992370605467,
+              "normalizedY": 0.9311109754774306
+            },
+            "radius": 1800.6064453125,
+            "farthestCorner": 1158.5525412007373,
+            "coverageRatio": 1.554186263703095,
+            "coversViewport": true,
+            "diameterToViewportWidth": 2.250758056640625,
+            "diameterToViewportDiagonal": 1.9617056621539595,
+            "transform": "matrix(16.3692, 0, 0, 16.3692, -110, 0)",
+            "transformOrigin": "110px 110px",
+            "backgroundColor": "rgb(255, 223, 96)",
+            "scaleVariable": "16.36915"
+          },
+          "intro": {
+            "rect": {
+              "x": 0,
+              "y": 206.2362518310547,
+              "width": 1600,
+              "height": 442.375,
+              "top": 206.2362518310547,
+              "right": 1600,
+              "bottom": 648.6112518310547,
+              "left": 0
+            },
+            "opacity": "0",
+            "transform": "matrix(1, 0, 0, 1, -800, -243.764)",
+            "visibility": "visible"
+          },
+          "project": {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 1600,
+              "height": 1725.859375,
+              "top": 0,
+              "right": 1600,
+              "bottom": 1725.859375,
+              "left": 0
+            },
+            "documentTop": 675,
+            "scrollHeight": 1726,
+            "clientHeight": 1726,
+            "offsetHeight": 1726,
+            "position": "absolute",
+            "display": "grid",
+            "visibility": "visible",
+            "opacity": "1",
+            "transform": "none",
+            "marginTop": "0px",
+            "minHeight": "900px",
+            "height": "1725.86px",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "pointerEvents": "auto",
+            "cssReveal": "0.45780",
+            "firstChild": {
+              "tag": "DIV",
+              "className": "",
+              "rect": {
+                "x": 64,
+                "y": 194.15859985351562,
+                "width": 704,
+                "height": 214.90625,
+                "top": 194.15859985351562,
+                "right": 768,
+                "bottom": 409.0648498535156,
+                "left": 64
+              },
+              "opacity": "0.4578",
+              "transform": "none",
+              "visibility": "visible"
+            }
+          },
+          "screenshot": "hipocampo-1600x900-075.png"
+        },
+        {
+          "requestedProgress": 1,
+          "actualProgress": 1,
+          "targetY": 900,
+          "scrollY": 900,
+          "sceneTop": 0,
+          "scrollDistance": 900,
+          "viewport": {
+            "width": 1600,
+            "height": 900,
+            "dpr": 1
+          },
+          "document": {
+            "documentScrollHeight": 9773,
+            "bodyScrollHeight": 9773,
+            "documentClientWidth": 1600,
+            "documentScrollWidth": 1600,
+            "horizontalOverflow": 0,
+            "fontsStatus": "loaded"
+          },
+          "scene": {
+            "rect": {
+              "x": 0,
+              "y": -900,
+              "width": 1600,
+              "height": 1800,
+              "top": -900,
+              "right": 1600,
+              "bottom": 900,
+              "left": 0
+            },
+            "offsetHeight": 1800,
+            "clientHeight": 1800,
+            "position": "relative",
+            "height": "1800px",
+            "minHeight": "0px",
+            "marginTop": "0px",
+            "transform": "none",
+            "backgroundColor": "rgb(255, 223, 96)",
+            "overflow": "visible",
+            "cssProgress": "",
+            "hipocampoProgress": "1.00000"
+          },
+          "stage": {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 1600,
+              "height": 900,
+              "top": 0,
+              "right": 1600,
+              "bottom": 900,
+              "left": 0
+            },
+            "position": "sticky",
+            "top": "0px",
+            "height": "900px",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "overflow": "visible",
+            "phase": "complete"
+          },
+          "circle": {
+            "rect": {
+              "x": -1564.14208984375,
+              "y": -1526.14208984375,
+              "width": 4728.2841796875,
+              "height": 4728.2841796875,
+              "top": -1526.14208984375,
+              "right": 3164.14208984375,
+              "bottom": 3202.14208984375,
+              "left": -1564.14208984375
+            },
+            "center": {
+              "x": 800,
+              "y": 838,
+              "normalizedX": 0.5,
+              "normalizedY": 0.9311111111111111
+            },
+            "radius": 2364.14208984375,
+            "farthestCorner": 1158.5525452045754,
+            "coverageRatio": 2.0405997981095396,
+            "coversViewport": true,
+            "diameterToViewportWidth": 2.9551776123046873,
+            "diameterToViewportDiagonal": 2.5756605147429013,
+            "transform": "matrix(21.4922, 0, 0, 21.4922, -110, 0)",
+            "transformOrigin": "110px 110px",
+            "backgroundColor": "rgb(255, 223, 96)",
+            "scaleVariable": "21.49220"
+          },
+          "intro": {
+            "rect": {
+              "x": 0,
+              "y": 197.2362518310547,
+              "width": 1600,
+              "height": 442.375,
+              "top": 197.2362518310547,
+              "right": 1600,
+              "bottom": 639.6112518310547,
+              "left": 0
+            },
+            "opacity": "0",
+            "transform": "matrix(1, 0, 0, 1, -800, -252.764)",
+            "visibility": "visible"
+          },
+          "project": {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 1600,
+              "height": 1725.859375,
+              "top": 0,
+              "right": 1600,
+              "bottom": 1725.859375,
+              "left": 0
+            },
+            "documentTop": 900,
+            "scrollHeight": 1726,
+            "clientHeight": 1726,
+            "offsetHeight": 1726,
+            "position": "absolute",
+            "display": "grid",
+            "visibility": "visible",
+            "opacity": "1",
+            "transform": "none",
+            "marginTop": "0px",
+            "minHeight": "900px",
+            "height": "1725.86px",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "pointerEvents": "auto",
+            "cssReveal": "1.00000",
+            "firstChild": {
+              "tag": "DIV",
+              "className": "",
+              "rect": {
+                "x": 64,
+                "y": 160,
+                "width": 704,
+                "height": 214.90625,
+                "top": 160,
+                "right": 768,
+                "bottom": 374.90625,
+                "left": 64
+              },
+              "opacity": "1",
+              "transform": "none",
+              "visibility": "visible"
+            }
+          },
+          "screenshot": "hipocampo-1600x900-100.png"
+        }
+      ],
+      "events": {
+        "console": [
+          {
+            "type": "warning",
+            "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+          },
+          {
+            "type": "warning",
+            "text": "[GroupMarkerNotSet(crbug.com/242999)!:A8C018008C120000]Automatic fallback to software WebGL has been deprecated. Please use the --enable-unsafe-swiftshader (about:flags#enable-unsafe-swiftshader) flag to opt in to lower security guarantees for trusted content."
+          }
+        ],
+        "pageErrors": [],
+        "requestFailures": [],
+        "badResponses": []
+      }
+    },
+    {
+      "app": "figma",
+      "url": "http://127.0.0.1:5174/",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "navigationStatus": 200,
+      "states": [
+        {
+          "requestedProgress": 0,
+          "actualProgress": 0,
+          "targetY": 0,
+          "scrollY": 0,
+          "sceneTop": 0,
+          "scrollDistance": 844,
+          "viewport": {
+            "width": 390,
+            "height": 844,
+            "dpr": 1
+          },
+          "document": {
+            "documentScrollHeight": 1941,
+            "bodyScrollHeight": 1941,
+            "documentClientWidth": 390,
+            "documentScrollWidth": 390,
+            "horizontalOverflow": 0,
+            "fontsStatus": "loaded"
+          },
+          "scene": {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 1688,
+              "top": 0,
+              "right": 390,
+              "bottom": 1688,
+              "left": 0
+            },
+            "offsetHeight": 1688,
+            "clientHeight": 1688,
+            "position": "relative",
+            "height": "1688px",
+            "minHeight": "0px",
+            "marginTop": "0px",
+            "transform": "none",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "overflow": "visible",
+            "cssProgress": "0",
+            "hipocampoProgress": ""
+          },
+          "stage": {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 844,
+              "top": 0,
+              "right": 390,
+              "bottom": 844,
+              "left": 0
+            },
+            "position": "sticky",
+            "top": "0px",
+            "height": "844px",
+            "backgroundColor": "rgb(24, 45, 255)",
+            "overflow": "hidden",
+            "phase": null
+          },
+          "circle": {
+            "rect": {
+              "x": 132.6015625,
+              "y": 781.59375,
+              "width": 124.796875,
+              "height": 124.796875,
+              "top": 781.59375,
+              "right": 257.3984375,
+              "bottom": 906.390625,
+              "left": 132.6015625
+            },
+            "center": {
+              "x": 195,
+              "y": 843.9921875,
+              "normalizedX": 0.5,
+              "normalizedY": 0.9999907434834123
+            },
+            "radius": 62.3984375,
+            "farthestCorner": 866.2261901842007,
+            "coverageRatio": 0.07203480823724706,
+            "coversViewport": false,
+            "diameterToViewportWidth": 0.3199919871794872,
+            "diameterToViewportDiagonal": 0.13422619771712105,
+            "transform": "matrix(1, 0, 0, 1, -62.3984, 0)",
+            "transformOrigin": "62.3984px 62.3984px",
+            "backgroundColor": "rgb(255, 223, 97)",
+            "scaleVariable": ""
+          },
+          "intro": {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 844,
+              "top": 0,
+              "right": 390,
+              "bottom": 844,
+              "left": 0
+            },
+            "opacity": "1",
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "visibility": "visible"
+          },
+          "project": {
+            "rect": {
+              "x": 0,
+              "y": 59.08000183105469,
+              "width": 390,
+              "height": 844,
+              "top": 59.08000183105469,
+              "right": 390,
+              "bottom": 903.0800018310547,
+              "left": 0
+            },
+            "documentTop": 59.08000183105469,
+            "scrollHeight": 844,
+            "clientHeight": 844,
+            "offsetHeight": 844,
+            "position": "absolute",
+            "display": "block",
+            "visibility": "visible",
+            "opacity": "0",
+            "transform": "matrix(1, 0, 0, 1, 0, 59.08)",
+            "marginTop": "0px",
+            "minHeight": "0px",
+            "height": "844px",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "pointerEvents": "auto",
+            "cssReveal": "",
+            "firstChild": {
+              "tag": "DIV",
+              "className": "project-kicker",
+              "rect": {
+                "x": 20,
+                "y": 185.6737518310547,
+                "width": 123.25,
+                "height": 24,
+                "top": 185.6737518310547,
+                "right": 143.25,
+                "bottom": 209.6737518310547,
+                "left": 20
+              },
+              "opacity": "1",
+              "transform": "none",
+              "visibility": "visible"
+            }
+          },
+          "screenshot": "figma-390x844-000.png"
+        },
+        {
+          "requestedProgress": 0.25,
+          "actualProgress": 0.25,
+          "targetY": 211,
+          "scrollY": 211,
+          "sceneTop": 0,
+          "scrollDistance": 844,
+          "viewport": {
+            "width": 390,
+            "height": 844,
+            "dpr": 1
+          },
+          "document": {
+            "documentScrollHeight": 1941,
+            "bodyScrollHeight": 1941,
+            "documentClientWidth": 390,
+            "documentScrollWidth": 390,
+            "horizontalOverflow": 0,
+            "fontsStatus": "loaded"
+          },
+          "scene": {
+            "rect": {
+              "x": 0,
+              "y": -211,
+              "width": 390,
+              "height": 1688,
+              "top": -211,
+              "right": 390,
+              "bottom": 1477,
+              "left": 0
+            },
+            "offsetHeight": 1688,
+            "clientHeight": 1688,
+            "position": "relative",
+            "height": "1688px",
+            "minHeight": "0px",
+            "marginTop": "0px",
+            "transform": "none",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "overflow": "visible",
+            "cssProgress": "0.25",
+            "hipocampoProgress": ""
+          },
+          "stage": {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 844,
+              "top": 0,
+              "right": 390,
+              "bottom": 844,
+              "left": 0
+            },
+            "position": "sticky",
+            "top": "0px",
+            "height": "844px",
+            "backgroundColor": "rgb(24, 45, 255)",
+            "overflow": "hidden",
+            "phase": null
+          },
+          "circle": {
+            "rect": {
+              "x": -179.390625,
+              "y": 469.6015625,
+              "width": 748.78125,
+              "height": 748.78125,
+              "top": 469.6015625,
+              "right": 569.390625,
+              "bottom": 1218.3828125,
+              "left": -179.390625
+            },
+            "center": {
+              "x": 195,
+              "y": 843.9921875,
+              "normalizedX": 0.5,
+              "normalizedY": 0.9999907434834123
+            },
+            "radius": 374.390625,
+            "farthestCorner": 866.2261901842007,
+            "coverageRatio": 0.43220884942348237,
+            "coversViewport": false,
+            "diameterToViewportWidth": 1.919951923076923,
+            "diameterToViewportDiagonal": 0.8053571863027262,
+            "transform": "matrix(6, 0, 0, 6, -62.3984, 0)",
+            "transformOrigin": "62.3984px 62.3984px",
+            "backgroundColor": "rgb(255, 223, 97)",
+            "scaleVariable": ""
+          },
+          "intro": {
+            "rect": {
+              "x": 0,
+              "y": -8.4399995803833,
+              "width": 390,
+              "height": 844,
+              "top": -8.4399995803833,
+              "right": 390,
+              "bottom": 835.5600004196167,
+              "left": 0
+            },
+            "opacity": "0.4",
+            "transform": "matrix(1, 0, 0, 1, 0, -8.44)",
+            "visibility": "visible"
+          },
+          "project": {
+            "rect": {
+              "x": 0,
+              "y": 59.08000183105469,
+              "width": 390,
+              "height": 844,
+              "top": 59.08000183105469,
+              "right": 390,
+              "bottom": 903.0800018310547,
+              "left": 0
+            },
+            "documentTop": 270.0800018310547,
+            "scrollHeight": 844,
+            "clientHeight": 844,
+            "offsetHeight": 844,
+            "position": "absolute",
+            "display": "block",
+            "visibility": "visible",
+            "opacity": "0",
+            "transform": "matrix(1, 0, 0, 1, 0, 59.08)",
+            "marginTop": "0px",
+            "minHeight": "0px",
+            "height": "844px",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "pointerEvents": "auto",
+            "cssReveal": "",
+            "firstChild": {
+              "tag": "DIV",
+              "className": "project-kicker",
+              "rect": {
+                "x": 20,
+                "y": 185.6737518310547,
+                "width": 80.359375,
+                "height": 24,
+                "top": 185.6737518310547,
+                "right": 100.359375,
+                "bottom": 209.6737518310547,
+                "left": 20
+              },
+              "opacity": "1",
+              "transform": "none",
+              "visibility": "visible"
+            }
+          },
+          "screenshot": "figma-390x844-025.png"
+        },
+        {
+          "requestedProgress": 0.5,
+          "actualProgress": 0.5,
+          "targetY": 422,
+          "scrollY": 422,
+          "sceneTop": 0,
+          "scrollDistance": 844,
+          "viewport": {
+            "width": 390,
+            "height": 844,
+            "dpr": 1
+          },
+          "document": {
+            "documentScrollHeight": 1941,
+            "bodyScrollHeight": 1941,
+            "documentClientWidth": 390,
+            "documentScrollWidth": 390,
+            "horizontalOverflow": 0,
+            "fontsStatus": "loaded"
+          },
+          "scene": {
+            "rect": {
+              "x": 0,
+              "y": -422,
+              "width": 390,
+              "height": 1688,
+              "top": -422,
+              "right": 390,
+              "bottom": 1266,
+              "left": 0
+            },
+            "offsetHeight": 1688,
+            "clientHeight": 1688,
+            "position": "relative",
+            "height": "1688px",
+            "minHeight": "0px",
+            "marginTop": "0px",
+            "transform": "none",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "overflow": "visible",
+            "cssProgress": "0.5",
+            "hipocampoProgress": ""
+          },
+          "stage": {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 844,
+              "top": 0,
+              "right": 390,
+              "bottom": 844,
+              "left": 0
+            },
+            "position": "sticky",
+            "top": "0px",
+            "height": "844px",
+            "backgroundColor": "rgb(24, 45, 255)",
+            "overflow": "hidden",
+            "phase": null
+          },
+          "circle": {
+            "rect": {
+              "x": -491.3828125,
+              "y": 157.609375,
+              "width": 1372.765625,
+              "height": 1372.765625,
+              "top": 157.609375,
+              "right": 881.3828125,
+              "bottom": 1530.375,
+              "left": -491.3828125
+            },
+            "center": {
+              "x": 195,
+              "y": 843.9921875,
+              "normalizedX": 0.5,
+              "normalizedY": 0.9999907434834123
+            },
+            "radius": 686.3828125,
+            "farthestCorner": 866.2261901842007,
+            "coverageRatio": 0.7923828906097177,
+            "coversViewport": false,
+            "diameterToViewportWidth": 3.5199118589743588,
+            "diameterToViewportDiagonal": 1.4764881748883314,
+            "transform": "matrix(11, 0, 0, 11, -62.3984, 0)",
+            "transformOrigin": "62.3984px 62.3984px",
+            "backgroundColor": "rgb(255, 223, 97)",
+            "scaleVariable": ""
+          },
+          "intro": {
+            "rect": {
+              "x": 0,
+              "y": -16.8799991607666,
+              "width": 390,
+              "height": 844,
+              "top": -16.8799991607666,
+              "right": 390,
+              "bottom": 827.1200008392334,
+              "left": 0
+            },
+            "opacity": "0",
+            "transform": "matrix(1, 0, 0, 1, 0, -16.88)",
+            "visibility": "visible"
+          },
+          "project": {
+            "rect": {
+              "x": 0,
+              "y": 59.08000183105469,
+              "width": 390,
+              "height": 844,
+              "top": 59.08000183105469,
+              "right": 390,
+              "bottom": 903.0800018310547,
+              "left": 0
+            },
+            "documentTop": 481.0800018310547,
+            "scrollHeight": 844,
+            "clientHeight": 844,
+            "offsetHeight": 844,
+            "position": "absolute",
+            "display": "block",
+            "visibility": "visible",
+            "opacity": "0",
+            "transform": "matrix(1, 0, 0, 1, 0, 59.08)",
+            "marginTop": "0px",
+            "minHeight": "0px",
+            "height": "844px",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "pointerEvents": "auto",
+            "cssReveal": "",
+            "firstChild": {
+              "tag": "DIV",
+              "className": "project-kicker",
+              "rect": {
+                "x": 20,
+                "y": 185.6737518310547,
+                "width": 80.359375,
+                "height": 24,
+                "top": 185.6737518310547,
+                "right": 100.359375,
+                "bottom": 209.6737518310547,
+                "left": 20
+              },
+              "opacity": "1",
+              "transform": "none",
+              "visibility": "visible"
+            }
+          },
+          "screenshot": "figma-390x844-050.png"
+        },
+        {
+          "requestedProgress": 0.75,
+          "actualProgress": 0.75,
+          "targetY": 633,
+          "scrollY": 633,
+          "sceneTop": 0,
+          "scrollDistance": 844,
+          "viewport": {
+            "width": 390,
+            "height": 844,
+            "dpr": 1
+          },
+          "document": {
+            "documentScrollHeight": 1941,
+            "bodyScrollHeight": 1941,
+            "documentClientWidth": 390,
+            "documentScrollWidth": 390,
+            "horizontalOverflow": 0,
+            "fontsStatus": "loaded"
+          },
+          "scene": {
+            "rect": {
+              "x": 0,
+              "y": -633,
+              "width": 390,
+              "height": 1688,
+              "top": -633,
+              "right": 390,
+              "bottom": 1055,
+              "left": 0
+            },
+            "offsetHeight": 1688,
+            "clientHeight": 1688,
+            "position": "relative",
+            "height": "1688px",
+            "minHeight": "0px",
+            "marginTop": "0px",
+            "transform": "none",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "overflow": "visible",
+            "cssProgress": "0.75",
+            "hipocampoProgress": ""
+          },
+          "stage": {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 844,
+              "top": 0,
+              "right": 390,
+              "bottom": 844,
+              "left": 0
+            },
+            "position": "sticky",
+            "top": "0px",
+            "height": "844px",
+            "backgroundColor": "rgb(24, 45, 255)",
+            "overflow": "hidden",
+            "phase": null
+          },
+          "circle": {
+            "rect": {
+              "x": -803.375,
+              "y": -154.3828125,
+              "width": 1996.75,
+              "height": 1996.75,
+              "top": -154.3828125,
+              "right": 1193.375,
+              "bottom": 1842.3671875,
+              "left": -803.375
+            },
+            "center": {
+              "x": 195,
+              "y": 843.9921875,
+              "normalizedX": 0.5,
+              "normalizedY": 0.9999907434834123
+            },
+            "radius": 998.375,
+            "farthestCorner": 866.2261901842007,
+            "coverageRatio": 1.152556931795953,
+            "coversViewport": true,
+            "diameterToViewportWidth": 5.119871794871795,
+            "diameterToViewportDiagonal": 2.1476191634739368,
+            "transform": "matrix(16, 0, 0, 16, -62.3984, 0)",
+            "transformOrigin": "62.3984px 62.3984px",
+            "backgroundColor": "rgb(255, 223, 97)",
+            "scaleVariable": ""
+          },
+          "intro": {
+            "rect": {
+              "x": 0,
+              "y": -25.31999969482422,
+              "width": 390,
+              "height": 844,
+              "top": -25.31999969482422,
+              "right": 390,
+              "bottom": 818.6800003051758,
+              "left": 0
+            },
+            "opacity": "0",
+            "transform": "matrix(1, 0, 0, 1, 0, -25.32)",
+            "visibility": "visible"
+          },
+          "project": {
+            "rect": {
+              "x": 0,
+              "y": 32.03317642211914,
+              "width": 390,
+              "height": 844,
+              "top": 32.03317642211914,
+              "right": 390,
+              "bottom": 876.0331764221191,
+              "left": 0
+            },
+            "documentTop": 665.0331764221191,
+            "scrollHeight": 844,
+            "clientHeight": 844,
+            "offsetHeight": 844,
+            "position": "absolute",
+            "display": "block",
+            "visibility": "visible",
+            "opacity": "0.4578",
+            "transform": "matrix(1, 0, 0, 1, 0, 32.0332)",
+            "marginTop": "0px",
+            "minHeight": "0px",
+            "height": "844px",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "pointerEvents": "auto",
+            "cssReveal": "",
+            "firstChild": {
+              "tag": "DIV",
+              "className": "project-kicker",
+              "rect": {
+                "x": 20,
+                "y": 158.62692260742188,
+                "width": 80.359375,
+                "height": 24,
+                "top": 158.62692260742188,
+                "right": 100.359375,
+                "bottom": 182.62692260742188,
+                "left": 20
+              },
+              "opacity": "1",
+              "transform": "none",
+              "visibility": "visible"
+            }
+          },
+          "screenshot": "figma-390x844-075.png"
+        },
+        {
+          "requestedProgress": 1,
+          "actualProgress": 1,
+          "targetY": 844,
+          "scrollY": 844,
+          "sceneTop": 0,
+          "scrollDistance": 844,
+          "viewport": {
+            "width": 390,
+            "height": 844,
+            "dpr": 1
+          },
+          "document": {
+            "documentScrollHeight": 1941,
+            "bodyScrollHeight": 1941,
+            "documentClientWidth": 390,
+            "documentScrollWidth": 390,
+            "horizontalOverflow": 0,
+            "fontsStatus": "loaded"
+          },
+          "scene": {
+            "rect": {
+              "x": 0,
+              "y": -844,
+              "width": 390,
+              "height": 1688,
+              "top": -844,
+              "right": 390,
+              "bottom": 844,
+              "left": 0
+            },
+            "offsetHeight": 1688,
+            "clientHeight": 1688,
+            "position": "relative",
+            "height": "1688px",
+            "minHeight": "0px",
+            "marginTop": "0px",
+            "transform": "none",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "overflow": "visible",
+            "cssProgress": "1",
+            "hipocampoProgress": ""
+          },
+          "stage": {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 844,
+              "top": 0,
+              "right": 390,
+              "bottom": 844,
+              "left": 0
+            },
+            "position": "sticky",
+            "top": "0px",
+            "height": "844px",
+            "backgroundColor": "rgb(24, 45, 255)",
+            "overflow": "hidden",
+            "phase": null
+          },
+          "circle": {
+            "rect": {
+              "x": -1115.3671875,
+              "y": -466.375,
+              "width": 2620.734375,
+              "height": 2620.734375,
+              "top": -466.375,
+              "right": 1505.3671875,
+              "bottom": 2154.359375,
+              "left": -1115.3671875
+            },
+            "center": {
+              "x": 195,
+              "y": 843.9921875,
+              "normalizedX": 0.5,
+              "normalizedY": 0.9999907434834123
+            },
+            "radius": 1310.3671875,
+            "farthestCorner": 866.2261901842007,
+            "coverageRatio": 1.5127309729821883,
+            "coversViewport": true,
+            "diameterToViewportWidth": 6.719831730769231,
+            "diameterToViewportDiagonal": 2.818750152059542,
+            "transform": "matrix(21, 0, 0, 21, -62.3984, 0)",
+            "transformOrigin": "62.3984px 62.3984px",
+            "backgroundColor": "rgb(255, 223, 97)",
+            "scaleVariable": ""
+          },
+          "intro": {
+            "rect": {
+              "x": 0,
+              "y": -33.7599983215332,
+              "width": 390,
+              "height": 844,
+              "top": -33.7599983215332,
+              "right": 390,
+              "bottom": 810.2400016784668,
+              "left": 0
+            },
+            "opacity": "0",
+            "transform": "matrix(1, 0, 0, 1, 0, -33.76)",
+            "visibility": "visible"
+          },
+          "project": {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 844,
+              "top": 0,
+              "right": 390,
+              "bottom": 844,
+              "left": 0
+            },
+            "documentTop": 844,
+            "scrollHeight": 844,
+            "clientHeight": 844,
+            "offsetHeight": 844,
+            "position": "absolute",
+            "display": "block",
+            "visibility": "visible",
+            "opacity": "1",
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "marginTop": "0px",
+            "minHeight": "0px",
+            "height": "844px",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "pointerEvents": "auto",
+            "cssReveal": "",
+            "firstChild": {
+              "tag": "DIV",
+              "className": "project-kicker",
+              "rect": {
+                "x": 20,
+                "y": 126.59375,
+                "width": 80.359375,
+                "height": 24,
+                "top": 126.59375,
+                "right": 100.359375,
+                "bottom": 150.59375,
+                "left": 20
+              },
+              "opacity": "1",
+              "transform": "none",
+              "visibility": "visible"
+            }
+          },
+          "screenshot": "figma-390x844-100.png"
+        }
+      ],
+      "events": {
+        "console": [
+          {
+            "type": "debug",
+            "text": "[vite] connecting..."
+          },
+          {
+            "type": "debug",
+            "text": "[vite] connected."
+          },
+          {
+            "type": "info",
+            "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"
+          }
+        ],
+        "pageErrors": [],
+        "requestFailures": [],
+        "badResponses": []
+      }
+    },
+    {
+      "app": "hipocampo",
+      "url": "http://127.0.0.1:8443/",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "navigationStatus": 200,
+      "states": [
+        {
+          "requestedProgress": 0,
+          "actualProgress": 0,
+          "targetY": 0,
+          "scrollY": 0,
+          "sceneTop": 0,
+          "scrollDistance": 844,
+          "viewport": {
+            "width": 390,
+            "height": 844,
+            "dpr": 1
+          },
+          "document": {
+            "documentScrollHeight": 8654,
+            "bodyScrollHeight": 8654,
+            "documentClientWidth": 390,
+            "documentScrollWidth": 390,
+            "horizontalOverflow": 0,
+            "fontsStatus": "loaded"
+          },
+          "scene": {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 1688,
+              "top": 0,
+              "right": 390,
+              "bottom": 1688,
+              "left": 0
+            },
+            "offsetHeight": 1688,
+            "clientHeight": 1688,
+            "position": "relative",
+            "height": "1688px",
+            "minHeight": "0px",
+            "marginTop": "0px",
+            "transform": "none",
+            "backgroundColor": "rgb(255, 223, 96)",
+            "overflow": "visible",
+            "cssProgress": "",
+            "hipocampoProgress": "0.00000"
+          },
+          "stage": {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 844,
+              "top": 0,
+              "right": 390,
+              "bottom": 844,
+              "left": 0
+            },
+            "position": "sticky",
+            "top": "0px",
+            "height": "844px",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "overflow": "visible",
+            "phase": "initial"
+          },
+          "circle": {
+            "rect": {
+              "x": 105.3046875,
+              "y": 716.609375,
+              "width": 179.390625,
+              "height": 179.390625,
+              "top": 716.609375,
+              "right": 284.6953125,
+              "bottom": 896,
+              "left": 105.3046875
+            },
+            "center": {
+              "x": 195,
+              "y": 806.3046875,
+              "normalizedX": 0.5,
+              "normalizedY": 0.955337307464455
+            },
+            "radius": 89.6953125,
+            "farthestCorner": 829.549425341536,
+            "coverageRatio": 0.10812533859941052,
+            "coversViewport": false,
+            "diameterToViewportWidth": 0.45997596153846154,
+            "diameterToViewportDiagonal": 0.19294490747342766,
+            "transform": "matrix(1, 0, 0, 1, -89.6953, 0)",
+            "transformOrigin": "89.6953px 89.6953px",
+            "backgroundColor": "rgb(255, 223, 96)",
+            "scaleVariable": "1.00000"
+          },
+          "intro": {
+            "rect": {
+              "x": 0,
+              "y": 308.1875,
+              "width": 390,
+              "height": 244.5,
+              "top": 308.1875,
+              "right": 390,
+              "bottom": 552.6875,
+              "left": 0
+            },
+            "opacity": "1",
+            "transform": "matrix(1, 0, 0, 1, -195, -122.25)",
+            "visibility": "visible"
+          },
+          "project": {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 1244.28125,
+              "top": 0,
+              "right": 390,
+              "bottom": 1244.28125,
+              "left": 0
+            },
+            "documentTop": 0,
+            "scrollHeight": 1244,
+            "clientHeight": 1244,
+            "offsetHeight": 1244,
+            "position": "absolute",
+            "display": "grid",
+            "visibility": "visible",
+            "opacity": "1",
+            "transform": "none",
+            "marginTop": "0px",
+            "minHeight": "844px",
+            "height": "1244.28px",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "pointerEvents": "none",
+            "cssReveal": "0.00000",
+            "firstChild": {
+              "tag": "DIV",
+              "className": "",
+              "rect": {
+                "x": 17.59375,
+                "y": 155.0800018310547,
+                "width": 354.8125,
+                "height": 125.96876525878906,
+                "top": 155.0800018310547,
+                "right": 372.40625,
+                "bottom": 281.04876708984375,
+                "left": 17.59375
+              },
+              "opacity": "0",
+              "transform": "none",
+              "visibility": "visible"
+            }
+          },
+          "screenshot": "hipocampo-390x844-000.png"
+        },
+        {
+          "requestedProgress": 0.25,
+          "actualProgress": 0.25,
+          "targetY": 211,
+          "scrollY": 211,
+          "sceneTop": 0,
+          "scrollDistance": 844,
+          "viewport": {
+            "width": 390,
+            "height": 844,
+            "dpr": 1
+          },
+          "document": {
+            "documentScrollHeight": 8654,
+            "bodyScrollHeight": 8654,
+            "documentClientWidth": 390,
+            "documentScrollWidth": 390,
+            "horizontalOverflow": 0,
+            "fontsStatus": "loaded"
+          },
+          "scene": {
+            "rect": {
+              "x": 0,
+              "y": -211,
+              "width": 390,
+              "height": 1688,
+              "top": -211,
+              "right": 390,
+              "bottom": 1477,
+              "left": 0
+            },
+            "offsetHeight": 1688,
+            "clientHeight": 1688,
+            "position": "relative",
+            "height": "1688px",
+            "minHeight": "0px",
+            "marginTop": "0px",
+            "transform": "none",
+            "backgroundColor": "rgb(255, 223, 96)",
+            "overflow": "visible",
+            "cssProgress": "",
+            "hipocampoProgress": "0.25000"
+          },
+          "stage": {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 844,
+              "top": 0,
+              "right": 390,
+              "bottom": 844,
+              "left": 0
+            },
+            "position": "sticky",
+            "top": "0px",
+            "height": "844px",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "overflow": "visible",
+            "phase": "expanding"
+          },
+          "circle": {
+            "rect": {
+              "x": -343.171875,
+              "y": 268.1328125,
+              "width": 1076.34375,
+              "height": 1076.34375,
+              "top": 268.1328125,
+              "right": 733.171875,
+              "bottom": 1344.4765625,
+              "left": -343.171875
+            },
+            "center": {
+              "x": 195,
+              "y": 806.3046875,
+              "normalizedX": 0.5,
+              "normalizedY": 0.955337307464455
+            },
+            "radius": 538.171875,
+            "farthestCorner": 829.549425341536,
+            "coverageRatio": 0.6487520315964631,
+            "coversViewport": false,
+            "diameterToViewportWidth": 2.7598557692307693,
+            "diameterToViewportDiagonal": 1.157669444840566,
+            "transform": "matrix(6, 0, 0, 6, -89.6953, 0)",
+            "transformOrigin": "89.6953px 89.6953px",
+            "backgroundColor": "rgb(255, 223, 96)",
+            "scaleVariable": "6.00000"
+          },
+          "intro": {
+            "rect": {
+              "x": 0,
+              "y": 299.74749755859375,
+              "width": 390,
+              "height": 244.5,
+              "top": 299.74749755859375,
+              "right": 390,
+              "bottom": 544.2474975585938,
+              "left": 0
+            },
+            "opacity": "0.4",
+            "transform": "matrix(1, 0, 0, 1, -195, -130.69)",
+            "visibility": "visible"
+          },
+          "project": {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 1244.28125,
+              "top": 0,
+              "right": 390,
+              "bottom": 1244.28125,
+              "left": 0
+            },
+            "documentTop": 211,
+            "scrollHeight": 1244,
+            "clientHeight": 1244,
+            "offsetHeight": 1244,
+            "position": "absolute",
+            "display": "grid",
+            "visibility": "visible",
+            "opacity": "1",
+            "transform": "none",
+            "marginTop": "0px",
+            "minHeight": "844px",
+            "height": "1244.28px",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "pointerEvents": "none",
+            "cssReveal": "0.00000",
+            "firstChild": {
+              "tag": "DIV",
+              "className": "",
+              "rect": {
+                "x": 17.59375,
+                "y": 155.0800018310547,
+                "width": 354.8125,
+                "height": 125.96876525878906,
+                "top": 155.0800018310547,
+                "right": 372.40625,
+                "bottom": 281.04876708984375,
+                "left": 17.59375
+              },
+              "opacity": "0",
+              "transform": "none",
+              "visibility": "visible"
+            }
+          },
+          "screenshot": "hipocampo-390x844-025.png"
+        },
+        {
+          "requestedProgress": 0.5,
+          "actualProgress": 0.5,
+          "targetY": 422,
+          "scrollY": 422,
+          "sceneTop": 0,
+          "scrollDistance": 844,
+          "viewport": {
+            "width": 390,
+            "height": 844,
+            "dpr": 1
+          },
+          "document": {
+            "documentScrollHeight": 8654,
+            "bodyScrollHeight": 8654,
+            "documentClientWidth": 390,
+            "documentScrollWidth": 390,
+            "horizontalOverflow": 0,
+            "fontsStatus": "loaded"
+          },
+          "scene": {
+            "rect": {
+              "x": 0,
+              "y": -422,
+              "width": 390,
+              "height": 1688,
+              "top": -422,
+              "right": 390,
+              "bottom": 1266,
+              "left": 0
+            },
+            "offsetHeight": 1688,
+            "clientHeight": 1688,
+            "position": "relative",
+            "height": "1688px",
+            "minHeight": "0px",
+            "marginTop": "0px",
+            "transform": "none",
+            "backgroundColor": "rgb(255, 223, 96)",
+            "overflow": "visible",
+            "cssProgress": "",
+            "hipocampoProgress": "0.50000"
+          },
+          "stage": {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 844,
+              "top": 0,
+              "right": 390,
+              "bottom": 844,
+              "left": 0
+            },
+            "position": "sticky",
+            "top": "0px",
+            "height": "844px",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "overflow": "visible",
+            "phase": "expanding"
+          },
+          "circle": {
+            "rect": {
+              "x": -791.6484375,
+              "y": -180.34375,
+              "width": 1973.296875,
+              "height": 1973.296875,
+              "top": -180.34375,
+              "right": 1181.6484375,
+              "bottom": 1792.953125,
+              "left": -791.6484375
+            },
+            "center": {
+              "x": 195,
+              "y": 806.3046875,
+              "normalizedX": 0.5,
+              "normalizedY": 0.955337307464455
+            },
+            "radius": 986.6484375,
+            "farthestCorner": 829.549425341536,
+            "coverageRatio": 1.1893787245935157,
+            "coversViewport": true,
+            "diameterToViewportWidth": 5.059735576923077,
+            "diameterToViewportDiagonal": 2.1223939822077043,
+            "transform": "matrix(11, 0, 0, 11, -89.6953, 0)",
+            "transformOrigin": "89.6953px 89.6953px",
+            "backgroundColor": "rgb(255, 223, 96)",
+            "scaleVariable": "11.00000"
+          },
+          "intro": {
+            "rect": {
+              "x": 0,
+              "y": 291.3074951171875,
+              "width": 390,
+              "height": 244.5,
+              "top": 291.3074951171875,
+              "right": 390,
+              "bottom": 535.8074951171875,
+              "left": 0
+            },
+            "opacity": "0",
+            "transform": "matrix(1, 0, 0, 1, -195, -139.13)",
+            "visibility": "visible"
+          },
+          "project": {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 1244.28125,
+              "top": 0,
+              "right": 390,
+              "bottom": 1244.28125,
+              "left": 0
+            },
+            "documentTop": 422,
+            "scrollHeight": 1244,
+            "clientHeight": 1244,
+            "offsetHeight": 1244,
+            "position": "absolute",
+            "display": "grid",
+            "visibility": "visible",
+            "opacity": "1",
+            "transform": "none",
+            "marginTop": "0px",
+            "minHeight": "844px",
+            "height": "1244.28px",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "pointerEvents": "none",
+            "cssReveal": "0.00000",
+            "firstChild": {
+              "tag": "DIV",
+              "className": "",
+              "rect": {
+                "x": 17.59375,
+                "y": 155.0800018310547,
+                "width": 354.8125,
+                "height": 125.96876525878906,
+                "top": 155.0800018310547,
+                "right": 372.40625,
+                "bottom": 281.04876708984375,
+                "left": 17.59375
+              },
+              "opacity": "0",
+              "transform": "none",
+              "visibility": "visible"
+            }
+          },
+          "screenshot": "hipocampo-390x844-050.png"
+        },
+        {
+          "requestedProgress": 0.75,
+          "actualProgress": 0.75,
+          "targetY": 633,
+          "scrollY": 633,
+          "sceneTop": 0,
+          "scrollDistance": 844,
+          "viewport": {
+            "width": 390,
+            "height": 844,
+            "dpr": 1
+          },
+          "document": {
+            "documentScrollHeight": 8654,
+            "bodyScrollHeight": 8654,
+            "documentClientWidth": 390,
+            "documentScrollWidth": 390,
+            "horizontalOverflow": 0,
+            "fontsStatus": "loaded"
+          },
+          "scene": {
+            "rect": {
+              "x": 0,
+              "y": -633,
+              "width": 390,
+              "height": 1688,
+              "top": -633,
+              "right": 390,
+              "bottom": 1055,
+              "left": 0
+            },
+            "offsetHeight": 1688,
+            "clientHeight": 1688,
+            "position": "relative",
+            "height": "1688px",
+            "minHeight": "0px",
+            "marginTop": "0px",
+            "transform": "none",
+            "backgroundColor": "rgb(255, 223, 96)",
+            "overflow": "visible",
+            "cssProgress": "",
+            "hipocampoProgress": "0.75000"
+          },
+          "stage": {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 844,
+              "top": 0,
+              "right": 390,
+              "bottom": 844,
+              "left": 0
+            },
+            "position": "sticky",
+            "top": "0px",
+            "height": "844px",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "overflow": "visible",
+            "phase": "expanding"
+          },
+          "circle": {
+            "rect": {
+              "x": -1240.125,
+              "y": -628.8203125,
+              "width": 2870.25,
+              "height": 2870.25,
+              "top": -628.8203125,
+              "right": 1630.125,
+              "bottom": 2241.4296875,
+              "left": -1240.125
+            },
+            "center": {
+              "x": 195,
+              "y": 806.3046875,
+              "normalizedX": 0.5,
+              "normalizedY": 0.955337307464455
+            },
+            "radius": 1435.125,
+            "farthestCorner": 829.549425341536,
+            "coverageRatio": 1.7300054175905684,
+            "coversViewport": true,
+            "diameterToViewportWidth": 7.359615384615385,
+            "diameterToViewportDiagonal": 3.0871185195748425,
+            "transform": "matrix(16, 0, 0, 16, -89.6953, 0)",
+            "transformOrigin": "89.6953px 89.6953px",
+            "backgroundColor": "rgb(255, 223, 96)",
+            "scaleVariable": "16.00000"
+          },
+          "intro": {
+            "rect": {
+              "x": 0,
+              "y": 282.86749267578125,
+              "width": 390,
+              "height": 244.5,
+              "top": 282.86749267578125,
+              "right": 390,
+              "bottom": 527.3674926757812,
+              "left": 0
+            },
+            "opacity": "0",
+            "transform": "matrix(1, 0, 0, 1, -195, -147.57)",
+            "visibility": "visible"
+          },
+          "project": {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 1244.28125,
+              "top": 0,
+              "right": 390,
+              "bottom": 1244.28125,
+              "left": 0
+            },
+            "documentTop": 633,
+            "scrollHeight": 1244,
+            "clientHeight": 1244,
+            "offsetHeight": 1244,
+            "position": "absolute",
+            "display": "grid",
+            "visibility": "visible",
+            "opacity": "1",
+            "transform": "none",
+            "marginTop": "0px",
+            "minHeight": "844px",
+            "height": "1244.28px",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "pointerEvents": "auto",
+            "cssReveal": "0.45780",
+            "firstChild": {
+              "tag": "DIV",
+              "className": "",
+              "rect": {
+                "x": 17.59375,
+                "y": 128.03317260742188,
+                "width": 354.8125,
+                "height": 125.96875,
+                "top": 128.03317260742188,
+                "right": 372.40625,
+                "bottom": 254.00192260742188,
+                "left": 17.59375
+              },
+              "opacity": "0.4578",
+              "transform": "none",
+              "visibility": "visible"
+            }
+          },
+          "screenshot": "hipocampo-390x844-075.png"
+        },
+        {
+          "requestedProgress": 1,
+          "actualProgress": 1,
+          "targetY": 844,
+          "scrollY": 844,
+          "sceneTop": 0,
+          "scrollDistance": 844,
+          "viewport": {
+            "width": 390,
+            "height": 844,
+            "dpr": 1
+          },
+          "document": {
+            "documentScrollHeight": 8654,
+            "bodyScrollHeight": 8654,
+            "documentClientWidth": 390,
+            "documentScrollWidth": 390,
+            "horizontalOverflow": 0,
+            "fontsStatus": "loaded"
+          },
+          "scene": {
+            "rect": {
+              "x": 0,
+              "y": -844,
+              "width": 390,
+              "height": 1688,
+              "top": -844,
+              "right": 390,
+              "bottom": 844,
+              "left": 0
+            },
+            "offsetHeight": 1688,
+            "clientHeight": 1688,
+            "position": "relative",
+            "height": "1688px",
+            "minHeight": "0px",
+            "marginTop": "0px",
+            "transform": "none",
+            "backgroundColor": "rgb(255, 223, 96)",
+            "overflow": "visible",
+            "cssProgress": "",
+            "hipocampoProgress": "1.00000"
+          },
+          "stage": {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 844,
+              "top": 0,
+              "right": 390,
+              "bottom": 844,
+              "left": 0
+            },
+            "position": "sticky",
+            "top": "0px",
+            "height": "844px",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "overflow": "visible",
+            "phase": "complete"
+          },
+          "circle": {
+            "rect": {
+              "x": -1688.6015625,
+              "y": -1077.296875,
+              "width": 3767.203125,
+              "height": 3767.203125,
+              "top": -1077.296875,
+              "right": 2078.6015625,
+              "bottom": 2689.90625,
+              "left": -1688.6015625
+            },
+            "center": {
+              "x": 195,
+              "y": 806.3046875,
+              "normalizedX": 0.5,
+              "normalizedY": 0.955337307464455
+            },
+            "radius": 1883.6015625,
+            "farthestCorner": 829.549425341536,
+            "coverageRatio": 2.270632110587621,
+            "coversViewport": true,
+            "diameterToViewportWidth": 9.659495192307693,
+            "diameterToViewportDiagonal": 4.051843056941981,
+            "transform": "matrix(21, 0, 0, 21, -89.6953, 0)",
+            "transformOrigin": "89.6953px 89.6953px",
+            "backgroundColor": "rgb(255, 223, 96)",
+            "scaleVariable": "21.00000"
+          },
+          "intro": {
+            "rect": {
+              "x": 0,
+              "y": 274.427490234375,
+              "width": 390,
+              "height": 244.5,
+              "top": 274.427490234375,
+              "right": 390,
+              "bottom": 518.927490234375,
+              "left": 0
+            },
+            "opacity": "0",
+            "transform": "matrix(1, 0, 0, 1, -195, -156.01)",
+            "visibility": "visible"
+          },
+          "project": {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 1244.28125,
+              "top": 0,
+              "right": 390,
+              "bottom": 1244.28125,
+              "left": 0
+            },
+            "documentTop": 844,
+            "scrollHeight": 1244,
+            "clientHeight": 1244,
+            "offsetHeight": 1244,
+            "position": "absolute",
+            "display": "grid",
+            "visibility": "visible",
+            "opacity": "1",
+            "transform": "none",
+            "marginTop": "0px",
+            "minHeight": "844px",
+            "height": "1244.28px",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "pointerEvents": "auto",
+            "cssReveal": "1.00000",
+            "firstChild": {
+              "tag": "DIV",
+              "className": "",
+              "rect": {
+                "x": 17.59375,
+                "y": 96,
+                "width": 354.8125,
+                "height": 125.96875,
+                "top": 96,
+                "right": 372.40625,
+                "bottom": 221.96875,
+                "left": 17.59375
+              },
+              "opacity": "1",
+              "transform": "none",
+              "visibility": "visible"
+            }
+          },
+          "screenshot": "hipocampo-390x844-100.png"
+        }
+      ],
+      "events": {
+        "console": [
+          {
+            "type": "warning",
+            "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+          },
+          {
+            "type": "warning",
+            "text": "[GroupMarkerNotSet(crbug.com/242999)!:A8C018008C120000]Automatic fallback to software WebGL has been deprecated. Please use the --enable-unsafe-swiftshader (about:flags#enable-unsafe-swiftshader) flag to opt in to lower security guarantees for trusted content."
+          }
+        ],
+        "pageErrors": [],
+        "requestFailures": [],
+        "badResponses": []
+      }
+    }
+  ]
+}
