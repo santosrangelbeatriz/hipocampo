@@ -1,7 +1,7 @@
 import { n as gsap, t as ScrollTrigger } from './index-BXEErpTi.js'
 
 // Defina como true para voltar a respeitar a preferência de movimento reduzido do sistema.
-const RESPECT_REDUCED_MOTION = true
+const RESPECT_REDUCED_MOTION = false
 const repeatLine = 'uma memória desapareceu uma memória desapareceu'
 const transitionControllerId = 'hipocampo-figma-sticky-transition'
 const minimumContinuationRatio = 0.3

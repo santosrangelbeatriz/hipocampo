@@ -137,22 +137,11 @@ function initializeEditorialRedesign() {
   progressBar.append(progressFill)
   document.body.append(progressBar)
 
-  // 2. Indicador editorial sutil na abertura (se não existir)
-  const heroStage = hero.querySelector('.hipocampo-hero-stage')
-  let heroScrollCue = heroStage?.querySelector('.hipocampo-hero-scroll-cue')
-  if (heroStage && !heroScrollCue) {
-    heroScrollCue = document.createElement('div')
-    heroScrollCue.className = 'hipocampo-hero-scroll-cue'
-    heroScrollCue.setAttribute('aria-hidden', 'true')
-    heroScrollCue.textContent = 'descer para tentar lembrar'
-    heroStage.append(heroScrollCue)
-  }
-
-  // 3. Limpar triggers antigos conflitantes nas seções pós-hero
+  // 2. Limpar triggers antigos conflitantes nas seções pós-hero
   const managedSections = [oficina, instalacao, fragmentos, fotofilmes, informacoes].filter(Boolean)
   clearLegacySectionTriggers(managedSections)
 
-  // 4. Construir contexto GSAP reversível (respeitando prefers-reduced-motion)
+  // 3. Construir contexto GSAP reversível (respeitando prefers-reduced-motion)
   let gsapCtx = null
 
   const setupScrollAnimations = () => {
@@ -164,46 +153,8 @@ function initializeEditorialRedesign() {
     }
 
     gsapCtx = gsap.context(() => {
-      // Abertura: deriva horizontal editorial sutil alternada nas linhas de memória durante o scroll
-      const heroLines = gsap.utils.toArray(
-        '#abertura .hipocampo-memory-field > span:not([data-memory-marquee="true"])',
-      )
-      if (heroLines.length) {
-        gsap.fromTo(
-          heroLines,
-          {
-            opacity: 0,
-            yPercent: 32,
-          },
-          {
-            opacity: 1,
-            yPercent: 0,
-            duration: 1.05,
-            stagger: 0.055,
-            ease: 'power3.out',
-            clearProps: 'opacity,transform',
-          },
-        )
-
-        heroLines.forEach((line, index) => {
-          const direction = index % 2 === 0 ? -1 : 1
-          const amplitude = 1.6 + (index % 3) * 0.85
-          gsap.to(line, {
-            xPercent: direction * amplitude,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: hero,
-              start: 'top top',
-              end: 'bottom top',
-              scrub: true,
-            },
-          })
-        })
-      }
-
       // Preparar e animar títulos e cabeçalhos editoriais nas seções
       const narrativeSections = [
-        projeto,
         oficina,
         instalacao,
         fragmentos,
@@ -212,7 +163,6 @@ function initializeEditorialRedesign() {
       ].filter(Boolean)
 
       narrativeSections.forEach((section) => {
-        const isStickyProject = section.id === 'projeto'
         const headings = section.querySelectorAll('h2, h3')
 
         headings.forEach((heading) => {
@@ -220,54 +170,28 @@ function initializeEditorialRedesign() {
           const record = prepareEditorialHeading(heading)
           if (record) {
             splitRecords.push(record)
-            if (!isStickyProject) {
-              gsap.fromTo(
-                record.innerSpans,
-                {
-                  yPercent: 108,
-                  opacity: 0,
-                },
-                {
-                  yPercent: 0,
-                  opacity: 1,
-                  duration: 0.95,
-                  stagger: 0.09,
-                  ease: 'power3.out',
-                  scrollTrigger: {
-                    trigger: heading,
-                    start: 'top 88%',
-                    end: 'top 35%',
-                    toggleActions: 'play none none reverse',
-                  },
-                },
-              )
-            }
-          }
-        })
-
-        if (isStickyProject) {
-          // A seção #projeto já é controlada de forma contínua pelo círculo de transição da abertura.
-          // Adicionamos apenas revelação progressiva na fotografia de arquivo ao final da seção.
-          const figure = section.querySelector('figure.negative-frame')
-          const img = figure?.querySelector('img')
-          if (figure && img) {
             gsap.fromTo(
-              img,
-              { scale: 1.08 },
+              record.innerSpans,
               {
-                scale: 1,
-                ease: 'none',
+                yPercent: 108,
+                opacity: 0,
+              },
+              {
+                yPercent: 0,
+                opacity: 1,
+                duration: 0.95,
+                stagger: 0.09,
+                ease: 'power3.out',
                 scrollTrigger: {
-                  trigger: figure,
-                  start: 'top bottom',
-                  end: 'bottom top',
-                  scrub: true,
+                  trigger: heading,
+                  start: 'top 88%',
+                  end: 'top 35%',
+                  toggleActions: 'play none none reverse',
                 },
               },
             )
           }
-          return
-        }
+        })
 
         // Eyebrow ("02 — Como funciona", etc.)
         const eyebrow = section.querySelector('.eyebrow')
@@ -548,10 +472,6 @@ function initializeEditorialRedesign() {
       return { mode: 'default', label: '' }
     }
 
-    if (target.closest('.hipocampo-memory-photo')) {
-      return { mode: 'hero-memory-photo', label: '' }
-    }
-
     if (target.closest('.hipocampo-hero-visuals')) {
       return { mode: 'hero-memory', label: '' }
     }
@@ -694,7 +614,6 @@ function initializeEditorialRedesign() {
     reducedMotionQuery.removeEventListener('change', onReducedMotionChange)
     progressBar.remove()
     cursorEl?.remove()
-    heroScrollCue?.remove()
     delete header.dataset.navTheme
     header.classList.remove('hipocampo-header-scrolled')
     delete document.documentElement.dataset.editorialMotionReady
