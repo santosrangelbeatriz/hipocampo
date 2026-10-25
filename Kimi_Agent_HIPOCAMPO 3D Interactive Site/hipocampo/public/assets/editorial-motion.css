@@ -63,9 +63,7 @@ body > #root > header.hipocampo-global-header[data-nav-theme="light"] > button {
 }
 
 body > #root > header.hipocampo-global-header[data-nav-theme="light"].hipocampo-header-scrolled {
-  background: rgba(244, 240, 231, 0.86) !important;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(244, 240, 231, 0.94) !important;
   border-bottom-color: rgba(38, 38, 252, 0.14);
 }
 
@@ -81,16 +79,12 @@ body > #root > header.hipocampo-global-header[data-nav-theme="yellow"] > button 
 }
 
 body > #root > header.hipocampo-global-header[data-nav-theme="yellow"].hipocampo-header-scrolled {
-  background: rgba(255, 223, 96, 0.86) !important;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(255, 223, 96, 0.94) !important;
   border-bottom-color: rgba(107, 49, 28, 0.14);
 }
 
 body > #root > header.hipocampo-global-header[data-nav-theme="dark"].hipocampo-header-scrolled {
-  background: rgba(17, 15, 24, 0.72) !important;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(17, 15, 24, 0.9) !important;
   border-bottom-color: rgba(240, 215, 101, 0.16);
 }
 
@@ -162,7 +156,6 @@ main#conteudo > section:not(#abertura):not(#projeto)::before {
 
 .hip-split-inner {
   display: inline-block;
-  will-change: transform, opacity;
 }
 
 /* Destaque em palavras-chave display-word */
@@ -174,11 +167,11 @@ main#conteudo > section:not(#abertura):not(#projeto)::before {
 
 /* Parágrafos editoriais e notas manuscritas */
 .hip-editorial-paragraph {
-  will-change: transform, opacity;
+  position: relative;
 }
 
 .script {
-  will-change: transform, opacity;
+  position: relative;
 }
 
 /* --------------------------------------------------------------------------
@@ -187,11 +180,9 @@ main#conteudo > section:not(#abertura):not(#projeto)::before {
 .hip-image-reveal {
   position: relative;
   overflow: hidden;
-  will-change: clip-path, transform;
 }
 
 .hip-image-reveal img {
-  will-change: transform;
   transition:
     transform 900ms var(--hip-ease-editorial),
     filter 650ms ease;
@@ -199,25 +190,38 @@ main#conteudo > section:not(#abertura):not(#projeto)::before {
 
 /* Cartões de etapa na seção 02 — Oficina */
 #oficina .process-slide {
-  will-change: transform, opacity;
   transition:
     transform 560ms var(--hip-ease-editorial),
-    box-shadow 560ms var(--hip-ease-editorial),
     z-index 0s;
 }
 
 #oficina .process-slide > div {
+  position: relative;
   transition:
     border-color 420ms ease,
-    box-shadow 560ms var(--hip-ease-editorial),
     transform 560ms var(--hip-ease-editorial);
+}
+
+#oficina .process-slide > div::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 1.5rem 3.2rem rgba(13, 10, 8, 0.42);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 560ms var(--hip-ease-editorial);
 }
 
 @media (hover: hover) and (pointer: fine) {
   #oficina .process-slide:hover > div,
   #oficina .process-slide:focus-visible > div {
-    box-shadow: 0 1.5rem 3.2rem rgba(13, 10, 8, 0.42);
     border-color: var(--hip-yellow-circle) !important;
+  }
+
+  #oficina .process-slide:hover > div::after,
+  #oficina .process-slide:focus-visible > div::after {
+    opacity: 1;
   }
 
   #oficina .process-slide:hover img {
@@ -228,9 +232,7 @@ main#conteudo > section:not(#abertura):not(#projeto)::before {
 
 /* Seção 03 — Instalação 3D moldura editorial */
 #instalacao > div:nth-of-type(3) {
-  transition:
-    border-color 480ms ease,
-    box-shadow 650ms var(--hip-ease-editorial);
+  transition: border-color 480ms ease;
   box-shadow: 0 1.8rem 4.2rem rgba(0, 0, 0, 0.48);
 }
 
@@ -240,7 +242,6 @@ main#conteudo > section:not(#abertura):not(#projeto)::before {
 
 /* Seção 04 — Espaço dos fragmentos */
 #fragmentos [data-fragment] {
-  will-change: transform;
   transition:
     transform 440ms var(--hip-ease-editorial),
     filter 440ms ease;
@@ -251,34 +252,59 @@ main#conteudo > section:not(#abertura):not(#projeto)::before {
 }
 
 #fragmentos [data-fragment] > span:first-child {
+  position: relative;
   box-shadow: 0 0.85rem 2.2rem rgba(23, 18, 15, 0.16);
-  transition:
-    box-shadow 440ms var(--hip-ease-editorial),
-    transform 440ms var(--hip-ease-editorial);
+  transition: transform 440ms var(--hip-ease-editorial);
 }
 
-#fragmentos [data-fragment]:hover > span:first-child {
+#fragmentos [data-fragment] > span:first-child::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
   box-shadow: 0 1.35rem 2.85rem rgba(23, 18, 15, 0.26);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 440ms var(--hip-ease-editorial);
+}
+
+#fragmentos [data-fragment]:hover > span:first-child::after {
+  opacity: 1;
 }
 
 /* Seção 05 — Fotofilmes */
 #fotofilmes article {
-  will-change: transform, opacity;
+  position: relative;
 }
 
 #fotofilmes article > div:nth-child(2),
 #fotofilmes article > div.md\:order-1 > div {
-  transition:
-    transform 650ms var(--hip-ease-editorial),
-    box-shadow 650ms var(--hip-ease-editorial);
+  position: relative;
   box-shadow: 0 1.5rem 3.5rem rgba(10, 10, 68, 0.28);
+  transition: transform 650ms var(--hip-ease-editorial);
+}
+
+#fotofilmes article > div:nth-child(2)::after,
+#fotofilmes article > div.md\:order-1 > div::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 2rem 4.4rem rgba(10, 10, 68, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 650ms var(--hip-ease-editorial);
 }
 
 @media (hover: hover) and (pointer: fine) {
   #fotofilmes article:hover > div:nth-child(2),
   #fotofilmes article:hover > div.md\:order-1 > div {
     transform: translate3d(0, -0.3rem, 0);
-    box-shadow: 0 2rem 4.4rem rgba(10, 10, 68, 0.4);
+  }
+
+  #fotofilmes article:hover > div:nth-child(2)::after,
+  #fotofilmes article:hover > div.md\:order-1 > div::after {
+    opacity: 1;
   }
 }
 
@@ -331,7 +357,7 @@ body > #root > div.fixed.z-\[999\].w-6.h-6 {
     background-color 280ms ease,
     border-color 280ms ease,
     opacity 260ms ease;
-  will-change: transform, width, height, opacity;
+  will-change: transform;
 }
 
 .hipocampo-editorial-cursor.is-visible {
