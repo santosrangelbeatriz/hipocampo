@@ -6,6 +6,8 @@ import Lenis from './vendor/lenis.mjs'
 const RESPECT_REDUCED_MOTION = false
 const POINTER_RADIUS = 140
 const POINTER_PUSH = 40
+const POINTER_BLUR_RADIUS = POINTER_RADIUS * 0.55
+const MAX_BLUR = 8
 const CIRCLE_RENDER_SCALE = 2
 
 gsap.registerPlugin(ScrollTrigger)
@@ -61,8 +63,8 @@ function initializeHeroMotion() {
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
   const activeChars = new Set()
   let charCenters = []
-  let pointerFrame = 0
-  let resizeFrame = 0
+  let pointerRenderPending = false
+  let resizePending = false
   let pointerX = 0
   let pointerY = 0
   let pointerInside = false
@@ -97,6 +99,7 @@ function initializeHeroMotion() {
       duration: elastic ? 1.2 : 0.6,
       ease: elastic ? 'elastic.out(1,0.5)' : 'power3.out',
       overwrite: 'auto',
+      onComplete: () => { char.style.willChange = '' },
     })
   }
 
@@ -106,7 +109,8 @@ function initializeHeroMotion() {
   }
 
   const renderPointerEffect = () => {
-    pointerFrame = 0
+    pointerRenderPending = false
+    gsap.ticker.remove(renderPointerEffect)
 
     if (!pointerInside || transitionActive || !canUsePointerEffect()) {
       restoreAllCharacters()
@@ -134,13 +138,17 @@ function initializeHeroMotion() {
       const xShift = deltaX / safeDistance * push
       const yShift = deltaY / safeDistance * push
       const rotation = clamp(xShift / POINTER_PUSH * 20, -20, 20)
+      const blur = distance < POINTER_BLUR_RADIUS
+        ? MAX_BLUR * (1 - distance / POINTER_BLUR_RADIUS)
+        : 0
 
       nextActive.add(char)
+      char.style.willChange = 'transform, opacity, filter'
       gsap.to(char, {
         x: xShift,
         y: yShift,
         rotation,
-        filter: `blur(${(6 * influence).toFixed(2)}px)`,
+        filter: `blur(${blur.toFixed(2)}px)`,
         opacity: 1 - influence * 0.68,
         duration: 0.6,
         ease: 'power3.out',
@@ -158,8 +166,9 @@ function initializeHeroMotion() {
   }
 
   const requestPointerRender = () => {
-    if (!pointerFrame) {
-      pointerFrame = window.requestAnimationFrame(renderPointerEffect)
+    if (!pointerRenderPending) {
+      pointerRenderPending = true
+      gsap.ticker.add(renderPointerEffect)
     }
   }
 
@@ -175,21 +184,23 @@ function initializeHeroMotion() {
 
   const onPointerLeave = () => {
     pointerInside = false
-    window.cancelAnimationFrame(pointerFrame)
-    pointerFrame = 0
+    pointerRenderPending = false
+    gsap.ticker.remove(renderPointerEffect)
     restoreAllCharacters(true)
   }
 
+  const resizeOnTicker = () => {
+    resizePending = false
+    gsap.ticker.remove(resizeOnTicker)
+    measureCharCenters()
+    lenis.resize()
+    ScrollTrigger.refresh()
+  }
+
   const onResize = () => {
-    if (resizeFrame) {
-      return
-    }
-    resizeFrame = window.requestAnimationFrame(() => {
-      resizeFrame = 0
-      measureCharCenters()
-      lenis.resize()
-      ScrollTrigger.refresh()
-    })
+    if (resizePending) return
+    resizePending = true
+    gsap.ticker.add(resizeOnTicker)
   }
 
   measureCharCenters()
@@ -239,7 +250,7 @@ function initializeHeroMotion() {
           return direction * (72 + distanceFromCenter * 18)
         },
         opacity: 0,
-        filter: 'blur(16px)',
+        filter: (index) => index % 2 === 0 ? `blur(${MAX_BLUR}px)` : 'blur(0px)',
         letterSpacing: '0.3em',
         duration: 0.58,
         ease: 'power2.in',
@@ -305,7 +316,7 @@ function initializeHeroMotion() {
   const menuAnchors = [...header.querySelectorAll('a[href^="#"]')]
   const main = document.querySelector('main')
   let activeAnchorTarget = null
-  let anchorCorrectionFrame = 0
+  let anchorCorrectionPending = false
 
   const scrollToHash = (hash, immediate = false) => {
     const target = hash && hash !== '#'
@@ -359,21 +370,25 @@ function initializeHeroMotion() {
     activeAnchorTarget = null
   }
 
+  const correctAnchorOnTicker = () => {
+    anchorCorrectionPending = false
+    gsap.ticker.remove(correctAnchorOnTicker)
+    const distance = activeAnchorTarget?.getBoundingClientRect().top || 0
+    if (Math.abs(distance) > 2) {
+      lenis.scrollTo(activeAnchorTarget, { immediate: true, offset: 0 })
+    }
+  }
+
   const layoutObserver = new ResizeObserver(() => {
     lenis.resize()
     ScrollTrigger.refresh()
 
-    if (!activeAnchorTarget || anchorCorrectionFrame) {
+    if (!activeAnchorTarget || anchorCorrectionPending) {
       return
     }
 
-    anchorCorrectionFrame = window.requestAnimationFrame(() => {
-      anchorCorrectionFrame = 0
-      const distance = activeAnchorTarget?.getBoundingClientRect().top || 0
-      if (Math.abs(distance) > 2) {
-        lenis.scrollTo(activeAnchorTarget, { immediate: true, offset: 0 })
-      }
-    })
+    anchorCorrectionPending = true
+    gsap.ticker.add(correctAnchorOnTicker)
   })
 
   if (main) {
@@ -401,9 +416,9 @@ function initializeHeroMotion() {
   })
 
   const cleanup = () => {
-    window.cancelAnimationFrame(pointerFrame)
-    window.cancelAnimationFrame(resizeFrame)
-    window.cancelAnimationFrame(anchorCorrectionFrame)
+    gsap.ticker.remove(renderPointerEffect)
+    gsap.ticker.remove(resizeOnTicker)
+    gsap.ticker.remove(correctAnchorOnTicker)
     restoreAllCharacters()
     layoutObserver.disconnect()
     field.removeEventListener('pointermove', onPointerMove)
