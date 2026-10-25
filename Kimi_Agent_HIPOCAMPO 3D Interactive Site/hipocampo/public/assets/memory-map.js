@@ -76,7 +76,7 @@ async function mountMemoryMap(container) {
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
   const coarsePointer = window.matchMedia('(hover: none), (pointer: coarse)')
-  const pointer = { x: 0, y: 0, active: false }
+  const pointer = { localX: 0, localY: 0, active: false }
   let visible = false
   let destroyed = false
   let tickerActive = false
@@ -86,8 +86,6 @@ async function mountMemoryMap(container) {
 
   let containerWidth = 0
   let containerHeight = 0
-  let containerLeft = 0
-  let containerTop = 0
 
   const resizeCanvas = (width, height) => {
     const nextDpr = clamp(window.devicePixelRatio || 1, 1, 2)
@@ -103,20 +101,15 @@ async function mountMemoryMap(container) {
     context.setTransform(nextDpr, 0, 0, nextDpr, 0, 0)
   }
 
-  const updateContainerGeometry = () => {
-    if (!container.isConnected) return
-    const rect = container.getBoundingClientRect()
-    containerWidth = rect.width
-    containerHeight = rect.height
-    containerLeft = rect.left
-    containerTop = rect.top
-    if (containerWidth && containerHeight) {
-      resizeCanvas(containerWidth, containerHeight)
+  const resizeObserver = new ResizeObserver((entries) => {
+    for (const entry of entries) {
+      const cr = entry.contentRect
+      if (cr.width && cr.height) {
+        containerWidth = cr.width
+        containerHeight = cr.height
+        resizeCanvas(containerWidth, containerHeight)
+      }
     }
-  }
-
-  const resizeObserver = new ResizeObserver(() => {
-    updateContainerGeometry()
   })
   resizeObserver.observe(container)
 
@@ -160,8 +153,6 @@ async function mountMemoryMap(container) {
 
     const motionFactor = reducedMotion.matches ? REDUCED_MOTION_FACTOR : 1
     const allowRepulsion = !coarsePointer.matches && pointer.active
-    const localPointerX = pointer.x - containerLeft
-    const localPointerY = pointer.y - containerTop
     const repulsionRadius = Math.max(width, height) * 0.4
     const maximumPush = Math.min(width, height) * 0.095 * motionFactor
 
@@ -183,8 +174,8 @@ async function mountMemoryMap(container) {
         piece.targetHandAngle = 0
 
         if (allowRepulsion) {
-          const deltaX = centerX - localPointerX
-          const deltaY = centerY - localPointerY
+          const deltaX = centerX - pointer.localX
+          const deltaY = centerY - pointer.localY
           const distance = Math.hypot(deltaX, deltaY)
           if (distance < repulsionRadius) {
             const normalizedX = distance > 0.1 ? deltaX / distance : Math.cos(piece.phase)
@@ -230,7 +221,12 @@ async function mountMemoryMap(container) {
   const start = () => {
     if (!destroyed && visible && !tickerActive) {
       tickerActive = true
-      updateContainerGeometry()
+      const rect = container.getBoundingClientRect()
+      if (rect.width && rect.height) {
+        containerWidth = rect.width
+        containerHeight = rect.height
+        resizeCanvas(containerWidth, containerHeight)
+      }
       gsap.ticker.add(tickerRender)
     }
   }
@@ -244,8 +240,9 @@ async function mountMemoryMap(container) {
 
   const onPointerMove = (event) => {
     if (coarsePointer.matches) return
-    pointer.x = event.clientX
-    pointer.y = event.clientY
+    const rect = container.getBoundingClientRect()
+    pointer.localX = event.clientX - rect.left
+    pointer.localY = event.clientY - rect.top
     pointer.active = true
   }
   const clearPointer = () => { pointer.active = false }
@@ -262,8 +259,6 @@ async function mountMemoryMap(container) {
 
   intersectionObserver.observe(container)
   window.addEventListener('pointermove', onPointerMove, { passive: true })
-  window.addEventListener('scroll', updateContainerGeometry, { passive: true })
-  window.addEventListener('resize', updateContainerGeometry, { passive: true })
   window.addEventListener('blur', clearPointer)
   document.addEventListener('pointerout', onPointerOut, { passive: true })
   reducedMotion.addEventListener('change', onMotionPreferenceChange)
@@ -277,8 +272,6 @@ async function mountMemoryMap(container) {
     resizeObserver.disconnect()
     intersectionObserver.disconnect()
     window.removeEventListener('pointermove', onPointerMove)
-    window.removeEventListener('scroll', updateContainerGeometry)
-    window.removeEventListener('resize', updateContainerGeometry)
     window.removeEventListener('blur', clearPointer)
     document.removeEventListener('pointerout', onPointerOut)
     reducedMotion.removeEventListener('change', onMotionPreferenceChange)
