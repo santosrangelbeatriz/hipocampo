@@ -369,6 +369,7 @@ function initializeEditorialRedesign() {
       instalacaoConfigured = true
       clearLegacySectionTriggers([inst])
       setupScrollAnimations()
+      window.requestAnimationFrame(measureSectionRanges)
     }
   })
   instalacaoObserver.observe(root, { childList: true, subtree: true })
@@ -386,29 +387,49 @@ function initializeEditorialRedesign() {
   ]
 
   let currentCursorTheme = 'on-blue'
+  let currentActiveId = ''
+  let currentHeaderTheme = ''
+  let currentHeaderScrolled = null
+  let currentPageProgress = ''
+  let sectionRanges = []
+
+  const measureSectionRanges = () => {
+    sectionRanges = sectionThemeMap.map((item) => {
+      const element = document.getElementById(item.id)
+      if (!element) return null
+      const rect = element.getBoundingClientRect()
+      const top = rect.top + window.scrollY
+      return { ...item, element, top, bottom: top + rect.height }
+    }).filter(Boolean)
+  }
 
   const updateScrollNavigation = () => {
     const scrollY = window.scrollY
     const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight)
     const pageProgress = clamp(scrollY / maxScroll, 0, 1)
-    document.documentElement.style.setProperty('--hip-page-progress', pageProgress.toFixed(4))
+    const nextPageProgress = pageProgress.toFixed(4)
+    if (nextPageProgress !== currentPageProgress) {
+      currentPageProgress = nextPageProgress
+      document.documentElement.style.setProperty('--hip-page-progress', nextPageProgress)
+    }
 
-    header.classList.toggle('hipocampo-header-scrolled', scrollY > 72)
+    const nextHeaderScrolled = scrollY > 72
+    if (nextHeaderScrolled !== currentHeaderScrolled) {
+      currentHeaderScrolled = nextHeaderScrolled
+      header.classList.toggle('hipocampo-header-scrolled', nextHeaderScrolled)
+    }
 
-    const probeY = window.innerHeight * 0.28
+    const probeY = scrollY + window.innerHeight * 0.28
     let activeId = 'abertura'
     let activeTheme = 'dark'
     let activeCursorTheme = 'on-blue'
 
     const heroProgress = Number.parseFloat(
-      window.getComputedStyle(hero).getPropertyValue('--hipocampo-scroll-progress'),
+      hero.style.getPropertyValue('--hipocampo-scroll-progress'),
     ) || 0
 
-    for (const item of sectionThemeMap) {
-      const el = document.getElementById(item.id)
-      if (!el) continue
-
-      if (item.id === 'projeto' && el.classList.contains('hipocampo-transition-project')) {
+    for (const item of sectionRanges) {
+      if (item.id === 'projeto' && item.element.classList.contains('hipocampo-transition-project')) {
         if (heroProgress >= 0.48) {
           activeId = 'projeto'
           activeTheme = item.theme
@@ -417,8 +438,7 @@ function initializeEditorialRedesign() {
         continue
       }
 
-      const rect = el.getBoundingClientRect()
-      if (rect.top <= probeY && rect.bottom >= probeY) {
+      if (item.top <= probeY && item.bottom >= probeY) {
         if (item.id === 'abertura' && heroProgress >= 0.48) {
           activeId = 'projeto'
           activeTheme = 'yellow'
@@ -431,16 +451,23 @@ function initializeEditorialRedesign() {
       }
     }
 
-    header.dataset.navTheme = activeTheme
-    currentCursorTheme = activeCursorTheme
-    if (cursorEl) {
-      cursorEl.dataset.cursorTheme = currentCursorTheme
+    if (activeTheme !== currentHeaderTheme) {
+      currentHeaderTheme = activeTheme
+      header.dataset.navTheme = activeTheme
     }
 
-    navLinks.forEach((link) => {
-      const targetId = link.getAttribute('href')?.slice(1)
-      link.classList.toggle('is-active-section', targetId === activeId)
-    })
+    if (activeCursorTheme !== currentCursorTheme) {
+      currentCursorTheme = activeCursorTheme
+      if (cursorEl) cursorEl.dataset.cursorTheme = currentCursorTheme
+    }
+
+    if (activeId !== currentActiveId) {
+      currentActiveId = activeId
+      navLinks.forEach((link) => {
+        const targetId = link.getAttribute('href')?.slice(1)
+        link.classList.toggle('is-active-section', targetId === activeId)
+      })
+    }
   }
 
   // 6. Cursor contextual com suavização (acoplado ao gsap.ticker para evitar loops rAF duplicados)
@@ -451,6 +478,7 @@ function initializeEditorialRedesign() {
   let smoothX = -100
   let smoothY = -100
   let cursorVisible = false
+  let cursorTickerActive = false
 
   if (finePointerQuery.matches && !reducedMotionQuery.matches) {
     cursorEl = document.createElement('div')
@@ -517,6 +545,8 @@ function initializeEditorialRedesign() {
       cursorEl.classList.add('is-visible')
     }
 
+    startCursorTicker()
+
     const { mode, label } = resolveCursorContext(event.target)
     if (cursorEl.dataset.cursorMode !== mode) {
       cursorEl.dataset.cursorMode = mode
@@ -530,18 +560,39 @@ function initializeEditorialRedesign() {
     if (!cursorEl) return
     cursorVisible = false
     cursorEl.classList.remove('is-visible')
+    stopCursorTicker()
+  }
+
+  const stopCursorTicker = () => {
+    if (!cursorTickerActive) return
+    gsap.ticker.remove(tickerRender)
+    cursorTickerActive = false
+  }
+
+  const startCursorTicker = () => {
+    if (cursorTickerActive || !cursorEl || !cursorVisible) return
+    cursorTickerActive = true
+    gsap.ticker.add(tickerRender)
   }
 
   const tickerRender = () => {
-    if (!cursorEl || !cursorVisible || reducedMotionQuery.matches) return
+    if (!cursorEl || !cursorVisible || reducedMotionQuery.matches) {
+      stopCursorTicker()
+      return
+    }
     const ratio = gsap.ticker.deltaRatio(60)
     const ease = 1 - Math.pow(0.8, ratio)
     smoothX += (pointerX - smoothX) * ease
     smoothY += (pointerY - smoothY) * ease
     cursorEl.style.transform = `translate3d(${smoothX.toFixed(2)}px, ${smoothY.toFixed(2)}px, 0)`
-  }
 
-  gsap.ticker.add(tickerRender)
+    if (Math.abs(pointerX - smoothX) < 0.05 && Math.abs(pointerY - smoothY) < 0.05) {
+      smoothX = pointerX
+      smoothY = pointerY
+      cursorEl.style.transform = `translate3d(${smoothX.toFixed(2)}px, ${smoothY.toFixed(2)}px, 0)`
+      stopCursorTicker()
+    }
+  }
 
   // 7. Micro-interação magnética suave nos links de navegação e controles editoriais
   if (finePointerQuery.matches && !reducedMotionQuery.matches) {
@@ -588,27 +639,34 @@ function initializeEditorialRedesign() {
     }
   }
 
+  const onViewportResize = () => {
+    measureSectionRanges()
+    requestScrollNavSync()
+  }
+
   const onReducedMotionChange = () => {
     setupScrollAnimations()
+    measureSectionRanges()
     updateScrollNavigation()
   }
 
+  measureSectionRanges()
   updateScrollNavigation()
   window.addEventListener('scroll', requestScrollNavSync, { passive: true })
-  window.addEventListener('resize', requestScrollNavSync, { passive: true })
+  window.addEventListener('resize', onViewportResize, { passive: true })
   window.addEventListener('pointermove', onPointerMove, { passive: true })
   document.addEventListener('mouseleave', onPointerLeaveWindow)
   reducedMotionQuery.addEventListener('change', onReducedMotionChange)
 
   const cleanup = () => {
     window.cancelAnimationFrame(scrollSyncFrame)
-    gsap.ticker.remove(tickerRender)
+    stopCursorTicker()
     instalacaoObserver.disconnect()
     gsapCtx?.revert()
     splitRecords.splice(0).forEach((record) => record.revert())
     magneticCleanups.splice(0).forEach((fn) => fn())
     window.removeEventListener('scroll', requestScrollNavSync)
-    window.removeEventListener('resize', requestScrollNavSync)
+    window.removeEventListener('resize', onViewportResize)
     window.removeEventListener('pointermove', onPointerMove)
     document.removeEventListener('mouseleave', onPointerLeaveWindow)
     reducedMotionQuery.removeEventListener('change', onReducedMotionChange)

@@ -1,0 +1,683 @@
+{
+  "source": "pagina2/image copy.png",
+  "width": 671,
+  "height": 960,
+  "aspectRatio": 0.69895833,
+  "backgroundColor": "#f7f0e0",
+  "lineColor": "#635c4b",
+  "lineWidthPct": 0.29806,
+  "pieces": [
+    {
+      "id": "peca-01",
+      "tipo": "mao",
+      "src": "/images/map/peca-01.png",
+      "x": 194,
+      "y": 65,
+      "w": 35,
+      "h": 48,
+      "center": {
+        "xPct": 31.44438,
+        "yPct": 9.26811
+      },
+      "anchorPiece": {
+        "xPct": 32.19076,
+        "yPct": 11.45833
+      },
+      "anchorHouse": {
+        "xPct": 42.47392,
+        "yPct": 39.79167
+      }
+    },
+    {
+      "id": "peca-02",
+      "tipo": "mao",
+      "src": "/images/map/peca-02.png",
+      "x": 518,
+      "y": 65,
+      "w": 42,
+      "h": 69,
+      "center": {
+        "xPct": 80.33234,
+        "yPct": 10.6499
+      },
+      "anchorPiece": {
+        "xPct": 77.64531,
+        "yPct": 13.64583
+      },
+      "anchorHouse": {
+        "xPct": 57.82414,
+        "yPct": 41.14583
+      }
+    },
+    {
+      "id": "peca-03",
+      "tipo": "mao",
+      "src": "/images/map/peca-03.png",
+      "x": 421,
+      "y": 115,
+      "w": 38,
+      "h": 56,
+      "center": {
+        "xPct": 65.20481,
+        "yPct": 14.86908
+      },
+      "anchorPiece": {
+        "xPct": 63.78539,
+        "yPct": 17.5
+      },
+      "anchorHouse": {
+        "xPct": 51.4158,
+        "yPct": 39.58333
+      }
+    },
+    {
+      "id": "peca-04",
+      "tipo": "pessoa",
+      "src": "/images/map/peca-04.png",
+      "x": 242,
+      "y": 144,
+      "w": 34,
+      "h": 58,
+      "center": {
+        "xPct": 38.56922,
+        "yPct": 18.11622
+      },
+      "anchorPiece": {
+        "xPct": 39.64232,
+        "yPct": 20.72917
+      },
+      "anchorHouse": {
+        "xPct": 42.47392,
+        "yPct": 39.79167
+      }
+    },
+    {
+      "id": "peca-05",
+      "tipo": "pessoa",
+      "src": "/images/map/peca-05.png",
+      "x": 455,
+      "y": 154,
+      "w": 41,
+      "h": 57,
+      "center": {
+        "xPct": 71.016,
+        "yPct": 19.38249
+      },
+      "anchorPiece": {
+        "xPct": 69.74665,
+        "yPct": 21.66667
+      },
+      "anchorHouse": {
+        "xPct": 57.82414,
+        "yPct": 41.14583
+      }
+    },
+    {
+      "id": "peca-06",
+      "tipo": "mao",
+      "src": "/images/map/peca-06.png",
+      "x": 327,
+      "y": 166,
+      "w": 25,
+      "h": 47,
+      "center": {
+        "xPct": 50.45037,
+        "yPct": 19.65879
+      },
+      "anchorPiece": {
+        "xPct": 49.32936,
+        "yPct": 21.875
+      },
+      "anchorHouse": {
+        "xPct": 49.32936,
+        "yPct": 39.58333
+      }
+    },
+    {
+      "id": "peca-07",
+      "tipo": "mao",
+      "src": "/images/map/peca-07.png",
+      "x": 526,
+      "y": 226,
+      "w": 41,
+      "h": 63,
+      "center": {
+        "xPct": 81.49256,
+        "yPct": 26.85388
+      },
+      "anchorPiece": {
+        "xPct": 78.83756,
+        "yPct": 29.27083
+      },
+      "anchorHouse": {
+        "xPct": 57.82414,
+        "yPct": 41.14583
+      }
+    },
+    {
+      "id": "peca-08",
+      "tipo": "mao",
+      "src": "/images/map/peca-08.png",
+      "x": 187,
+      "y": 239,
+      "w": 31,
+      "h": 52,
+      "center": {
+        "xPct": 30.07659,
+        "yPct": 27.5013
+      },
+      "anchorPiece": {
+        "xPct": 30.70045,
+        "yPct": 30.0
+      },
+      "anchorHouse": {
+        "xPct": 42.47392,
+        "yPct": 39.79167
+      }
+    },
+    {
+      "id": "peca-09",
+      "tipo": "pessoa",
+      "src": "/images/map/peca-09.png",
+      "x": 285,
+      "y": 247,
+      "w": 30,
+      "h": 65,
+      "center": {
+        "xPct": 44.40847,
+        "yPct": 29.08537
+      },
+      "anchorPiece": {
+        "xPct": 43.96423,
+        "yPct": 32.1875
+      },
+      "anchorHouse": {
+        "xPct": 43.96423,
+        "yPct": 39.79167
+      }
+    },
+    {
+      "id": "peca-10",
+      "tipo": "mao",
+      "src": "/images/map/peca-10.png",
+      "x": 50,
+      "y": 258,
+      "w": 74,
+      "h": 79,
+      "center": {
+        "xPct": 13.02708,
+        "yPct": 31.13828
+      },
+      "anchorPiece": {
+        "xPct": 17.28763,
+        "yPct": 34.16667
+      },
+      "anchorHouse": {
+        "xPct": 33.53204,
+        "yPct": 46.04167
+      }
+    },
+    {
+      "id": "peca-11",
+      "tipo": "objeto",
+      "src": "/images/map/peca-11.png",
+      "x": 372,
+      "y": 259,
+      "w": 49,
+      "h": 62,
+      "center": {
+        "xPct": 58.71945,
+        "yPct": 30.08367
+      },
+      "anchorPiece": {
+        "xPct": 58.12221,
+        "yPct": 33.125
+      },
+      "anchorHouse": {
+        "xPct": 51.4158,
+        "yPct": 39.58333
+      }
+    },
+    {
+      "id": "peca-12",
+      "tipo": "pessoa",
+      "src": "/images/map/peca-12.png",
+      "x": 226,
+      "y": 314,
+      "w": 24,
+      "h": 41,
+      "center": {
+        "xPct": 35.13885,
+        "yPct": 34.90834
+      },
+      "anchorPiece": {
+        "xPct": 36.81073,
+        "yPct": 35.625
+      },
+      "anchorHouse": {
+        "xPct": 42.47392,
+        "yPct": 39.79167
+      }
+    },
+    {
+      "id": "peca-13",
+      "tipo": "objeto",
+      "src": "/images/map/peca-13.png",
+      "x": 418,
+      "y": 319,
+      "w": 37,
+      "h": 29,
+      "center": {
+        "xPct": 64.71714,
+        "yPct": 34.57875
+      },
+      "anchorPiece": {
+        "xPct": 63.18927,
+        "yPct": 35.52083
+      },
+      "anchorHouse": {
+        "xPct": 57.82414,
+        "yPct": 41.14583
+      }
+    },
+    {
+      "id": "peca-14",
+      "tipo": "objeto",
+      "src": "/images/map/peca-14.png",
+      "x": 128,
+      "y": 318,
+      "w": 23,
+      "h": 48,
+      "center": {
+        "xPct": 21.12277,
+        "yPct": 35.75111
+      },
+      "anchorPiece": {
+        "xPct": 21.60954,
+        "yPct": 37.8125
+      },
+      "anchorHouse": {
+        "xPct": 33.53204,
+        "yPct": 46.04167
+      }
+    },
+    {
+      "id": "peca-15",
+      "tipo": "pessoa",
+      "src": "/images/map/peca-15.png",
+      "x": 175,
+      "y": 348,
+      "w": 23,
+      "h": 64,
+      "center": {
+        "xPct": 27.71908,
+        "yPct": 39.45844
+      },
+      "anchorPiece": {
+        "xPct": 27.57079,
+        "yPct": 42.5
+      },
+      "anchorHouse": {
+        "xPct": 33.53204,
+        "yPct": 46.04167
+      }
+    },
+    {
+      "id": "peca-16",
+      "tipo": "casa",
+      "src": "/images/map/peca-16.png",
+      "x": 215,
+      "y": 378,
+      "w": 214,
+      "h": 176,
+      "center": {
+        "xPct": 48.18086,
+        "yPct": 49.56375
+      },
+      "anchorPiece": {
+        "xPct": 48.18086,
+        "yPct": 49.56375
+      },
+      "anchorHouse": {
+        "xPct": 48.18086,
+        "yPct": 49.56375
+      }
+    },
+    {
+      "id": "peca-17",
+      "tipo": "pessoa",
+      "src": "/images/map/peca-17.png",
+      "x": 437,
+      "y": 385,
+      "w": 53,
+      "h": 89,
+      "center": {
+        "xPct": 68.31605,
+        "yPct": 45.03694
+      },
+      "anchorPiece": {
+        "xPct": 66.31893,
+        "yPct": 48.75
+      },
+      "anchorHouse": {
+        "xPct": 63.3383,
+        "yPct": 48.75
+      }
+    },
+    {
+      "id": "peca-18",
+      "tipo": "mao",
+      "src": "/images/map/peca-18.png",
+      "x": 480,
+      "y": 429,
+      "w": 73,
+      "h": 47,
+      "center": {
+        "xPct": 76.78598,
+        "yPct": 47.32945
+      },
+      "anchorPiece": {
+        "xPct": 71.83308,
+        "yPct": 49.16667
+      },
+      "anchorHouse": {
+        "xPct": 63.3383,
+        "yPct": 49.16667
+      }
+    },
+    {
+      "id": "peca-19",
+      "tipo": "mao",
+      "src": "/images/map/peca-19.png",
+      "x": 64,
+      "y": 448,
+      "w": 56,
+      "h": 36,
+      "center": {
+        "xPct": 13.66525,
+        "yPct": 48.64202
+      },
+      "anchorPiece": {
+        "xPct": 17.43666,
+        "yPct": 48.95833
+      },
+      "anchorHouse": {
+        "xPct": 32.33979,
+        "yPct": 48.95833
+      }
+    },
+    {
+      "id": "peca-20",
+      "tipo": "pessoa",
+      "src": "/images/map/peca-20.png",
+      "x": 105,
+      "y": 519,
+      "w": 32,
+      "h": 74,
+      "center": {
+        "xPct": 17.8467,
+        "yPct": 57.82203
+      },
+      "anchorPiece": {
+        "xPct": 19.5231,
+        "yPct": 58.75
+      },
+      "anchorHouse": {
+        "xPct": 32.33979,
+        "yPct": 57.39583
+      }
+    },
+    {
+      "id": "peca-21",
+      "tipo": "pessoa",
+      "src": "/images/map/peca-21.png",
+      "x": 430,
+      "y": 537,
+      "w": 49,
+      "h": 68,
+      "center": {
+        "xPct": 67.74753,
+        "yPct": 59.37258
+      },
+      "anchorPiece": {
+        "xPct": 64.82861,
+        "yPct": 59.16667
+      },
+      "anchorHouse": {
+        "xPct": 63.04024,
+        "yPct": 57.08333
+      }
+    },
+    {
+      "id": "peca-22",
+      "tipo": "objeto",
+      "src": "/images/map/peca-22.png",
+      "x": 371,
+      "y": 576,
+      "w": 60,
+      "h": 48,
+      "center": {
+        "xPct": 60.24482,
+        "yPct": 62.13924
+      },
+      "anchorPiece": {
+        "xPct": 57.52608,
+        "yPct": 60.20833
+      },
+      "anchorHouse": {
+        "xPct": 57.52608,
+        "yPct": 56.97917
+      }
+    },
+    {
+      "id": "peca-23",
+      "tipo": "mao",
+      "src": "/images/map/peca-23.png",
+      "x": 29,
+      "y": 613,
+      "w": 64,
+      "h": 37,
+      "center": {
+        "xPct": 9.25446,
+        "yPct": 65.85166
+      },
+      "anchorPiece": {
+        "xPct": 13.11475,
+        "yPct": 64.27083
+      },
+      "anchorHouse": {
+        "xPct": 32.33979,
+        "yPct": 57.39583
+      }
+    },
+    {
+      "id": "peca-24",
+      "tipo": "pessoa",
+      "src": "/images/map/peca-24.png",
+      "x": 270,
+      "y": 611,
+      "w": 30,
+      "h": 80,
+      "center": {
+        "xPct": 42.48965,
+        "yPct": 67.96995
+      },
+      "anchorPiece": {
+        "xPct": 44.2623,
+        "yPct": 65.41667
+      },
+      "anchorHouse": {
+        "xPct": 44.11326,
+        "yPct": 57.39583
+      }
+    },
+    {
+      "id": "peca-25",
+      "tipo": "pessoa",
+      "src": "/images/map/peca-25.png",
+      "x": 136,
+      "y": 616,
+      "w": 77,
+      "h": 107,
+      "center": {
+        "xPct": 26.26723,
+        "yPct": 70.53109
+      },
+      "anchorPiece": {
+        "xPct": 31.29657,
+        "yPct": 66.875
+      },
+      "anchorHouse": {
+        "xPct": 32.33979,
+        "yPct": 57.39583
+      }
+    },
+    {
+      "id": "peca-26",
+      "tipo": "objeto",
+      "src": "/images/map/peca-26.png",
+      "x": 469,
+      "y": 620,
+      "w": 70,
+      "h": 96,
+      "center": {
+        "xPct": 74.99417,
+        "yPct": 69.86915
+      },
+      "anchorPiece": {
+        "xPct": 70.4918,
+        "yPct": 65.20833
+      },
+      "anchorHouse": {
+        "xPct": 63.04024,
+        "yPct": 57.08333
+      }
+    },
+    {
+      "id": "peca-27",
+      "tipo": "pessoa",
+      "src": "/images/map/peca-27.png",
+      "x": 337,
+      "y": 679,
+      "w": 53,
+      "h": 58,
+      "center": {
+        "xPct": 54.30438,
+        "yPct": 73.61767
+      },
+      "anchorPiece": {
+        "xPct": 53.50224,
+        "yPct": 70.9375
+      },
+      "anchorHouse": {
+        "xPct": 53.05514,
+        "yPct": 57.1875
+      }
+    },
+    {
+      "id": "peca-28",
+      "tipo": "mao",
+      "src": "/images/map/peca-28.png",
+      "x": 411,
+      "y": 676,
+      "w": 33,
+      "h": 55,
+      "center": {
+        "xPct": 63.3365,
+        "yPct": 73.3894
+      },
+      "anchorPiece": {
+        "xPct": 61.84799,
+        "yPct": 70.625
+      },
+      "anchorHouse": {
+        "xPct": 61.84799,
+        "yPct": 57.08333
+      }
+    },
+    {
+      "id": "peca-29",
+      "tipo": "mao",
+      "src": "/images/map/peca-29.png",
+      "x": 261,
+      "y": 706,
+      "w": 25,
+      "h": 56,
+      "center": {
+        "xPct": 40.80302,
+        "yPct": 76.46133
+      },
+      "anchorPiece": {
+        "xPct": 41.57973,
+        "yPct": 73.75
+      },
+      "anchorHouse": {
+        "xPct": 41.87779,
+        "yPct": 57.39583
+      }
+    },
+    {
+      "id": "peca-30",
+      "tipo": "mao",
+      "src": "/images/map/peca-30.png",
+      "x": 528,
+      "y": 747,
+      "w": 57,
+      "h": 41,
+      "center": {
+        "xPct": 82.60169,
+        "yPct": 80.12297
+      },
+      "anchorPiece": {
+        "xPct": 79.88077,
+        "yPct": 78.02083
+      },
+      "anchorHouse": {
+        "xPct": 63.04024,
+        "yPct": 57.08333
+      }
+    },
+    {
+      "id": "peca-31",
+      "tipo": "mao",
+      "src": "/images/map/peca-31.png",
+      "x": 90,
+      "y": 782,
+      "w": 29,
+      "h": 52,
+      "center": {
+        "xPct": 15.38725,
+        "yPct": 83.99152
+      },
+      "anchorPiece": {
+        "xPct": 16.39344,
+        "yPct": 81.66667
+      },
+      "anchorHouse": {
+        "xPct": 32.33979,
+        "yPct": 57.39583
+      }
+    },
+    {
+      "id": "peca-32",
+      "tipo": "objeto",
+      "src": "/images/map/peca-32.png",
+      "x": 342,
+      "y": 814,
+      "w": 27,
+      "h": 58,
+      "center": {
+        "xPct": 52.83566,
+        "yPct": 87.86435
+      },
+      "anchorPiece": {
+        "xPct": 52.45902,
+        "yPct": 85.0
+      },
+      "anchorHouse": {
+        "xPct": 49.92548,
+        "yPct": 57.29167
+      }
+    }
+  ]
+}
