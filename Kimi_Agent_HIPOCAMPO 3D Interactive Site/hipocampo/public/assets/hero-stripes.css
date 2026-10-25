@@ -10,6 +10,7 @@
   --mx: 50%;
   --my: 50%;
   --r: 0px;
+  --edge: 1.5em;
   --stripes-offset: 0px;
   will-change: opacity;
 }
@@ -27,11 +28,11 @@
   background-image: repeating-linear-gradient(
     0deg,
     #d7d73e 0,
-    #d7d73e 0.35em,
-    #fff 0.35em,
-    #fff 0.7em,
-    #192bfe 0.7em,
-    #192bfe 1.05em
+    #d7d73e 0.3em,
+    #fff 0.3em,
+    #fff 0.6em,
+    #192bfe 0.6em,
+    #192bfe 0.9em
   );
   background-position: 0 var(--stripes-offset);
   background-repeat: repeat;
@@ -44,14 +45,14 @@
     circle at var(--mx) var(--my),
     #000 0,
     #000 var(--r),
-    transparent calc(var(--r) + 40px)
+    transparent calc(var(--r) + var(--edge))
   );
   mask-repeat: no-repeat;
   -webkit-mask-image: radial-gradient(
     circle at var(--mx) var(--my),
     #000 0,
     #000 var(--r),
-    transparent calc(var(--r) + 40px)
+    transparent calc(var(--r) + var(--edge))
   );
   -webkit-mask-repeat: no-repeat;
   will-change: transform;
@@ -63,12 +64,6 @@
 }
 
 @media (hover: none), (pointer: coarse), (max-width: 767px) {
-  .hipocampo-memory-stripes {
-    display: none;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
   .hipocampo-memory-stripes {
     display: none;
   }

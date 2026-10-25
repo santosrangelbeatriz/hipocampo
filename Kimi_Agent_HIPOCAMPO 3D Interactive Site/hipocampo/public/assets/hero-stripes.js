@@ -1,9 +1,12 @@
 import { n as gsap } from './index-BXEErpTi.js'
 
+// Defina como true para voltar a desligar o efeito quando o sistema pedir menos movimento.
+const RESPECT_REDUCED_MOTION = false
 const SCROLL_INTERACTION_LIMIT = 0.05
 const STRIPE_CYCLE_SECONDS = 6
-const STRIPE_PERIOD_EM = 1.05
-const LENS_RADIUS_EM = 9
+const STRIPE_PERIOD_EM = 0.9
+const LENS_RADIUS_EM = 4.5
+const STRIPES_VISIBLE_OPACITY = 0.72
 
 const clamp = (value, minimum = 0, maximum = 1) => (
   Math.min(maximum, Math.max(minimum, value))
@@ -44,7 +47,9 @@ function initializeHeroStripes() {
 
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)')
   const desktopViewport = window.matchMedia('(min-width: 768px)')
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+  const reduceMotionRequested = RESPECT_REDUCED_MOTION
+    ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    : false
   const cursor = {
     x: window.innerWidth * 0.5,
     y: window.innerHeight * 0.5,
@@ -143,7 +148,7 @@ function initializeHeroStripes() {
     overlay.style.visibility = 'visible'
     visibilityTween = gsap.to(overlay, {
       '--r': `${lensRadius.toFixed(2)}px`,
-      opacity: 1,
+      opacity: STRIPES_VISIBLE_OPACITY,
       duration: 0.3,
       ease: 'power3.out',
       overwrite: 'auto',
@@ -274,7 +279,7 @@ function initializeHeroStripes() {
     const shouldEnable = (
       finePointer.matches
       && desktopViewport.matches
-      && !reducedMotion.matches
+      && !reduceMotionRequested
     )
 
     if (shouldEnable) enableInteraction()
@@ -283,7 +288,6 @@ function initializeHeroStripes() {
 
   finePointer.addEventListener('change', syncInteractionAvailability)
   desktopViewport.addEventListener('change', syncInteractionAvailability)
-  reducedMotion.addEventListener('change', syncInteractionAvailability)
   syncInteractionAvailability()
 
   document.fonts?.ready.then(() => {
@@ -299,7 +303,6 @@ function initializeHeroStripes() {
     gsap.killTweensOf(overlay)
     finePointer.removeEventListener('change', syncInteractionAvailability)
     desktopViewport.removeEventListener('change', syncInteractionAvailability)
-    reducedMotion.removeEventListener('change', syncInteractionAvailability)
     window.removeEventListener('pagehide', cleanup)
     if (measureFrame) cancelAnimationFrame(measureFrame)
     overlay.remove()
