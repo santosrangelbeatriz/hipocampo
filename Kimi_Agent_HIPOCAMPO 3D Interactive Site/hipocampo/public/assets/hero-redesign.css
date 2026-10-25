@@ -11,6 +11,8 @@
   --hip-blue-dot: #1022dc;
   --hip-yellow-text: #d8d83d;
   --hip-yellow-circle: #ffdf60;
+  --hip-page2-paper: #fff;
+  --hip-page2-blue: #1729ff;
 }
 
 body > #root > header {
@@ -67,42 +69,32 @@ body > #root > header button:focus-visible {
 
 #abertura.hipocampo-hero {
   position: relative;
+  z-index: 10 !important;
   width: 100%;
   height: 100svh;
   min-height: 38rem;
   margin: 0;
   padding: 0 !important;
   overflow: hidden !important;
-  background: transparent !important;
+  background: var(--hip-blue) !important;
   isolation: isolate;
-  z-index: 10 !important;
 }
 
-#abertura.hipocampo-hero.hipocampo-transition-scene {
-  height: calc(var(--hipocampo-viewport-height, 100vh) * 2);
-  min-height: 0;
-  overflow: visible !important;
-  background: var(--hip-yellow-circle) !important;
-}
-
-.hipocampo-hero-stage {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-  background: transparent;
-  color: white;
-}
-
-.hipocampo-transition-scene .hipocampo-hero-stage {
-  position: sticky;
-  top: 0;
-  height: var(--hipocampo-viewport-height, 100vh);
-}
-
+.hipocampo-hero-stage,
 .hipocampo-hero-visuals {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hipocampo-hero-stage {
+  overflow: hidden;
+  color: #fff;
+  background: var(--hip-blue);
+}
+
+.hipocampo-hero-visuals {
   z-index: 0;
   overflow: hidden;
   background: var(--hip-blue);
@@ -152,107 +144,41 @@ body > #root > header button:focus-visible {
   line-height: 1.08;
   text-align: center;
   white-space: nowrap;
-  opacity: clamp(0, calc(1 - var(--hipocampo-scroll-progress, 0) * 2.4), 1);
-  transform: translate(-50%, -49%)
-    translateY(calc(var(--hipocampo-scroll-progress, 0) * -4vh));
-  will-change: opacity, transform;
-  pointer-events: none;
+  transform: translate(-50%, -49%);
 }
 
-.hipocampo-memory-field span {
+.hipocampo-memory-field > .hipocampo-memory-line {
+  position: relative;
   display: block;
   width: max-content;
+  transform: none;
+  pointer-events: auto;
+  will-change: transform, opacity, filter, letter-spacing;
 }
+
+.hipocampo-memory-field > .hipocampo-memory-line:nth-child(1) { opacity: 0.96; }
+.hipocampo-memory-field > .hipocampo-memory-line:nth-child(2) { opacity: 0.78; }
+.hipocampo-memory-field > .hipocampo-memory-line:nth-child(3) { opacity: 0.62; }
+.hipocampo-memory-field > .hipocampo-memory-line:nth-child(4) { opacity: 1; }
+.hipocampo-memory-field > .hipocampo-memory-line:nth-child(5) { opacity: 0.86; }
+.hipocampo-memory-field > .hipocampo-memory-line:nth-child(6) { opacity: 0.7; }
+.hipocampo-memory-field > .hipocampo-memory-line:nth-child(7) { opacity: 0.56; }
+.hipocampo-memory-field > .hipocampo-memory-line:nth-child(8) { opacity: 0.44; }
 
 .hipocampo-transition-circle {
   position: absolute;
   left: 50%;
-  --hipocampo-circle-size: clamp(11rem, 14vw, 13.75rem);
   bottom: calc(var(--hipocampo-circle-size) / -2);
   z-index: 1;
   width: var(--hipocampo-circle-size);
   aspect-ratio: 1;
+  --hipocampo-circle-size: clamp(11rem, 14vw, 13.75rem);
   border-radius: 50%;
   background: var(--hip-yellow-circle);
-  transform: translateX(-50%) scale(var(--hipocampo-circle-scale, 1));
+  transform: translateX(-50%);
   transform-origin: 50% 50%;
-  will-change: transform;
+  will-change: transform, background-color;
   pointer-events: none;
-}
-
-#projeto {
-  position: relative;
-  z-index: 20;
-  background: var(--hip-yellow-circle);
-  opacity: 1 !important;
-}
-
-#projeto.hipocampo-transition-project {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 3;
-  width: 100%;
-  margin: 0;
-  color: var(--hipocampo-project-color);
-  background: transparent !important;
-  transform: none !important;
-  pointer-events: none;
-}
-
-#projeto.hipocampo-transition-project.hipocampo-project-visible {
-  pointer-events: auto;
-}
-
-#projeto.hipocampo-transition-project > * {
-  opacity: var(--hipocampo-reveal, 1);
-  translate: 0 calc((1 - var(--hipocampo-reveal, 1)) * 7vh);
-  will-change: opacity, translate;
-}
-
-.hipocampo-project-continuation {
-  position: relative;
-  z-index: 0;
-  width: 100%;
-  height: var(--hipocampo-project-continuation-height, 30vh);
-  min-height: 30vh;
-  background: var(--hip-yellow-circle);
-  pointer-events: none;
-}
-
-@media all {
-  html.hipocampo-reduced-motion #abertura.hipocampo-hero.hipocampo-transition-scene {
-    height: var(--hipocampo-viewport-height, 100vh);
-    background: var(--hip-yellow-circle) !important;
-  }
-
-  html.hipocampo-reduced-motion .hipocampo-transition-scene .hipocampo-hero-stage {
-    position: relative;
-  }
-
-  html.hipocampo-reduced-motion .hipocampo-memory-field {
-    opacity: 1;
-    transform: translate(-50%, -49%);
-    will-change: auto;
-  }
-
-  html.hipocampo-reduced-motion .hipocampo-transition-circle {
-    will-change: auto;
-  }
-
-  html.hipocampo-reduced-motion #projeto.hipocampo-transition-project {
-    top: 100%;
-    background: transparent !important;
-    transform: none !important;
-    pointer-events: auto;
-  }
-
-  html.hipocampo-reduced-motion #projeto.hipocampo-transition-project > * {
-    opacity: 1 !important;
-    transform: none !important;
-    translate: none;
-    will-change: auto;
-  }
 }
 
 @media (max-width: 767px) {
@@ -280,8 +206,11 @@ body > #root > header button:focus-visible {
     width: 100%;
     font-size: clamp(1.45rem, 7vw, 2.15rem);
     line-height: 1.12;
-    transform: translate(-50%, -50%)
-      translateY(calc(var(--hipocampo-scroll-progress, 0) * -4vh));
+    transform: translate(-50%, -50%);
+  }
+
+  .hipocampo-memory-field > .hipocampo-memory-line {
+    pointer-events: none;
   }
 
   .hipocampo-transition-circle {
@@ -295,5 +224,4 @@ body > #root > header button:focus-visible {
     font-size: clamp(1.8rem, 5.1vh, 2.8rem);
     line-height: 1.04;
   }
-
 }

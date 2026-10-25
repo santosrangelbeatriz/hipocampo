@@ -1,0 +1,50 @@
+html {
+  scroll-behavior: auto !important;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+body,
+#root {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+
+.lenis [data-lenis-prevent],
+.lenis [data-lenis-prevent-wheel],
+.lenis [data-lenis-prevent-touch] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+.memory-char {
+  display: inline-block;
+  transform-origin: 50% 58%;
+  will-change: transform, opacity, filter;
+}
+
+.hipocampo-memory-field[data-hero-motion-ready='true'] {
+  pointer-events: auto;
+}
+
+@media (hover: none), (pointer: coarse), (max-width: 767px) {
+  .memory-char {
+    will-change: transform, opacity;
+  }
+
+  .hipocampo-memory-field[data-hero-motion-ready='true'] {
+    pointer-events: none;
+  }
+}
