@@ -1,0 +1,76 @@
+/*
+ * Foto dentro do texto — hover por linha na hero.
+ * Cada camada é um duplicado visual (aria-hidden) de uma linha amarela;
+ * as letras funcionam como janela para a foto via background-clip: text.
+ */
+
+.hipocampo-photo-text {
+  position: absolute;
+  inset: 0;
+  /* Acima da lente (z 3) para a foto ficar legível na linha ativa;
+     a lente segue atuando nas demais linhas. */
+  z-index: 4;
+  overflow: hidden;
+  contain: layout paint;
+  pointer-events: none;
+  --photo-shift: 0px;
+}
+
+.hipocampo-photo-text-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+  white-space: nowrap;
+  color: transparent;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  /* A linha é muito mais larga que alta, então dimensionar pela largura
+     equivale a "cover". 116% = 100% + folga de ±8% para o parallax. */
+  background-size: calc(116% * var(--photo-zoom, 1)) auto;
+  background-position: calc(50% + var(--photo-shift, 0px)) var(--photo-focus-y, 50%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* Traço transparente: engrossa a área recortada da letra sem pintar
+     contorno por cima da foto (um traço colorido cobriria a imagem). */
+  -webkit-text-stroke: 0.04em var(--photo-stroke-color, transparent);
+  filter: contrast(1.15) saturate(0.9);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  will-change: opacity;
+  --photo-zoom: 1;
+}
+
+.hipocampo-photo-text-layer.hipocampo-photo-text-bright {
+  filter: contrast(1.15) saturate(0.9) brightness(1.25);
+}
+
+/* Transição suave da linha amarela original enquanto o modo foto existe. */
+.hipocampo-photo-text-ready .hipocampo-memory-field > span {
+  transition: opacity 300ms ease !important;
+}
+
+.hipocampo-photo-text-ready .hipocampo-memory-field > span.hipocampo-photo-line-dimmed {
+  opacity: 0.15 !important;
+}
+
+/* A foto substitui as listras na linha ativa. */
+.hipocampo-memory-stripes-layer.hipocampo-photo-stripes-muted {
+  visibility: hidden !important;
+}
+
+.hipocampo-memory-transitioning .hipocampo-photo-text {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+@media (hover: none), (max-width: 767px) {
+  .hipocampo-photo-text {
+    display: none;
+  }
+}
