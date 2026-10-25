@@ -139,38 +139,43 @@ def run_desktop(browser, motion):
         """() => ({
           title: document.querySelector('.hipocampo-page2-title')?.getAttribute('aria-label'),
           copyLines: document.querySelectorAll('.page2-copy-line').length,
-          photos: document.querySelectorAll('.page2-photo').length,
+          mapPieces: document.querySelectorAll('.memory-map-piece-frame').length,
+          mapCanvases: document.querySelectorAll('.memory-map-lines').length,
+          oldPhotos: document.querySelectorAll('.page2-photo').length,
           background: getComputedStyle(document.querySelector('#projeto')).backgroundColor,
           oldProjectContent: Boolean(document.querySelector('#projeto .eyebrow')),
         })"""
     )
     check(result, "título da página 2 corresponde à referência", page2["title"] == "como uma memória é construída?", page2)
     check(result, "manifesto possui quinze linhas", page2["copyLines"] == 15, page2["copyLines"])
-    check(result, "colagem possui oito fotos", page2["photos"] == 8, page2["photos"])
+    check(result, "mapa possui 32 fragmentos", page2["mapPieces"] == 32, page2)
+    check(result, "mapa usa um único canvas de linhas", page2["mapCanvases"] == 1, page2)
+    check(result, "colagem fotográfica anterior foi removida", page2["oldPhotos"] == 0, page2)
     check(result, "página 2 usa fundo branco", page2["background"] == "rgb(255, 255, 255)", page2["background"])
     check(result, "conteúdo legado de projeto foi substituído", not page2["oldProjectContent"])
 
-    photo = page.locator(".page2-photo--4")
-    before_parallax = photo.evaluate("element => getComputedStyle(element).transform")
-    scroll_to(page, project_y + 360)
-    after_parallax = photo.evaluate("element => getComputedStyle(element).transform")
-    check(result, "parallax altera a posição das fotos", before_parallax != after_parallax, [before_parallax, after_parallax])
-
     scroll_to(page, project_y)
-    photo_box = photo.bounding_box()
-    page.mouse.move(photo_box["x"] + photo_box["width"] / 2, photo_box["y"] + photo_box["height"] / 2)
-    page.wait_for_timeout(700)
-    tilt = photo.evaluate(
-        """element => ({
-          transform: getComputedStyle(element).transform,
-          filter: getComputedStyle(element.querySelector('img')).filter,
-          zIndex: getComputedStyle(element).zIndex,
-        })"""
+    moving_piece = page.locator('[data-piece-id="peca-18"] .memory-map-piece')
+    piece_box = moving_piece.bounding_box()
+    page.mouse.move(piece_box["x"] + piece_box["width"] / 2, piece_box["y"] + piece_box["height"] / 2)
+    page.wait_for_timeout(900)
+    repelled = moving_piece.evaluate(
+        """element => {
+          const matrix = new DOMMatrixReadOnly(getComputedStyle(element).transform)
+          return { transform: getComputedStyle(element).transform, distance: Math.hypot(matrix.m41, matrix.m42) }
+        }"""
     )
-    check(result, "tilt 3D e saturação funcionam", tilt["transform"] != "none" and "1.6" in tilt["filter"], tilt)
-    page.screenshot(path=ARTIFACTS / f"{motion}-1916x851-02-page2-tilt.png")
+    check(result, "cursor repele os fragmentos", repelled["distance"] > 2, repelled)
+    page.screenshot(path=ARTIFACTS / f"{motion}-1916x851-02-page2-map.png")
     page.mouse.move(10, 10)
-    page.wait_for_timeout(1300)
+    page.wait_for_timeout(2100)
+    returned = moving_piece.evaluate(
+        """element => {
+          const matrix = new DOMMatrixReadOnly(getComputedStyle(element).transform)
+          return { transform: getComputedStyle(element).transform, distance: Math.hypot(matrix.m41, matrix.m42) }
+        }"""
+    )
+    check(result, "fragmentos retornam suavemente", returned["distance"] < repelled["distance"], [repelled, returned])
 
     anchor_results = []
     for section_id in ("projeto", "oficina", "instalacao", "fragmentos", "fotofilmes", "informacoes"):
@@ -254,10 +259,12 @@ def run_mobile(browser, motion):
           overflow: document.documentElement.scrollWidth - innerWidth,
           titleVisible: document.querySelector('.hipocampo-page2-title').getBoundingClientRect().top < innerHeight,
           copyWidth: document.querySelector('.hipocampo-page2-copy').getBoundingClientRect().width,
+          mapPieces: document.querySelectorAll('.memory-map-piece-frame').length,
           viewport: innerWidth,
         })"""
     )
     check(result, "página 2 aparece no mobile", mobile_page2["titleVisible"], mobile_page2)
+    check(result, "mapa mobile mantém os 32 fragmentos", mobile_page2["mapPieces"] == 32, mobile_page2)
     check(result, "mobile sem overflow horizontal na página 2", abs(mobile_page2["overflow"]) <= 1, mobile_page2["overflow"])
     check(result, "texto da página 2 cabe no viewport", mobile_page2["copyWidth"] <= mobile_page2["viewport"], mobile_page2)
     check(result, "mobile sem erros de console", not errors, errors)
