@@ -1,0 +1,83 @@
+.hipocampo-memory-field > .hipocampo-memory-line {
+  position: relative;
+  isolation: isolate;
+}
+
+.hipocampo-memory-field > .hipocampo-memory-line.hipocampo-photo-active {
+  z-index: 6;
+}
+
+.hipocampo-memory-field .hipocampo-hero-photo-strip {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  z-index: 5;
+  display: flex;
+  width: max-content;
+  align-items: center;
+  transform: translate3d(calc(var(--hipocampo-photo-x, 50%) - 50%), -50%, 0);
+  pointer-events: none;
+  will-change: transform;
+}
+
+.hipocampo-hero-photo {
+  display: block;
+  flex: 0 0 auto;
+  width: clamp(1.8em, 3.6vw, 2.65em);
+  height: 1.6em;
+  margin-left: -0.28em;
+  object-fit: cover;
+  border: 0.025em solid rgba(255, 255, 255, 0.9);
+  border-radius: 0.025em;
+  box-shadow: 0 0.11em 0.28em rgba(4, 7, 73, 0.28);
+  opacity: 0;
+  transform: translateY(var(--hipocampo-photo-y, 0))
+    rotate(var(--hipocampo-photo-rotation, 0deg)) scale(0.85);
+  transition:
+    opacity 200ms ease,
+    transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+  user-select: none;
+  -webkit-user-drag: none;
+  will-change: opacity, transform;
+}
+
+.hipocampo-hero-photo:first-child {
+  margin-left: 0;
+}
+
+.hipocampo-photo-strip-visible .hipocampo-hero-photo {
+  opacity: 1;
+  transform: translateY(var(--hipocampo-photo-y, 0))
+    rotate(var(--hipocampo-photo-rotation, 0deg)) scale(1);
+  transition-duration: 250ms;
+  transition-delay: var(--hipocampo-photo-delay, 0ms);
+}
+
+.hipocampo-photo-strip-immediate .hipocampo-hero-photo,
+.hipocampo-photo-hover-disabled .hipocampo-hero-photo {
+  opacity: 0 !important;
+  transition: none !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hipocampo-memory-field > .hipocampo-memory-line {
+    pointer-events: auto;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .hipocampo-memory-field > .hipocampo-memory-line {
+    pointer-events: none;
+  }
+
+  .hipocampo-memory-field .hipocampo-hero-photo-strip {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hipocampo-hero-photo,
+  .hipocampo-photo-strip-visible .hipocampo-hero-photo {
+    transition: none;
+  }
+}
