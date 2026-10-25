@@ -1,5 +1,7 @@
 import { n as gsap, t as ScrollTrigger } from './index-BXEErpTi.js'
 
+// Defina como true para voltar a respeitar a preferência de movimento reduzido do sistema.
+const RESPECT_REDUCED_MOTION = true
 const repeatLine = 'uma memória desapareceu uma memória desapareceu'
 const transitionControllerId = 'hipocampo-figma-sticky-transition'
 const minimumContinuationRatio = 0.3
@@ -64,7 +66,20 @@ function initializeScrollTransition(scene, stage, project, originalProjectLocati
   stage.append(project)
   scene.after(continuation)
 
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+  const reducedMotion = RESPECT_REDUCED_MOTION
+    ? window.matchMedia('(prefers-reduced-motion: reduce)')
+    : {
+        matches: false,
+        addEventListener() {},
+        removeEventListener() {},
+      }
+  const syncReducedMotionClass = () => {
+    document.documentElement.classList.toggle(
+      'hipocampo-reduced-motion',
+      reducedMotion.matches,
+    )
+  }
+  syncReducedMotionClass()
   const projectAnchors = [...document.querySelectorAll('a[href="#projeto"]')]
   let animationFrame = 0
   let coverageScale = 1
@@ -168,6 +183,7 @@ function initializeScrollTransition(scene, stage, project, originalProjectLocati
   }
 
   const onMotionPreferenceChange = () => {
+    syncReducedMotionClass()
     measure()
     requestRender()
     requestTriggerRefresh()
@@ -271,6 +287,7 @@ function initializeScrollTransition(scene, stage, project, originalProjectLocati
     circle.style.removeProperty('--hipocampo-circle-scale')
     project.style.removeProperty('--hipocampo-reveal')
     continuation.remove()
+    document.documentElement.classList.remove('hipocampo-reduced-motion')
 
     const { parent, nextSibling } = originalProjectLocation
     if (nextSibling?.parentNode === parent) {

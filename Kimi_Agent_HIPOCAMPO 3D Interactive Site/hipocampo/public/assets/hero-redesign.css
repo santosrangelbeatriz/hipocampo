@@ -220,34 +220,34 @@ body > #root > header button:focus-visible {
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  #abertura.hipocampo-hero.hipocampo-transition-scene {
+@media all {
+  html.hipocampo-reduced-motion #abertura.hipocampo-hero.hipocampo-transition-scene {
     height: var(--hipocampo-viewport-height, 100vh);
     background: var(--hip-yellow-circle) !important;
   }
 
-  .hipocampo-transition-scene .hipocampo-hero-stage {
+  html.hipocampo-reduced-motion .hipocampo-transition-scene .hipocampo-hero-stage {
     position: relative;
   }
 
-  .hipocampo-memory-field {
+  html.hipocampo-reduced-motion .hipocampo-memory-field {
     opacity: 1;
     transform: translate(-50%, -49%);
     will-change: auto;
   }
 
-  .hipocampo-transition-circle {
+  html.hipocampo-reduced-motion .hipocampo-transition-circle {
     will-change: auto;
   }
 
-  #projeto.hipocampo-transition-project {
+  html.hipocampo-reduced-motion #projeto.hipocampo-transition-project {
     top: 100%;
     background: transparent !important;
     transform: none !important;
     pointer-events: auto;
   }
 
-  #projeto.hipocampo-transition-project > * {
+  html.hipocampo-reduced-motion #projeto.hipocampo-transition-project > * {
     opacity: 1 !important;
     transform: none !important;
     translate: none;
