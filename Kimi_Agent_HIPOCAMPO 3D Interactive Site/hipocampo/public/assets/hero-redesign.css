@@ -168,14 +168,15 @@ body > #root > header button:focus-visible {
 .hipocampo-transition-circle {
   position: absolute;
   left: 50%;
-  bottom: calc(var(--hipocampo-circle-size) / -2);
+  /* Raster 2x maior: preserva a curva sem trocar o transform composto por repaint. */
+  bottom: calc(var(--hipocampo-circle-size) * -1);
   z-index: 1;
-  width: var(--hipocampo-circle-size);
-  aspect-ratio: 1;
   --hipocampo-circle-size: clamp(11rem, 14vw, 13.75rem);
+  width: calc(var(--hipocampo-circle-size) * 2);
+  aspect-ratio: 1;
   border-radius: 50%;
   background: var(--hip-yellow-circle);
-  transform: translateX(-50%);
+  transform: translateX(-50%) scale(0.5);
   transform-origin: 50% 50%;
   will-change: transform, background-color;
   pointer-events: none;

@@ -6,6 +6,7 @@ import Lenis from './vendor/lenis.mjs'
 const RESPECT_REDUCED_MOTION = false
 const POINTER_RADIUS = 140
 const POINTER_PUSH = 40
+const CIRCLE_RENDER_SCALE = 2
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -117,15 +118,16 @@ function initializeHeroMotion() {
     charCenters.forEach(({ char, x, y }) => {
       const deltaX = x - pointerX
       const deltaY = y - pointerY
-      const distance = Math.hypot(deltaX, deltaY)
+      const distanceSquared = deltaX * deltaX + deltaY * deltaY
 
-      if (distance >= POINTER_RADIUS) {
+      if (distanceSquared >= POINTER_RADIUS * POINTER_RADIUS) {
         if (activeChars.has(char)) {
           restoreCharacter(char)
         }
         return
       }
 
+      const distance = Math.sqrt(distanceSquared)
       const influence = 1 - distance / POINTER_RADIUS
       const safeDistance = Math.max(distance, 0.001)
       const push = POINTER_PUSH * influence
@@ -251,8 +253,8 @@ function initializeHeroMotion() {
         ease: 'power2.in',
       }, 0.08)
       .to(circle, {
-        yPercent: -60,
-        scale: 18,
+        yPercent: -60 / CIRCLE_RENDER_SCALE,
+        scale: 18 / CIRCLE_RENDER_SCALE,
         backgroundColor: '#ffffff',
         duration: 1,
         ease: 'power2.inOut',
@@ -273,9 +275,30 @@ function initializeHeroMotion() {
     ),
   })
 
-  const lenisTicker = (time) => lenis.raf(time * 1000)
-  lenis.on('scroll', ScrollTrigger.update)
-  gsap.ticker.add(lenisTicker)
+  let lenisTickerActive = false
+  let lenisTickerGraceFrames = 0
+  const stopLenisTicker = () => {
+    if (!lenisTickerActive) return
+    gsap.ticker.remove(lenisTicker)
+    lenisTickerActive = false
+  }
+  const lenisTicker = (time) => {
+    lenis.raf(time * 1000)
+    if (lenisTickerGraceFrames > 0) {
+      lenisTickerGraceFrames -= 1
+    } else if (!lenis.isScrolling) {
+      stopLenisTicker()
+    }
+  }
+  const startLenisTicker = () => {
+    lenisTickerGraceFrames = 2
+    if (lenisTickerActive) return
+    lenisTickerActive = true
+    gsap.ticker.add(lenisTicker)
+  }
+  const onLenisScroll = () => ScrollTrigger.update()
+  lenis.on('scroll', onLenisScroll)
+  lenis.on('virtual-scroll', startLenisTicker)
   gsap.ticker.lagSmoothing(0)
   window.__hipocampoLenis = lenis
 
@@ -294,6 +317,7 @@ function initializeHeroMotion() {
     }
 
     activeAnchorTarget = target
+    startLenisTicker()
     lenis.scrollTo(target, {
       immediate,
       duration: immediate ? 0 : 1.2,
@@ -392,7 +416,9 @@ function initializeHeroMotion() {
     window.removeEventListener('keydown', clearAnchorLock)
     window.removeEventListener('pagehide', cleanup)
     menuAnchors.forEach((anchor) => anchor.removeEventListener('click', onAnchorClick))
-    gsap.ticker.remove(lenisTicker)
+    lenis.off('scroll', onLenisScroll)
+    lenis.off('virtual-scroll', startLenisTicker)
+    stopLenisTicker()
     gsap.ticker.lagSmoothing(500, 33)
     lenis.destroy()
     transitionTimeline?.scrollTrigger?.kill()
