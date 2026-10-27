@@ -7,3 +7,5 @@ Trabalhe no repositório `santosrangelbeatriz/hipocampo`. Leia a skill correspon
 Identifique a entrada real da aplicação e preserve todas as outras seções. Não confunda os arquivos do repositório remoto inicial com o workspace local atualizado. Nunca afirme que testou algo sem executar o teste.
 
 Keep the opening photo trail isolated and pointer-transparent, with each photo paired with its silhouette; use transparent assets for subject cutouts and CSS clipping for paper shapes to preserve the official opening without modifying bundled application code.
+
+Keep per-frame scroll progress local to its consumer and cache document geometry between layout refreshes; this avoids page-wide style invalidation while preserving all visible motion.

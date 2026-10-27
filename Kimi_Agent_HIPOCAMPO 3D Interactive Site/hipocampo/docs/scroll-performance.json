@@ -1,0 +1,44 @@
+{
+  "environment": "Headless Chromium, 1280x1800; local snapshot of official main, not production hardware",
+  "before": {
+    "hero": {
+      "TaskDuration": 2006.03,
+      "ScriptDuration": 234.58,
+      "LayoutDuration": 119.56,
+      "RecalcStyleDuration": 1052.96,
+      "fps": 27.7,
+      "p95": 66.7,
+      "over33": 40
+    },
+    "editorial": {
+      "TaskDuration": 3203.7,
+      "ScriptDuration": 359.2,
+      "LayoutDuration": 10.37,
+      "RecalcStyleDuration": 763.65,
+      "fps": 20.5,
+      "p95": 216.6,
+      "over33": 10
+    }
+  },
+  "after": {
+    "hero": {
+      "TaskDuration": 1120.78,
+      "ScriptDuration": 171.33,
+      "LayoutDuration": 118.01,
+      "RecalcStyleDuration": 122.49,
+      "fps": 30.7,
+      "p95": 50.1,
+      "over33": 34
+    },
+    "editorial": {
+      "TaskDuration": 2203.09,
+      "ScriptDuration": 329.82,
+      "LayoutDuration": 12.32,
+      "RecalcStyleDuration": 67.94,
+      "fps": 25.4,
+      "p95": 150,
+      "over33": 9
+    }
+  },
+  "preserved": "Existing content, visuals, animation timing, smooth scrolling, 3D and pointer effects; no cache deletion"
+}

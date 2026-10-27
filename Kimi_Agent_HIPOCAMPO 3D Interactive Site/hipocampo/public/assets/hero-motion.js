@@ -227,7 +227,7 @@ function initializeHeroMotion() {
         anticipatePin: 1,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
-          hero.style.setProperty('--hipocampo-scroll-progress', self.progress.toFixed(5))
+          hero.dataset.hipocampoScrollProgress = self.progress.toFixed(5)
           document.documentElement.classList.toggle(
             'hipocampo-transition-white',
             self.progress >= 0.92,
@@ -438,7 +438,7 @@ function initializeHeroMotion() {
     lenis.destroy()
     transitionTimeline?.scrollTrigger?.kill()
     ctx.revert()
-    hero.style.removeProperty('--hipocampo-scroll-progress')
+    delete hero.dataset.hipocampoScrollProgress
     document.documentElement.classList.remove('hipocampo-transition-white')
     originalLines.forEach(({ line, html, ariaLabel }) => {
       line.innerHTML = html

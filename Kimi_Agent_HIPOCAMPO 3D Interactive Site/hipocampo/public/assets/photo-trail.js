@@ -49,7 +49,7 @@ function initializePhotoTrail() {
     previous = null
     for (const timer of timers.values()) window.clearTimeout(timer)
     timers.clear()
-    layer.replaceChildren()
+    if (layer.firstChild) layer.replaceChildren()
   }
 
   function move(event) {

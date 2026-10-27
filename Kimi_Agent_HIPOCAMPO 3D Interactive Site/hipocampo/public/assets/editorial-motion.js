@@ -392,8 +392,10 @@ function initializeEditorialRedesign() {
   let currentHeaderScrolled = null
   let currentPageProgress = ''
   let sectionRanges = []
+  let maxPageScroll = 1
 
   const measureSectionRanges = () => {
+    maxPageScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight)
     sectionRanges = sectionThemeMap.map((item) => {
       const element = document.getElementById(item.id)
       if (!element) return null
@@ -405,12 +407,11 @@ function initializeEditorialRedesign() {
 
   const updateScrollNavigation = () => {
     const scrollY = window.scrollY
-    const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight)
-    const pageProgress = clamp(scrollY / maxScroll, 0, 1)
+    const pageProgress = clamp(scrollY / maxPageScroll, 0, 1)
     const nextPageProgress = pageProgress.toFixed(4)
     if (nextPageProgress !== currentPageProgress) {
       currentPageProgress = nextPageProgress
-      document.documentElement.style.setProperty('--hip-page-progress', nextPageProgress)
+      progressFill.style.setProperty('--hip-page-progress', nextPageProgress)
     }
 
     const nextHeaderScrolled = scrollY > 72
@@ -425,7 +426,7 @@ function initializeEditorialRedesign() {
     let activeCursorTheme = 'on-blue'
 
     const heroProgress = Number.parseFloat(
-      hero.style.getPropertyValue('--hipocampo-scroll-progress'),
+      hero.dataset.hipocampoScrollProgress,
     ) || 0
 
     for (const item of sectionRanges) {
@@ -662,6 +663,7 @@ function initializeEditorialRedesign() {
   updateScrollNavigation()
   window.addEventListener('scroll', requestScrollNavSync, { passive: true })
   window.addEventListener('resize', onViewportResize, { passive: true })
+  ScrollTrigger.addEventListener('refresh', onViewportResize)
   window.addEventListener('pointermove', onPointerMove, { passive: true })
   document.addEventListener('mouseleave', onPointerLeaveWindow)
   reducedMotionQuery.addEventListener('change', onReducedMotionChange)
@@ -675,6 +677,7 @@ function initializeEditorialRedesign() {
     magneticCleanups.splice(0).forEach((fn) => fn())
     window.removeEventListener('scroll', requestScrollNavSync)
     window.removeEventListener('resize', onViewportResize)
+    ScrollTrigger.removeEventListener('refresh', onViewportResize)
     window.removeEventListener('pointermove', onPointerMove)
     document.removeEventListener('mouseleave', onPointerLeaveWindow)
     reducedMotionQuery.removeEventListener('change', onReducedMotionChange)

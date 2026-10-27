@@ -239,7 +239,7 @@ async function mountMemoryMap(container) {
   }
 
   const onPointerMove = (event) => {
-    if (coarsePointer.matches) return
+    if (destroyed || !visible || coarsePointer.matches) return
     const rect = container.getBoundingClientRect()
     pointer.localX = event.clientX - rect.left
     pointer.localY = event.clientY - rect.top
