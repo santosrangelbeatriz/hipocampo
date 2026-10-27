@@ -32,7 +32,7 @@ html.lenis body {
 .memory-char {
   display: inline-block;
   transform-origin: 50% 58%;
-  will-change: transform, opacity, filter;
+  /* will-change é aplicado pelo JS só nas letras ativas */
 }
 
 .hipocampo-memory-field[data-hero-motion-ready='true'] {
@@ -40,10 +40,6 @@ html.lenis body {
 }
 
 @media (hover: none), (pointer: coarse), (max-width: 767px) {
-  .memory-char {
-    will-change: transform, opacity;
-  }
-
   .hipocampo-memory-field[data-hero-motion-ready='true'] {
     pointer-events: none;
   }

@@ -153,7 +153,7 @@ body > #root > header button:focus-visible {
   width: max-content;
   transform: none;
   pointer-events: auto;
-  will-change: transform, opacity, filter, letter-spacing;
+  will-change: transform, opacity;
 }
 
 .hipocampo-memory-field > .hipocampo-memory-line:nth-child(1) { opacity: 0.96; }

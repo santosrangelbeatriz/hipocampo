@@ -76,7 +76,7 @@ async function mountMemoryMap(container) {
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
   const coarsePointer = window.matchMedia('(hover: none), (pointer: coarse)')
-  const pointer = { localX: 0, localY: 0, active: false }
+  const pointer = { localX: 0, localY: 0, clientX: 0, clientY: 0, active: false }
   let visible = false
   let destroyed = false
   let tickerActive = false
@@ -153,6 +153,11 @@ async function mountMemoryMap(container) {
 
     const motionFactor = reducedMotion.matches ? REDUCED_MOTION_FACTOR : 1
     const allowRepulsion = !coarsePointer.matches && pointer.active
+    if (allowRepulsion) {
+      const rect = container.getBoundingClientRect()
+      pointer.localX = pointer.clientX - rect.left
+      pointer.localY = pointer.clientY - rect.top
+    }
     const repulsionRadius = Math.max(width, height) * 0.4
     const maximumPush = Math.min(width, height) * 0.095 * motionFactor
 
@@ -240,9 +245,9 @@ async function mountMemoryMap(container) {
 
   const onPointerMove = (event) => {
     if (destroyed || !visible || coarsePointer.matches) return
-    const rect = container.getBoundingClientRect()
-    pointer.localX = event.clientX - rect.left
-    pointer.localY = event.clientY - rect.top
+    // Só guarda a posição; a geometria é lida uma vez por quadro em render().
+    pointer.clientX = event.clientX
+    pointer.clientY = event.clientY
     pointer.active = true
   }
   const clearPointer = () => { pointer.active = false }

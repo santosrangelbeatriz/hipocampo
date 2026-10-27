@@ -1,14 +1,14 @@
 // Photo trail is scoped to the opening; it does not capture clicks or scrolling.
 const photoSources = [
-  { src: '/images/trail/photo-1.png', shape: 'torn' },
-  { src: '/images/trail/photo-2.png', shape: 'oval' },
-  { src: '/images/trail/mountains-cutout.png', shape: 'cutout' },
-  { src: '/images/trail/birds-cutout.png', shape: 'cutout' },
-  { src: '/images/trail/photo-5.png', shape: 'arch' },
-  { src: '/images/trail/tv-cutout.png', shape: 'cutout' },
-  { src: '/images/trail/photo-7.png', shape: 'film' },
-  { src: '/images/trail/photo-8.png', shape: 'torn' },
-  { src: '/images/trail/photo-9.png', shape: 'oval' },
+  { src: '/images/trail/photo-1.webp', shape: 'torn' },
+  { src: '/images/trail/photo-2.webp', shape: 'oval' },
+  { src: '/images/trail/mountains-cutout.webp', shape: 'cutout' },
+  { src: '/images/trail/birds-cutout.webp', shape: 'cutout' },
+  { src: '/images/trail/photo-5.webp', shape: 'arch' },
+  { src: '/images/trail/tv-cutout.webp', shape: 'cutout' },
+  { src: '/images/trail/photo-7.webp', shape: 'film' },
+  { src: '/images/trail/photo-8.webp', shape: 'torn' },
+  { src: '/images/trail/photo-9.webp', shape: 'oval' },
 ]
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
 const style = document.createElement('style')
@@ -43,7 +43,23 @@ function initializePhotoTrail() {
   let index = 0
   let lastSpawn = 0
   let preloaded = false
+  let heroRect = null
   const timers = new Map()
+  const invalidateRect = () => { heroRect = null }
+
+  // Pré-carrega e decodifica as fotos fora do caminho do mouse, para não travar no primeiro hover.
+  const preload = () => {
+    if (preloaded) return
+    preloaded = true
+    photoSources.forEach(({ src }) => {
+      const image = new Image()
+      image.decoding = 'async'
+      image.src = src
+      image.decode?.().catch(() => {})
+    })
+  }
+  if ('requestIdleCallback' in window) window.requestIdleCallback(preload, { timeout: 2500 })
+  else window.setTimeout(preload, 1200)
 
   function clear() {
     previous = null
@@ -55,22 +71,21 @@ function initializePhotoTrail() {
   function move(event) {
     if (reducedMotion.matches || (event.pointerType === 'touch' && event.buttons === 0)) return
     if (event.target.closest('a, button, input, select, textarea')) return
-    const rect = hero.getBoundingClientRect()
+    if (!heroRect) heroRect = hero.getBoundingClientRect()
+    const rect = heroRect
     const x = event.clientX - rect.left
     const y = event.clientY - rect.top
     const now = performance.now()
     if (x < 0 || y < 0 || x > rect.width || y > rect.height) return
     if (previous && (Math.hypot(x - previous.x, y - previous.y) < 90 || now - lastSpawn < 60)) return
-    if (!preloaded) {
-      photoSources.forEach(({ src }) => { const image = new Image(); image.src = src })
-      preloaded = true
-    }
+    preload()
     previous = { x, y }
     lastSpawn = now
     const image = document.createElement('img')
     const photo = photoSources[index % photoSources.length]
     image.src = photo.src
     image.alt = ''
+    image.decoding = 'async'
     image.className = `hipocampo-trail-photo hipocampo-trail-photo--${photo.shape}`
     image.style.left = `${x}px`
     image.style.top = `${y}px`
@@ -88,8 +103,13 @@ function initializePhotoTrail() {
   }
 
   hero.addEventListener('pointermove', move, { passive: true })
+  hero.addEventListener('pointerenter', invalidateRect, { passive: true })
   hero.addEventListener('pointerleave', () => { previous = null })
-  window.addEventListener('scroll', clear, { passive: true })
+  window.addEventListener('resize', invalidateRect, { passive: true })
+  window.addEventListener('scroll', () => {
+    invalidateRect()
+    if (layer.firstChild || previous) clear()
+  }, { passive: true })
   reducedMotion.addEventListener('change', clear)
   window.addEventListener('pagehide', clear)
   return true
