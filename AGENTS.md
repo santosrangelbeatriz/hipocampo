@@ -5,3 +5,5 @@ Trabalhe no repositório `santosrangelbeatriz/hipocampo`. Leia a skill correspon
 **Fase atual:** priorizar correção **estática** da hero azul a partir do screenshot: pontos sutis, uma única marca Hipocampo em branco, links superiores brancos sem faixa, texto amarelo centralizado sem contorno e círculo amarelo inferior. Não iniciar ou modificar a animação enquanto não solicitado.
 
 Identifique a entrada real da aplicação e preserve todas as outras seções. Não confunda os arquivos do repositório remoto inicial com o workspace local atualizado. Nunca afirme que testou algo sem executar o teste.
+
+Keep the opening photo trail isolated and pointer-transparent, with each photo paired with its silhouette; use transparent assets for subject cutouts and CSS clipping for paper shapes to preserve the official opening without modifying bundled application code.

@@ -1,10 +1,24 @@
 // Photo trail is scoped to the opening; it does not capture clicks or scrolling.
-const photoSources = Array.from({ length: 9 }, (_, index) => `/images/trail/photo-${index + 1}.png`)
+const photoSources = [
+  { src: '/images/trail/photo-1.png', shape: 'torn' },
+  { src: '/images/trail/photo-2.png', shape: 'oval' },
+  { src: '/images/trail/mountains-cutout.png', shape: 'cutout' },
+  { src: '/images/trail/birds-cutout.png', shape: 'cutout' },
+  { src: '/images/trail/photo-5.png', shape: 'arch' },
+  { src: '/images/trail/tv-cutout.png', shape: 'cutout' },
+  { src: '/images/trail/photo-7.png', shape: 'film' },
+  { src: '/images/trail/photo-8.png', shape: 'torn' },
+  { src: '/images/trail/photo-9.png', shape: 'oval' },
+]
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
 const style = document.createElement('style')
 style.textContent = `
 .hipocampo-photo-trail { position: absolute; inset: 0; z-index: 3; overflow: hidden; pointer-events: none; }
-.hipocampo-trail-photo { position: absolute; width: clamp(140px, 18vw, 260px); max-height: 340px; object-fit: contain; pointer-events: none; opacity: 0; transform: translate(-50%, -50%); animation: hipocampo-photo-memory 1.4s cubic-bezier(.2,.8,.2,1) forwards; }
+.hipocampo-trail-photo { position: absolute; width: clamp(88px, 11vw, 150px); height: auto; max-height: 190px; object-fit: contain; pointer-events: none; opacity: 0; transform: translate(-50%, -50%); animation: hipocampo-photo-memory 1.4s cubic-bezier(.2,.8,.2,1) forwards; }
+.hipocampo-trail-photo--oval { clip-path: ellipse(49% 49% at 50% 50%); }
+.hipocampo-trail-photo--arch { border-radius: 48% 48% 3% 3% / 38% 38% 3% 3%; }
+.hipocampo-trail-photo--torn { clip-path: polygon(3% 2%, 19% 0%, 34% 3%, 52% 1%, 70% 3%, 88% 0%, 98% 4%, 96% 22%, 100% 40%, 97% 59%, 99% 78%, 96% 98%, 80% 96%, 62% 100%, 43% 97%, 24% 100%, 2% 97%, 4% 78%, 0% 59%, 3% 39%, 0% 20%); }
+.hipocampo-trail-photo--film { width: clamp(55px, 6vw, 80px); }
 @keyframes hipocampo-photo-memory {
   0% { opacity: 0; transform: translate(-50%, -50%) rotate(var(--photo-rotation)) scale(.6); }
   12% { opacity: 1; transform: translate(-50%, -50%) rotate(var(--photo-rotation)) scale(1); }
@@ -48,15 +62,16 @@ function initializePhotoTrail() {
     if (x < 0 || y < 0 || x > rect.width || y > rect.height) return
     if (previous && (Math.hypot(x - previous.x, y - previous.y) < 90 || now - lastSpawn < 60)) return
     if (!preloaded) {
-      photoSources.forEach((src) => { const image = new Image(); image.src = src })
+      photoSources.forEach(({ src }) => { const image = new Image(); image.src = src })
       preloaded = true
     }
     previous = { x, y }
     lastSpawn = now
     const image = document.createElement('img')
-    image.src = photoSources[index % photoSources.length]
+    const photo = photoSources[index % photoSources.length]
+    image.src = photo.src
     image.alt = ''
-    image.className = 'hipocampo-trail-photo'
+    image.className = `hipocampo-trail-photo hipocampo-trail-photo--${photo.shape}`
     image.style.left = `${x}px`
     image.style.top = `${y}px`
     image.style.setProperty('--photo-rotation', `${(Math.random() - .5) * 12}deg`)
