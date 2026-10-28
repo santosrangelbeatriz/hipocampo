@@ -32,7 +32,11 @@ html.lenis body {
 .memory-char {
   display: inline-block;
   transform-origin: 50% 58%;
-  /* will-change é aplicado pelo JS só nas letras ativas */
+  /* will-change é aplicado pelo JS só nas letras ativas. */
+}
+
+.hipocampo-memory-line {
+  contain: layout paint style;
 }
 
 .hipocampo-memory-field[data-hero-motion-ready='true'] {

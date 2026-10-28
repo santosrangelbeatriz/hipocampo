@@ -1,0 +1,144 @@
+{
+  "label": "exec-antes",
+  "capturedAt": "2026-10-28T12:14:09.793Z",
+  "browserPath": "C:/Program Files/Google/Chrome/Application/chrome.exe",
+  "siteUrl": "http://127.0.0.1:8443/",
+  "viewports": {
+    "1916x851": {
+      "viewport": {
+        "width": 1916,
+        "height": 851,
+        "deviceScaleFactor": 1,
+        "mobile": false
+      },
+      "initialTransferBytes": 2147359,
+      "initialTransferKB": 2097.03,
+      "scenarios": {
+        "heroScroll": {
+          "fpsAverage": 48.53,
+          "fpsP5": 30.03,
+          "frameP50Ms": 16.7,
+          "frameP95Ms": 33.3,
+          "frameMaxMs": 83.3,
+          "framesOver20Ms": 12,
+          "framesOver33Ms": 4,
+          "longTasks": {
+            "count": 2,
+            "totalMs": 423,
+            "maxMs": 336
+          },
+          "taskMs": 1939.623,
+          "scriptMs": 828.511,
+          "layoutMs": 10.478,
+          "styleMs": 250.714
+        },
+        "heroPointer": {
+          "fpsAverage": 25.67,
+          "fpsP5": 11.99,
+          "frameP50Ms": 33.4,
+          "frameP95Ms": 83.4,
+          "frameMaxMs": 100,
+          "framesOver20Ms": 57,
+          "framesOver33Ms": 34,
+          "longTasks": {
+            "count": 4,
+            "totalMs": 303,
+            "maxMs": 100
+          },
+          "taskMs": 1869.741,
+          "scriptMs": 837.824,
+          "layoutMs": 93.989,
+          "styleMs": 316.582
+        },
+        "mapPointer": {
+          "fpsAverage": 43.67,
+          "fpsP5": 14.97,
+          "frameP50Ms": 16.7,
+          "frameP95Ms": 66.8,
+          "frameMaxMs": 116.5,
+          "framesOver20Ms": 15,
+          "framesOver33Ms": 15,
+          "longTasks": {
+            "count": 0,
+            "totalMs": 0,
+            "maxMs": 0
+          },
+          "taskMs": 1052.403,
+          "scriptMs": 462.816,
+          "layoutMs": 2.888,
+          "styleMs": 127.186
+        }
+      },
+      "pageErrors": [],
+      "failedRequests": []
+    },
+    "390x844": {
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "deviceScaleFactor": 1,
+        "mobile": true
+      },
+      "initialTransferBytes": 2211416,
+      "initialTransferKB": 2159.59,
+      "scenarios": {
+        "heroScroll": {
+          "fpsAverage": 45.88,
+          "fpsP5": 20.04,
+          "frameP50Ms": 16.7,
+          "frameP95Ms": 49.9,
+          "frameMaxMs": 166.8,
+          "framesOver20Ms": 12,
+          "framesOver33Ms": 8,
+          "longTasks": {
+            "count": 2,
+            "totalMs": 324,
+            "maxMs": 256
+          },
+          "taskMs": 1322.227,
+          "scriptMs": 571.886,
+          "layoutMs": 14.752,
+          "styleMs": 130.404
+        },
+        "heroPointer": {
+          "fpsAverage": 57.67,
+          "fpsP5": 59.17,
+          "frameP50Ms": 16.7,
+          "frameP95Ms": 16.9,
+          "frameMaxMs": 83.3,
+          "framesOver20Ms": 2,
+          "framesOver33Ms": 2,
+          "longTasks": {
+            "count": 0,
+            "totalMs": 0,
+            "maxMs": 0
+          },
+          "taskMs": 822.525,
+          "scriptMs": 115.793,
+          "layoutMs": 29.06,
+          "styleMs": 126.699
+        },
+        "mapPointer": {
+          "fpsAverage": 59,
+          "fpsP5": 59.52,
+          "frameP50Ms": 16.7,
+          "frameP95Ms": 16.8,
+          "frameMaxMs": 66.5,
+          "framesOver20Ms": 1,
+          "framesOver33Ms": 1,
+          "longTasks": {
+            "count": 0,
+            "totalMs": 0,
+            "maxMs": 0
+          },
+          "taskMs": 1255.538,
+          "scriptMs": 473.523,
+          "layoutMs": 0,
+          "styleMs": 176.924
+        }
+      },
+      "pageErrors": [],
+      "failedRequests": []
+    }
+  }
+}

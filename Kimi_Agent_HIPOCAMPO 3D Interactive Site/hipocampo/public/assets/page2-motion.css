@@ -38,15 +38,11 @@
   transform-origin: 0 50%;
 }
 
-.page2-title-char {
-  display: inline-block;
-  transform-origin: 50% 100%;
-  will-change: transform, opacity;
-}
-
 .page2-title-word {
   display: inline-block;
   white-space: nowrap;
+  transform-origin: 50% 100%;
+  will-change: transform, opacity;
 }
 
 .hipocampo-page2-copy {
@@ -70,7 +66,7 @@
   display: block;
   width: max-content;
   max-width: 100%;
-  will-change: transform, opacity, filter;
+  will-change: transform, opacity;
 }
 
 .hipocampo-memory-map {
@@ -80,7 +76,7 @@
   z-index: 3;
   width: clamp(21rem, 26vw, 28rem);
   aspect-ratio: var(--memory-map-aspect, 0.69895833);
-  contain: layout style;
+  contain: layout paint style;
   pointer-events: none;
 }
 

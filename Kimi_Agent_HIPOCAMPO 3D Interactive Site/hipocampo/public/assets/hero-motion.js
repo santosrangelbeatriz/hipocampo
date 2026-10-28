@@ -6,8 +6,8 @@ import Lenis from './vendor/lenis.mjs'
 const RESPECT_REDUCED_MOTION = false
 const POINTER_RADIUS = 140
 const POINTER_PUSH = 40
-const POINTER_BLUR_RADIUS = POINTER_RADIUS * 0.55
-const MAX_BLUR = 8
+const MAX_POINTER_CHARS = 16
+const POINTER_MOVE_THRESHOLD = 2
 const CIRCLE_RENDER_SCALE = 2
 
 gsap.registerPlugin(ScrollTrigger)
@@ -35,10 +35,11 @@ function initializeHeroMotion() {
   const hero = document.querySelector('#abertura.hipocampo-hero')
   const field = hero?.querySelector('.hipocampo-memory-field')
   const circle = hero?.querySelector('.hipocampo-transition-circle')
+  const circleFill = circle?.querySelector('.hipocampo-transition-circle-fill')
   const header = document.querySelector('body > #root > header')
   const lines = field ? [...field.querySelectorAll(':scope > .hipocampo-memory-line')] : []
 
-  if (!hero || !field || !circle || !header || lines.length !== 8) {
+  if (!hero || !field || !circle || !circleFill || !header || lines.length !== 8) {
     return false
   }
 
@@ -62,17 +63,23 @@ function initializeHeroMotion() {
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)')
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
   const activeChars = new Set()
+  const charMotions = new Map()
   let charCenters = []
   let pointerRenderPending = false
+  let pointerListening = false
   let resizePending = false
   let pointerX = 0
   let pointerY = 0
+  let lastPointerSample = 0
   let pointerInside = false
   let transitionActive = false
+  let heroPinFinished = false
+  let heroIntroComplete = false
 
   const canUsePointerEffect = () => (
     finePointer.matches
     && window.innerWidth >= 768
+    && heroIntroComplete
     && !(RESPECT_REDUCED_MOTION && reducedMotion.matches)
   )
 
@@ -89,22 +96,36 @@ function initializeHeroMotion() {
     })
   }
 
-  const restoreCharacter = (char, elastic = false) => {
-    gsap.to(char, {
-      x: 0,
-      y: 0,
-      rotation: 0,
-      filter: 'blur(0px)',
-      opacity: 1,
-      duration: elastic ? 1.2 : 0.6,
-      ease: elastic ? 'elastic.out(1,0.5)' : 'power3.out',
-      overwrite: 'auto',
-      onComplete: () => { char.style.willChange = '' },
-    })
+  const getCharMotion = (char) => {
+    let motion = charMotions.get(char)
+    if (motion) return motion
+
+    const config = { duration: 0.5, ease: 'power3.out', overwrite: 'auto' }
+    motion = {
+      x: gsap.quickTo(char, 'x', config),
+      y: gsap.quickTo(char, 'y', config),
+      rotation: gsap.quickTo(char, 'rotation', config),
+      opacity: gsap.quickTo(char, 'opacity', config),
+      clearTimer: 0,
+    }
+    charMotions.set(char, motion)
+    return motion
   }
 
-  const restoreAllCharacters = (elastic = false) => {
-    activeChars.forEach((char) => restoreCharacter(char, elastic))
+  const restoreCharacter = (char) => {
+    const motion = getCharMotion(char)
+    motion.x(0)
+    motion.y(0)
+    motion.rotation(0)
+    motion.opacity(1)
+    window.clearTimeout(motion.clearTimer)
+    motion.clearTimer = window.setTimeout(() => {
+      if (!activeChars.has(char)) char.style.willChange = ''
+    }, 650)
+  }
+
+  const restoreAllCharacters = () => {
+    activeChars.forEach(restoreCharacter)
     activeChars.clear()
   }
 
@@ -117,19 +138,21 @@ function initializeHeroMotion() {
       return
     }
 
-    const nextActive = new Set()
-
+    const candidates = []
     charCenters.forEach(({ char, x, y }) => {
       const deltaX = x - pointerX
       const deltaY = y - pointerY
       const distanceSquared = deltaX * deltaX + deltaY * deltaY
 
-      if (distanceSquared >= POINTER_RADIUS * POINTER_RADIUS) {
-        if (activeChars.has(char)) {
-          restoreCharacter(char)
-        }
-        return
+      if (distanceSquared < POINTER_RADIUS * POINTER_RADIUS) {
+        candidates.push({ char, deltaX, deltaY, distanceSquared })
       }
+    })
+
+    candidates.sort((a, b) => a.distanceSquared - b.distanceSquared)
+    const nextActive = new Set()
+
+    candidates.slice(0, MAX_POINTER_CHARS).forEach(({ char, deltaX, deltaY, distanceSquared }) => {
 
       const distance = Math.sqrt(distanceSquared)
       const influence = 1 - distance / POINTER_RADIUS
@@ -138,22 +161,15 @@ function initializeHeroMotion() {
       const xShift = deltaX / safeDistance * push
       const yShift = deltaY / safeDistance * push
       const rotation = clamp(xShift / POINTER_PUSH * 20, -20, 20)
-      const blur = distance < POINTER_BLUR_RADIUS
-        ? MAX_BLUR * (1 - distance / POINTER_BLUR_RADIUS)
-        : 0
 
       nextActive.add(char)
-      char.style.willChange = 'transform, opacity, filter'
-      gsap.to(char, {
-        x: xShift,
-        y: yShift,
-        rotation,
-        filter: `blur(${blur.toFixed(2)}px)`,
-        opacity: 1 - influence * 0.68,
-        duration: 0.6,
-        ease: 'power3.out',
-        overwrite: 'auto',
-      })
+      const motion = getCharMotion(char)
+      window.clearTimeout(motion.clearTimer)
+      if (!activeChars.has(char)) char.style.willChange = 'transform, opacity'
+      motion.x(xShift)
+      motion.y(yShift)
+      motion.rotation(rotation)
+      motion.opacity(1 - influence * 0.68)
     })
 
     activeChars.forEach((char) => {
@@ -176,9 +192,18 @@ function initializeHeroMotion() {
     if (!canUsePointerEffect()) {
       return
     }
+    if (
+      pointerInside
+      && Math.hypot(event.clientX - pointerX, event.clientY - pointerY) <= POINTER_MOVE_THRESHOLD
+    ) {
+      return
+    }
     pointerX = event.clientX
     pointerY = event.clientY
     pointerInside = true
+    const now = performance.now()
+    if (now - lastPointerSample < 32) return
+    lastPointerSample = now
     requestPointerRender()
   }
 
@@ -186,7 +211,20 @@ function initializeHeroMotion() {
     pointerInside = false
     pointerRenderPending = false
     gsap.ticker.remove(renderPointerEffect)
-    restoreAllCharacters(true)
+    restoreAllCharacters()
+  }
+
+  const setPointerListening = (enabled) => {
+    if (enabled === pointerListening) return
+    pointerListening = enabled
+    if (enabled) {
+      field.addEventListener('pointermove', onPointerMove, { passive: true })
+      field.addEventListener('pointerleave', onPointerLeave)
+    } else {
+      field.removeEventListener('pointermove', onPointerMove)
+      field.removeEventListener('pointerleave', onPointerLeave)
+      onPointerLeave()
+    }
   }
 
   const resizeOnTicker = () => {
@@ -205,6 +243,16 @@ function initializeHeroMotion() {
 
   measureCharCenters()
 
+  // Mede uma única vez a expansão desejada. Durante o scroll ela é reproduzida
+  // por transform composto, sem relayout tipográfico a cada quadro.
+  const baseLineWidths = lines.map((line) => line.getBoundingClientRect().width)
+  const inlineLetterSpacing = lines.map((line) => line.style.letterSpacing)
+  lines.forEach((line) => { line.style.letterSpacing = '0.3em' })
+  const lineExpansionScales = lines.map((line, index) => (
+    line.getBoundingClientRect().width / Math.max(1, baseLineWidths[index])
+  ))
+  lines.forEach((line, index) => { line.style.letterSpacing = inlineLetterSpacing[index] })
+
   let transitionTimeline
   const ctx = gsap.context(() => {
     gsap.from(chars, {
@@ -213,6 +261,7 @@ function initializeHeroMotion() {
       stagger: { each: 0.004, from: 'random' },
       duration: 1.4,
       ease: 'expo.out',
+      onComplete: () => { heroIntroComplete = true },
     })
 
     transitionTimeline = gsap.timeline({
@@ -227,17 +276,22 @@ function initializeHeroMotion() {
         anticipatePin: 1,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
-          hero.dataset.hipocampoScrollProgress = self.progress.toFixed(5)
           document.documentElement.classList.toggle(
             'hipocampo-transition-white',
             self.progress >= 0.92,
           )
-          const nextTransitionActive = self.progress > 0.015
-          if (nextTransitionActive && !transitionActive) {
-            pointerInside = false
-            restoreAllCharacters()
+          const nextHeroPinFinished = self.progress >= 0.999
+          if (nextHeroPinFinished !== heroPinFinished) {
+            heroPinFinished = nextHeroPinFinished
+            window.dispatchEvent(new CustomEvent('hipocampo:hero-pin-state', {
+              detail: { finished: heroPinFinished },
+            }))
           }
-          transitionActive = nextTransitionActive
+          const nextTransitionActive = self.progress > 0.015
+          if (nextTransitionActive !== transitionActive) {
+            transitionActive = nextTransitionActive
+            setPointerListening(!transitionActive)
+          }
         },
       },
     })
@@ -250,8 +304,7 @@ function initializeHeroMotion() {
           return direction * (72 + distanceFromCenter * 18)
         },
         opacity: 0,
-        filter: (index) => index % 2 === 0 ? `blur(${MAX_BLUR}px)` : 'blur(0px)',
-        letterSpacing: '0.3em',
+        scaleX: (index) => lineExpansionScales[index],
         duration: 0.58,
         ease: 'power2.in',
         stagger: { each: 0.04, from: 'center' },
@@ -266,7 +319,11 @@ function initializeHeroMotion() {
       .to(circle, {
         yPercent: -60 / CIRCLE_RENDER_SCALE,
         scale: 18 / CIRCLE_RENDER_SCALE,
-        backgroundColor: '#ffffff',
+        duration: 1,
+        ease: 'power2.inOut',
+      }, 0.08)
+      .to(circleFill, {
+        opacity: 1,
         duration: 1,
         ease: 'power2.inOut',
       }, 0.08)
@@ -395,8 +452,7 @@ function initializeHeroMotion() {
     layoutObserver.observe(main)
   }
 
-  field.addEventListener('pointermove', onPointerMove, { passive: true })
-  field.addEventListener('pointerleave', onPointerLeave)
+  setPointerListening(true)
   window.addEventListener('resize', onResize, { passive: true })
   window.addEventListener('hashchange', onHashChange)
   window.addEventListener('wheel', clearAnchorLock, { passive: true })
@@ -420,9 +476,16 @@ function initializeHeroMotion() {
     gsap.ticker.remove(resizeOnTicker)
     gsap.ticker.remove(correctAnchorOnTicker)
     restoreAllCharacters()
+    charMotions.forEach((motion) => {
+      window.clearTimeout(motion.clearTimer)
+      motion.x.tween?.kill()
+      motion.y.tween?.kill()
+      motion.rotation.tween?.kill()
+      motion.opacity.tween?.kill()
+    })
+    charMotions.clear()
     layoutObserver.disconnect()
-    field.removeEventListener('pointermove', onPointerMove)
-    field.removeEventListener('pointerleave', onPointerLeave)
+    setPointerListening(false)
     window.removeEventListener('resize', onResize)
     window.removeEventListener('hashchange', onHashChange)
     window.removeEventListener('wheel', clearAnchorLock)
@@ -438,7 +501,6 @@ function initializeHeroMotion() {
     lenis.destroy()
     transitionTimeline?.scrollTrigger?.kill()
     ctx.revert()
-    delete hero.dataset.hipocampoScrollProgress
     document.documentElement.classList.remove('hipocampo-transition-white')
     originalLines.forEach(({ line, html, ariaLabel }) => {
       line.innerHTML = html

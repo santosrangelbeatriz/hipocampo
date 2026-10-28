@@ -92,6 +92,24 @@ function clearLegacySectionTriggers(sections) {
   })
 }
 
+function clearLateLegacyTriggers(sections) {
+  const sectionSet = new Set(sections.filter(Boolean))
+  let killed = 0
+
+  ScrollTrigger.getAll().forEach((trigger) => {
+    if (
+      sectionSet.has(trigger.trigger)
+      && trigger.vars?.toggleActions === 'play none none none'
+    ) {
+      trigger.animation?.kill()
+      trigger.kill(true)
+      killed += 1
+    }
+  })
+
+  return killed
+}
+
 function initializeEditorialRedesign() {
   const root = document.querySelector('#root')
   const header = document.querySelector('body > #root > header')
@@ -140,6 +158,19 @@ function initializeEditorialRedesign() {
   // 2. Limpar triggers antigos conflitantes nas seções pós-hero
   const managedSections = [oficina, instalacao, fragmentos, fotofilmes, informacoes].filter(Boolean)
   clearLegacySectionTriggers(managedSections)
+
+  let lateLegacyTimer = 0
+  const clearLateLegacyOnce = () => {
+    window.clearTimeout(lateLegacyTimer)
+    lateLegacyTimer = window.setTimeout(() => {
+      const mountedInstallation = document.querySelector('#instalacao')
+      clearLateLegacyTriggers([projeto, ...managedSections, mountedInstallation])
+      if (mountedInstallation) lateLegacyObserver.disconnect()
+    }, 180)
+  }
+  const lateLegacyObserver = new MutationObserver(clearLateLegacyOnce)
+  lateLegacyObserver.observe(root, { childList: true, subtree: true })
+  clearLateLegacyOnce()
 
   // 3. Construir contexto GSAP reversível (respeitando prefers-reduced-motion)
   let gsapCtx = null
@@ -425,9 +456,7 @@ function initializeEditorialRedesign() {
     let activeTheme = 'dark'
     let activeCursorTheme = 'on-blue'
 
-    const heroProgress = Number.parseFloat(
-      hero.dataset.hipocampoScrollProgress,
-    ) || 0
+    const heroProgress = ScrollTrigger.getById('hipocampo-page1-page2')?.progress || 0
 
     for (const item of sectionRanges) {
       if (item.id === 'projeto' && item.element.classList.contains('hipocampo-transition-project')) {
@@ -672,6 +701,8 @@ function initializeEditorialRedesign() {
     window.cancelAnimationFrame(scrollSyncFrame)
     stopCursorTicker()
     instalacaoObserver.disconnect()
+    lateLegacyObserver.disconnect()
+    window.clearTimeout(lateLegacyTimer)
     gsapCtx?.revert()
     splitRecords.splice(0).forEach((record) => record.revert())
     magneticCleanups.splice(0).forEach((fn) => fn())
