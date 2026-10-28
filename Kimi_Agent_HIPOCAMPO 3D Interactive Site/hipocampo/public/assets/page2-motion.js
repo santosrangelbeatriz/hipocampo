@@ -21,16 +21,9 @@ const copyLines = [
   'Cada combinação gera uma memória possível.',
 ]
 
-function characterMarkup(text, className) {
-  return Array.from(text).map((character) => {
-    const value = character === ' ' ? '&nbsp;' : character
-    return `<span class="${className}" aria-hidden="true">${value}</span>`
-  }).join('')
-}
-
 function titleMarkup(text) {
   return text.split(' ').map((word) => (
-    `<span class="page2-title-word">${characterMarkup(word, 'page2-title-char')}</span>`
+    `<span class="page2-title-word" aria-hidden="true">${word}</span>`
   )).join(' ')
 }
 
@@ -90,25 +83,30 @@ function initializePage2Motion() {
   project.dataset.page2MotionReady = 'true'
   project.replaceChildren(createPage2Markup())
 
-  const titleChars = [...project.querySelectorAll('.page2-title-char')]
+  const titleWords = [...project.querySelectorAll('.page2-title-word')]
   const copyLineElements = [...project.querySelectorAll('.page2-copy-line')]
+  const memoryMap = project.querySelector('.hipocampo-memory-map')
   const headerItems = [...header.children]
   let mapEntranceTween = null
 
+  gsap.set(memoryMap, { opacity: 0, scale: 0.92, transformOrigin: '50% 50%' })
+
   const animateMemoryMap = () => {
-    const mapFrames = [...project.querySelectorAll('.memory-map-piece-frame')]
-    if (!mapFrames.length || project.dataset.memoryMapEntranceReady === 'true') return
+    if (
+      !memoryMap
+      || memoryMap.dataset.memoryMapDecoded !== 'true'
+      || project.dataset.memoryMapEntranceReady === 'true'
+    ) return
 
     project.dataset.memoryMapEntranceReady = 'true'
-    const reducedMotionFactor = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0.5 : 1
-    mapEntranceTween = gsap.fromTo(mapFrames, {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    mapEntranceTween = gsap.fromTo(memoryMap, {
       opacity: 0,
-      scale: 1 - (0.08 * reducedMotionFactor),
+      scale: reducedMotion ? 1 : 0.92,
     }, {
       opacity: 1,
       scale: 1,
-      stagger: 0.022 * reducedMotionFactor,
-      duration: 0.9 * reducedMotionFactor,
+      duration: reducedMotion ? 0 : 0.9,
       ease: 'expo.out',
       scrollTrigger: {
         trigger: project,
@@ -121,11 +119,11 @@ function initializePage2Motion() {
   project.addEventListener('hipocampo:memory-map-ready', animateMemoryMap)
 
   const ctx = gsap.context(() => {
-    gsap.from(titleChars, {
+    gsap.from(titleWords, {
       yPercent: 120,
       rotation: 8,
       opacity: 0,
-      stagger: 0.025,
+      stagger: 0.08,
       duration: 1.05,
       ease: 'expo.out',
       scrollTrigger: {
@@ -138,7 +136,6 @@ function initializePage2Motion() {
     gsap.from(copyLineElements, {
       opacity: 0,
       y: 20,
-      filter: 'blur(6px)',
       stagger: 0.06,
       duration: 0.85,
       ease: 'power3.out',

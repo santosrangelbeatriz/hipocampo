@@ -1,4 +1,4 @@
-import { n as gsap } from './index-BXEErpTi.js'
+import { n as gsap, t as ScrollTrigger } from './index-BXEErpTi.js'
 
 const MANIFEST_URL = '/images/map/manifest.json'
 const INTERPOLATION = 0.08
@@ -48,7 +48,7 @@ async function mountMemoryMap(container) {
     image.className = 'memory-map-piece'
     image.src = data.src
     image.alt = ''
-    image.loading = 'lazy'
+    image.loading = 'eager'
     image.decoding = 'async'
     image.draggable = false
     image.style.transformOrigin = `${(data.center.xPct / 100 * manifest.width - data.x) / data.w * 100}% ${(data.center.yPct / 100 * manifest.height - data.y) / data.h * 100}%`
@@ -73,6 +73,11 @@ async function mountMemoryMap(container) {
   container.style.setProperty('--memory-map-aspect', String(manifest.aspectRatio))
   container.replaceChildren(canvas, ...pieces.map((piece) => piece.frame))
   container.dataset.memoryMapReady = 'true'
+  container.dataset.memoryMapDecoded = 'false'
+
+  await Promise.allSettled(pieces.map(({ image }) => image.decode()))
+  if (!container.isConnected) return
+  container.dataset.memoryMapDecoded = 'true'
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
   const coarsePointer = window.matchMedia('(hover: none), (pointer: coarse)')
@@ -80,6 +85,7 @@ async function mountMemoryMap(container) {
   let visible = false
   let destroyed = false
   let tickerActive = false
+  let idleFrame = 0
   let canvasWidth = 0
   let canvasHeight = 0
   let devicePixelRatio = 1
@@ -220,11 +226,20 @@ async function mountMemoryMap(container) {
   }
 
   const tickerRender = (time) => {
+    if (!pointer.active) {
+      idleFrame = (idleFrame + 1) % 2
+      if (idleFrame !== 0) return
+    }
     render(time * 1000)
   }
 
+  const heroPinFinished = () => {
+    const heroTrigger = ScrollTrigger.getById('hipocampo-page1-page2')
+    return !heroTrigger || heroTrigger.progress >= 0.999
+  }
+
   const start = () => {
-    if (!destroyed && visible && !tickerActive) {
+    if (!destroyed && visible && heroPinFinished() && !tickerActive) {
       tickerActive = true
       const rect = container.getBoundingClientRect()
       if (rect.width && rect.height) {
@@ -243,6 +258,11 @@ async function mountMemoryMap(container) {
     }
   }
 
+  const updateActivity = () => {
+    if (visible && heroPinFinished()) start()
+    else stop()
+  }
+
   const onPointerMove = (event) => {
     if (destroyed || !visible || coarsePointer.matches) return
     // Só guarda a posição; a geometria é lida uma vez por quadro em render().
@@ -258,11 +278,11 @@ async function mountMemoryMap(container) {
 
   const intersectionObserver = new IntersectionObserver((entries) => {
     visible = entries[0]?.isIntersecting === true
-    if (visible) start()
-    else stop()
+    updateActivity()
   }, { threshold: 0.01 })
 
   intersectionObserver.observe(container)
+  window.addEventListener('hipocampo:hero-pin-state', updateActivity)
   window.addEventListener('pointermove', onPointerMove, { passive: true })
   window.addEventListener('blur', clearPointer)
   document.addEventListener('pointerout', onPointerOut, { passive: true })
@@ -276,12 +296,14 @@ async function mountMemoryMap(container) {
     stop()
     resizeObserver.disconnect()
     intersectionObserver.disconnect()
+    window.removeEventListener('hipocampo:hero-pin-state', updateActivity)
     window.removeEventListener('pointermove', onPointerMove)
     window.removeEventListener('blur', clearPointer)
     document.removeEventListener('pointerout', onPointerOut)
     reducedMotion.removeEventListener('change', onMotionPreferenceChange)
     coarsePointer.removeEventListener('change', clearPointer)
     delete container.dataset.memoryMapReady
+    delete container.dataset.memoryMapDecoded
     delete window.__hipocampoMemoryMapCleanup
   }
 
