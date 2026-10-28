@@ -35,10 +35,11 @@ function initializeHeroMotion() {
   const hero = document.querySelector('#abertura.hipocampo-hero')
   const field = hero?.querySelector('.hipocampo-memory-field')
   const circle = hero?.querySelector('.hipocampo-transition-circle')
+  const circleFill = circle?.querySelector('.hipocampo-transition-circle-fill')
   const header = document.querySelector('body > #root > header')
   const lines = field ? [...field.querySelectorAll(':scope > .hipocampo-memory-line')] : []
 
-  if (!hero || !field || !circle || !header || lines.length !== 8) {
+  if (!hero || !field || !circle || !circleFill || !header || lines.length !== 8) {
     return false
   }
 
@@ -67,12 +68,15 @@ function initializeHeroMotion() {
   let resizePending = false
   let pointerX = 0
   let pointerY = 0
+  let lastPointerSample = 0
   let pointerInside = false
   let transitionActive = false
+  let heroIntroComplete = false
 
   const canUsePointerEffect = () => (
     finePointer.matches
     && window.innerWidth >= 768
+    && heroIntroComplete
     && !(RESPECT_REDUCED_MOTION && reducedMotion.matches)
   )
 
@@ -125,9 +129,6 @@ function initializeHeroMotion() {
       const distanceSquared = deltaX * deltaX + deltaY * deltaY
 
       if (distanceSquared >= POINTER_RADIUS * POINTER_RADIUS) {
-        if (activeChars.has(char)) {
-          restoreCharacter(char)
-        }
         return
       }
 
@@ -143,7 +144,7 @@ function initializeHeroMotion() {
         : 0
 
       nextActive.add(char)
-      char.style.willChange = 'transform, opacity, filter'
+      if (!activeChars.has(char)) char.style.willChange = 'transform, opacity, filter'
       gsap.to(char, {
         x: xShift,
         y: yShift,
@@ -179,6 +180,9 @@ function initializeHeroMotion() {
     pointerX = event.clientX
     pointerY = event.clientY
     pointerInside = true
+    const now = performance.now()
+    if (now - lastPointerSample < 32) return
+    lastPointerSample = now
     requestPointerRender()
   }
 
@@ -205,6 +209,16 @@ function initializeHeroMotion() {
 
   measureCharCenters()
 
+  // Mede uma única vez a expansão desejada. Durante o scroll ela é reproduzida
+  // por transform composto, sem relayout tipográfico a cada quadro.
+  const baseLineWidths = lines.map((line) => line.getBoundingClientRect().width)
+  const inlineLetterSpacing = lines.map((line) => line.style.letterSpacing)
+  lines.forEach((line) => { line.style.letterSpacing = '0.3em' })
+  const lineExpansionScales = lines.map((line, index) => (
+    line.getBoundingClientRect().width / Math.max(1, baseLineWidths[index])
+  ))
+  lines.forEach((line, index) => { line.style.letterSpacing = inlineLetterSpacing[index] })
+
   let transitionTimeline
   const ctx = gsap.context(() => {
     gsap.from(chars, {
@@ -213,6 +227,7 @@ function initializeHeroMotion() {
       stagger: { each: 0.004, from: 'random' },
       duration: 1.4,
       ease: 'expo.out',
+      onComplete: () => { heroIntroComplete = true },
     })
 
     transitionTimeline = gsap.timeline({
@@ -250,8 +265,7 @@ function initializeHeroMotion() {
           return direction * (72 + distanceFromCenter * 18)
         },
         opacity: 0,
-        filter: (index) => index % 2 === 0 ? `blur(${MAX_BLUR}px)` : 'blur(0px)',
-        letterSpacing: '0.3em',
+        scaleX: (index) => lineExpansionScales[index],
         duration: 0.58,
         ease: 'power2.in',
         stagger: { each: 0.04, from: 'center' },
@@ -266,7 +280,11 @@ function initializeHeroMotion() {
       .to(circle, {
         yPercent: -60 / CIRCLE_RENDER_SCALE,
         scale: 18 / CIRCLE_RENDER_SCALE,
-        backgroundColor: '#ffffff',
+        duration: 1,
+        ease: 'power2.inOut',
+      }, 0.08)
+      .to(circleFill, {
+        opacity: 1,
         duration: 1,
         ease: 'power2.inOut',
       }, 0.08)
