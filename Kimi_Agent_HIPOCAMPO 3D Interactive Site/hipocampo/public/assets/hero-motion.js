@@ -73,6 +73,7 @@ function initializeHeroMotion() {
   let lastPointerSample = 0
   let pointerInside = false
   let transitionActive = false
+  let heroPinFinished = false
   let heroIntroComplete = false
 
   const canUsePointerEffect = () => (
@@ -275,11 +276,17 @@ function initializeHeroMotion() {
         anticipatePin: 1,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
-          hero.dataset.hipocampoScrollProgress = self.progress.toFixed(5)
           document.documentElement.classList.toggle(
             'hipocampo-transition-white',
             self.progress >= 0.92,
           )
+          const nextHeroPinFinished = self.progress >= 0.999
+          if (nextHeroPinFinished !== heroPinFinished) {
+            heroPinFinished = nextHeroPinFinished
+            window.dispatchEvent(new CustomEvent('hipocampo:hero-pin-state', {
+              detail: { finished: heroPinFinished },
+            }))
+          }
           const nextTransitionActive = self.progress > 0.015
           if (nextTransitionActive !== transitionActive) {
             transitionActive = nextTransitionActive
@@ -494,7 +501,6 @@ function initializeHeroMotion() {
     lenis.destroy()
     transitionTimeline?.scrollTrigger?.kill()
     ctx.revert()
-    delete hero.dataset.hipocampoScrollProgress
     document.documentElement.classList.remove('hipocampo-transition-white')
     originalLines.forEach(({ line, html, ariaLabel }) => {
       line.innerHTML = html

@@ -456,9 +456,7 @@ function initializeEditorialRedesign() {
     let activeTheme = 'dark'
     let activeCursorTheme = 'on-blue'
 
-    const heroProgress = Number.parseFloat(
-      hero.dataset.hipocampoScrollProgress,
-    ) || 0
+    const heroProgress = ScrollTrigger.getById('hipocampo-page1-page2')?.progress || 0
 
     for (const item of sectionRanges) {
       if (item.id === 'projeto' && item.element.classList.contains('hipocampo-transition-project')) {
