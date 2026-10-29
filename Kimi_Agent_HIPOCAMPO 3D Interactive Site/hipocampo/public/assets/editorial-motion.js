@@ -1,4 +1,4 @@
-import { n as gsap, t as ScrollTrigger } from './index-BXEErpTi.js'
+import { n as gsap, t as ScrollTrigger } from './index-BXEErpTi.js?v=perf-1'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -165,11 +165,8 @@ function initializeEditorialRedesign() {
     lateLegacyTimer = window.setTimeout(() => {
       const mountedInstallation = document.querySelector('#instalacao')
       clearLateLegacyTriggers([projeto, ...managedSections, mountedInstallation])
-      if (mountedInstallation) lateLegacyObserver.disconnect()
     }, 180)
   }
-  const lateLegacyObserver = new MutationObserver(clearLateLegacyOnce)
-  lateLegacyObserver.observe(root, { childList: true, subtree: true })
   clearLateLegacyOnce()
 
   // 3. Construir contexto GSAP reversível (respeitando prefers-reduced-motion)
@@ -394,16 +391,24 @@ function initializeEditorialRedesign() {
 
   // Observar quando a seção #instalacao (lazy loaded) montar no DOM para integrá-la sem conflitos
   let instalacaoConfigured = !!document.querySelector('#instalacao')
-  const instalacaoObserver = new MutationObserver(() => {
+  const configureInstallation = () => {
     const inst = document.querySelector('#instalacao')
+    if (!inst) return false
+
+    clearLateLegacyOnce()
     if (inst && !instalacaoConfigured) {
       instalacaoConfigured = true
       clearLegacySectionTriggers([inst])
+      cursorVisibilityObserver.observe(inst)
       setupScrollAnimations()
       window.requestAnimationFrame(measureSectionRanges)
     }
-  })
-  instalacaoObserver.observe(root, { childList: true, subtree: true })
+    return true
+  }
+  let cancelInstallationReady = () => {}
+  if (!configureInstallation()) {
+    cancelInstallationReady = window.__hipocampoWhenReady?.(configureInstallation) || (() => {})
+  }
 
   // 5. Sincronização de navegação ativa, tema do cabeçalho e barra de progresso
   const navLinks = [...header.querySelectorAll('nav a[href^="#"]')]
@@ -690,18 +695,48 @@ function initializeEditorialRedesign() {
 
   measureSectionRanges()
   updateScrollNavigation()
+  let pointerListening = false
+  const visibleCursorSections = new Set()
+  const setPointerListening = (enabled) => {
+    if (enabled === pointerListening) return
+    pointerListening = enabled
+    if (enabled) {
+      window.addEventListener('pointermove', onPointerMove, { passive: true })
+    } else {
+      window.removeEventListener('pointermove', onPointerMove)
+      onPointerLeaveWindow()
+    }
+  }
+  const cursorVisibilityObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) visibleCursorSections.add(entry.target)
+      else visibleCursorSections.delete(entry.target)
+    })
+    setPointerListening(visibleCursorSections.size > 0)
+  }, { threshold: 0 })
+  ;[
+    hero,
+    projeto,
+    document.querySelector('#casa'),
+    oficina,
+    instalacao,
+    fragmentos,
+    fotofilmes,
+    informacoes,
+    footer,
+  ].filter(Boolean).forEach((section) => cursorVisibilityObserver.observe(section))
   window.addEventListener('scroll', requestScrollNavSync, { passive: true })
   window.addEventListener('resize', onViewportResize, { passive: true })
   ScrollTrigger.addEventListener('refresh', onViewportResize)
-  window.addEventListener('pointermove', onPointerMove, { passive: true })
   document.addEventListener('mouseleave', onPointerLeaveWindow)
   reducedMotionQuery.addEventListener('change', onReducedMotionChange)
 
   const cleanup = () => {
     window.cancelAnimationFrame(scrollSyncFrame)
     stopCursorTicker()
-    instalacaoObserver.disconnect()
-    lateLegacyObserver.disconnect()
+    cursorVisibilityObserver.disconnect()
+    setPointerListening(false)
+    cancelInstallationReady()
     window.clearTimeout(lateLegacyTimer)
     gsapCtx?.revert()
     splitRecords.splice(0).forEach((record) => record.revert())
@@ -709,7 +744,6 @@ function initializeEditorialRedesign() {
     window.removeEventListener('scroll', requestScrollNavSync)
     window.removeEventListener('resize', onViewportResize)
     ScrollTrigger.removeEventListener('refresh', onViewportResize)
-    window.removeEventListener('pointermove', onPointerMove)
     document.removeEventListener('mouseleave', onPointerLeaveWindow)
     reducedMotionQuery.removeEventListener('change', onReducedMotionChange)
     progressBar.remove()
@@ -726,10 +760,5 @@ function initializeEditorialRedesign() {
 }
 
 if (!initializeEditorialRedesign()) {
-  const bootObserver = new MutationObserver(() => {
-    if (initializeEditorialRedesign()) {
-      bootObserver.disconnect()
-    }
-  })
-  bootObserver.observe(document.documentElement, { childList: true, subtree: true })
+  window.__hipocampoWhenReady?.(initializeEditorialRedesign)
 }

@@ -1,4 +1,4 @@
-import { n as gsap, t as ScrollTrigger } from './index-BXEErpTi.js'
+import { n as gsap, t as ScrollTrigger } from './index-BXEErpTi.js?v=perf-1'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -199,10 +199,5 @@ function initializePage2Motion() {
 }
 
 if (!initializePage2Motion()) {
-  const observer = new MutationObserver(() => {
-    if (initializePage2Motion()) {
-      observer.disconnect()
-    }
-  })
-  observer.observe(document.documentElement, { childList: true, subtree: true })
+  window.__hipocampoWhenReady?.(initializePage2Motion)
 }

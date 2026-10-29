@@ -106,6 +106,12 @@ async function runScenario(motionPreference) {
       }
     })
 
+    on('Runtime.exceptionThrown', ({ exceptionDetails }) => {
+      const text = exceptionDetails.exception?.description || exceptionDetails.text || 'Erro desconhecido'
+      consoleErrors.push(text)
+      console.error('[Browser exception]:', text)
+    })
+
     on('Network.responseReceived', (params) => {
       if (params.response.status >= 400) {
         const entry = `${params.response.status} ${params.response.url}`
@@ -118,10 +124,10 @@ async function runScenario(motionPreference) {
     await send('Network.enable', {}, sessionId)
     await send('Page.enable', {}, sessionId)
 
-    // Configurar viewport exato: 1916 x 851
+    // Configurar viewport de aceite: 1920 x 1080
     await send('Emulation.setDeviceMetricsOverride', {
-      width: 1916,
-      height: 851,
+      width: 1920,
+      height: 1080,
       deviceScaleFactor: 1,
       mobile: false,
     }, sessionId)
@@ -159,6 +165,7 @@ async function runScenario(motionPreference) {
     const evalLines = await send('Runtime.evaluate', {
       expression: `(() => {
         const field = document.querySelector('.hipocampo-memory-field')
+        if (!field) return []
         const spans = [...field.querySelectorAll(':scope > span')]
         return spans.map((s, i) => {
           const r = s.getBoundingClientRect()
@@ -169,6 +176,9 @@ async function runScenario(motionPreference) {
     }, sessionId)
 
     const lines = evalLines.result.value
+    if (!lines?.length) {
+      throw new Error(`Hero não montou. Erros do navegador: ${consoleErrors.join(' | ') || 'nenhum capturado'}`)
+    }
     console.log(`Found ${lines.length} lines in memory field`)
 
     // Mover o mouse sobre as linhas 1, 4 e 8
