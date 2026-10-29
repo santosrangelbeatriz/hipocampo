@@ -1,7 +1,7 @@
 // Página 3 — transição em three.js: o mapa de memória vira cena 3D,
 // a câmera foca a casa, atravessa a porta e revela a página seguinte.
 import * as THREE from './vendor/three.module.min.js'
-import { n as gsap, t as ScrollTrigger } from './index-BXEErpTi.js'
+import { n as gsap, t as ScrollTrigger } from './index-BXEErpTi.js?v=perf-1'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -157,6 +157,8 @@ async function mount(section) {
   new ResizeObserver(resize).observe(stage)
 
   let target = 0, progress = 0, visible = false, raf = 0
+  let page3Intersecting = false, installationIntersecting = false
+  let heroPinFinished = false
   ScrollTrigger.create({
     trigger: section, start: 'top top', end: 'bottom bottom',
     onUpdate: (st) => {
@@ -168,11 +170,18 @@ async function mount(section) {
     onRefresh: measureStart,
   })
   let lastPX = 0, pointerVel = 0
-  window.addEventListener('pointermove', (e) => {
+  const onPointerMove = (e) => {
     pointerVel += (e.clientX - lastPX) / window.innerWidth; lastPX = e.clientX
     pointer.x = (e.clientX / window.innerWidth) * 2 - 1
     pointer.y = (e.clientY / window.innerHeight) * 2 - 1
-  }, { passive: true })
+  }
+  let pointerListening = false
+  const setPointerListening = (enabled) => {
+    if (enabled === pointerListening) return
+    pointerListening = enabled
+    if (enabled) window.addEventListener('pointermove', onPointerMove, { passive: true })
+    else window.removeEventListener('pointermove', onPointerMove)
+  }
 
   const tmp = new THREE.Vector3()
   canvas.style.opacity = '0'
@@ -265,10 +274,41 @@ async function mount(section) {
     renderer.render(scene, camera)
   }
 
-  new IntersectionObserver((entries) => {
-    visible = entries[0].isIntersecting
+  const warmRenderer = () => {
+    renderer.compileAsync?.(scene, camera).catch(() => {})
+  }
+  if ('requestIdleCallback' in window) {
+    window.requestIdleCallback(warmRenderer, { timeout: 1500 })
+  } else {
+    window.setTimeout(warmRenderer, 0)
+  }
+
+  const updateRenderActivity = () => {
+    visible = heroPinFinished && page3Intersecting && !installationIntersecting
+    setPointerListening(visible)
     if (visible && !raf) raf = requestAnimationFrame(frame)
-  }, { threshold: 0 }).observe(section)
+  }
+  const onHeroPinState = (event) => {
+    heroPinFinished = event.detail?.finished === true
+    updateRenderActivity()
+  }
+  const page3Observer = new IntersectionObserver((entries) => {
+    page3Intersecting = entries[0].isIntersecting
+    updateRenderActivity()
+  }, { threshold: 0 })
+  const installationObserver = new IntersectionObserver((entries) => {
+    installationIntersecting = entries[0].isIntersecting
+    updateRenderActivity()
+  }, { threshold: 0, rootMargin: '300px 0px 300px 0px' })
+  const observeInstallation = () => {
+    const installation = document.querySelector('#instalacao')
+    if (!installation) return false
+    installationObserver.observe(installation)
+    return true
+  }
+  page3Observer.observe(section)
+  if (!observeInstallation()) window.__hipocampoWhenReady?.(observeInstallation)
+  window.addEventListener('hipocampo:hero-pin-state', onHeroPinState)
   ScrollTrigger.refresh()
 }
 
@@ -283,6 +323,5 @@ function init() {
 }
 
 if (!init()) {
-  const mo = new MutationObserver(() => { if (init()) mo.disconnect() })
-  mo.observe(document.documentElement, { childList: true, subtree: true })
+  window.__hipocampoWhenReady?.(init)
 }

@@ -1,4 +1,4 @@
-import { n as gsap, t as ScrollTrigger } from './index-BXEErpTi.js'
+import { n as gsap, t as ScrollTrigger } from './index-BXEErpTi.js?v=perf-1'
 import Lenis from './vendor/lenis.mjs'
 
 // Mude para true apenas se o projeto decidir respeitar a preferência do sistema.
@@ -8,7 +8,6 @@ const POINTER_RADIUS = 140
 const POINTER_PUSH = 40
 const MAX_POINTER_CHARS = 16
 const POINTER_MOVE_THRESHOLD = 2
-const CIRCLE_RENDER_SCALE = 2
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -70,7 +69,6 @@ function initializeHeroMotion() {
   let resizePending = false
   let pointerX = 0
   let pointerY = 0
-  let lastPointerSample = 0
   let pointerInside = false
   let transitionActive = false
   let heroPinFinished = false
@@ -100,13 +98,11 @@ function initializeHeroMotion() {
     let motion = charMotions.get(char)
     if (motion) return motion
 
-    const config = { duration: 0.5, ease: 'power3.out', overwrite: 'auto' }
+    const config = { duration: 0.5, ease: 'power3.out', overwrite: 'auto', force3D: true }
     motion = {
       x: gsap.quickTo(char, 'x', config),
       y: gsap.quickTo(char, 'y', config),
       rotation: gsap.quickTo(char, 'rotation', config),
-      opacity: gsap.quickTo(char, 'opacity', config),
-      clearTimer: 0,
     }
     charMotions.set(char, motion)
     return motion
@@ -117,11 +113,6 @@ function initializeHeroMotion() {
     motion.x(0)
     motion.y(0)
     motion.rotation(0)
-    motion.opacity(1)
-    window.clearTimeout(motion.clearTimer)
-    motion.clearTimer = window.setTimeout(() => {
-      if (!activeChars.has(char)) char.style.willChange = ''
-    }, 650)
   }
 
   const restoreAllCharacters = () => {
@@ -164,12 +155,9 @@ function initializeHeroMotion() {
 
       nextActive.add(char)
       const motion = getCharMotion(char)
-      window.clearTimeout(motion.clearTimer)
-      if (!activeChars.has(char)) char.style.willChange = 'transform, opacity'
       motion.x(xShift)
       motion.y(yShift)
       motion.rotation(rotation)
-      motion.opacity(1 - influence * 0.68)
     })
 
     activeChars.forEach((char) => {
@@ -201,9 +189,6 @@ function initializeHeroMotion() {
     pointerX = event.clientX
     pointerY = event.clientY
     pointerInside = true
-    const now = performance.now()
-    if (now - lastPointerSample < 32) return
-    lastPointerSample = now
     requestPointerRender()
   }
 
@@ -254,6 +239,11 @@ function initializeHeroMotion() {
   lines.forEach((line, index) => { line.style.letterSpacing = inlineLetterSpacing[index] })
 
   let transitionTimeline
+  const setLineTransitionLayers = (enabled) => {
+    lines.forEach((line) => {
+      line.style.willChange = enabled ? 'transform, opacity' : ''
+    })
+  }
   const ctx = gsap.context(() => {
     gsap.from(chars, {
       opacity: 0,
@@ -270,11 +260,15 @@ function initializeHeroMotion() {
         id: 'hipocampo-page1-page2',
         trigger: hero,
         pin: true,
-        scrub: 1,
+        scrub: true,
         start: 'top top',
         end: '+=180%',
         anticipatePin: 1,
         invalidateOnRefresh: true,
+        onEnter: () => setLineTransitionLayers(true),
+        onLeave: () => setLineTransitionLayers(false),
+        onEnterBack: () => setLineTransitionLayers(true),
+        onLeaveBack: () => setLineTransitionLayers(false),
         onUpdate: (self) => {
           document.documentElement.classList.toggle(
             'hipocampo-transition-white',
@@ -317,8 +311,10 @@ function initializeHeroMotion() {
         ease: 'power2.in',
       }, 0.08)
       .to(circle, {
-        yPercent: -60 / CIRCLE_RENDER_SCALE,
-        scale: 18 / CIRCLE_RENDER_SCALE,
+        clipPath: () => {
+          const radius = Math.hypot(window.innerWidth / 2, window.innerHeight) + 2
+          return `circle(${radius}px at 50% 100%)`
+        },
         duration: 1,
         ease: 'power2.inOut',
       }, 0.08)
@@ -343,31 +339,13 @@ function initializeHeroMotion() {
     ),
   })
 
-  let lenisTickerActive = false
-  let lenisTickerGraceFrames = 0
-  const stopLenisTicker = () => {
-    if (!lenisTickerActive) return
-    gsap.ticker.remove(lenisTicker)
-    lenisTickerActive = false
-  }
   const lenisTicker = (time) => {
     lenis.raf(time * 1000)
-    if (lenisTickerGraceFrames > 0) {
-      lenisTickerGraceFrames -= 1
-    } else if (!lenis.isScrolling) {
-      stopLenisTicker()
-    }
-  }
-  const startLenisTicker = () => {
-    lenisTickerGraceFrames = 2
-    if (lenisTickerActive) return
-    lenisTickerActive = true
-    gsap.ticker.add(lenisTicker)
   }
   const onLenisScroll = () => ScrollTrigger.update()
   lenis.on('scroll', onLenisScroll)
-  lenis.on('virtual-scroll', startLenisTicker)
-  gsap.ticker.lagSmoothing(0)
+  gsap.ticker.add(lenisTicker)
+  gsap.ticker.lagSmoothing(500, 33)
   window.__hipocampoLenis = lenis
 
   const menuAnchors = [...header.querySelectorAll('a[href^="#"]')]
@@ -385,7 +363,6 @@ function initializeHeroMotion() {
     }
 
     activeAnchorTarget = target
-    startLenisTicker()
     lenis.scrollTo(target, {
       immediate,
       duration: immediate ? 0 : 1.2,
@@ -436,16 +413,22 @@ function initializeHeroMotion() {
     }
   }
 
+  let layoutRefreshTimer = 0
   const layoutObserver = new ResizeObserver(() => {
-    lenis.resize()
-    ScrollTrigger.refresh()
+    window.clearTimeout(layoutRefreshTimer)
+    layoutRefreshTimer = window.setTimeout(() => {
+      layoutRefreshTimer = 0
+      const pinProgress = transitionTimeline?.scrollTrigger?.progress ?? 0
+      if (pinProgress > 0 && pinProgress < 1) return
 
-    if (!activeAnchorTarget || anchorCorrectionPending) {
-      return
-    }
+      lenis.resize()
+      ScrollTrigger.refresh()
 
-    anchorCorrectionPending = true
-    gsap.ticker.add(correctAnchorOnTicker)
+      if (!activeAnchorTarget || anchorCorrectionPending) return
+
+      anchorCorrectionPending = true
+      gsap.ticker.add(correctAnchorOnTicker)
+    }, 200)
   })
 
   if (main) {
@@ -477,13 +460,12 @@ function initializeHeroMotion() {
     gsap.ticker.remove(correctAnchorOnTicker)
     restoreAllCharacters()
     charMotions.forEach((motion) => {
-      window.clearTimeout(motion.clearTimer)
       motion.x.tween?.kill()
       motion.y.tween?.kill()
       motion.rotation.tween?.kill()
-      motion.opacity.tween?.kill()
     })
     charMotions.clear()
+    window.clearTimeout(layoutRefreshTimer)
     layoutObserver.disconnect()
     setPointerListening(false)
     window.removeEventListener('resize', onResize)
@@ -495,12 +477,12 @@ function initializeHeroMotion() {
     window.removeEventListener('pagehide', cleanup)
     menuAnchors.forEach((anchor) => anchor.removeEventListener('click', onAnchorClick))
     lenis.off('scroll', onLenisScroll)
-    lenis.off('virtual-scroll', startLenisTicker)
-    stopLenisTicker()
+    gsap.ticker.remove(lenisTicker)
     gsap.ticker.lagSmoothing(500, 33)
     lenis.destroy()
     transitionTimeline?.scrollTrigger?.kill()
     ctx.revert()
+    setLineTransitionLayers(false)
     document.documentElement.classList.remove('hipocampo-transition-white')
     originalLines.forEach(({ line, html, ariaLabel }) => {
       line.innerHTML = html
@@ -518,10 +500,5 @@ function initializeHeroMotion() {
 }
 
 if (!initializeHeroMotion()) {
-  const observer = new MutationObserver(() => {
-    if (initializeHeroMotion()) {
-      observer.disconnect()
-    }
-  })
-  observer.observe(document.documentElement, { childList: true, subtree: true })
+  window.__hipocampoWhenReady?.(initializeHeroMotion)
 }

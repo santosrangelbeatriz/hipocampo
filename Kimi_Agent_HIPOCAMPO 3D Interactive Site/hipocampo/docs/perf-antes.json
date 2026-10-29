@@ -1,61 +1,43 @@
 {
   "label": "antes",
-  "capturedAt": "2026-10-25T22:17:43.261Z",
+  "capturedAt": "2026-10-28T18:02:24.564Z",
   "browserPath": "C:/Program Files/Google/Chrome/Application/chrome.exe",
   "siteUrl": "http://127.0.0.1:8443/",
   "viewports": {
-    "1916x851": {
+    "1920x1080": {
       "viewport": {
-        "width": 1916,
-        "height": 851,
+        "width": 1920,
+        "height": 1080,
         "deviceScaleFactor": 1,
         "mobile": false
       },
-      "initialTransferBytes": 2348652,
-      "initialTransferKB": 2293.61,
+      "initialTransferBytes": 2273909,
+      "initialTransferKB": 2220.61,
       "scenarios": {
         "heroScroll": {
-          "fpsAverage": 27.94,
-          "fpsP5": 9.34,
-          "frameP50Ms": 26.8,
-          "frameP95Ms": 107.1,
-          "frameMaxMs": 160.6,
-          "framesOver20Ms": 71,
-          "framesOver33Ms": 30,
-          "longTasks": {
-            "count": 3,
-            "totalMs": 196,
-            "maxMs": 77
-          },
-          "taskMs": 2842.626,
-          "scriptMs": 236.807,
-          "layoutMs": 99.847,
-          "styleMs": 1620.825
-        },
-        "heroPointer": {
-          "fpsAverage": 23.33,
-          "fpsP5": 14.95,
-          "frameP50Ms": 40.2,
-          "frameP95Ms": 66.9,
-          "frameMaxMs": 93.7,
-          "framesOver20Ms": 65,
-          "framesOver33Ms": 53,
+          "fpsAverage": 56.47,
+          "fpsP5": 59.17,
+          "frameP50Ms": 16.7,
+          "frameP95Ms": 16.9,
+          "frameMaxMs": 199.8,
+          "framesOver20Ms": 2,
+          "framesOver33Ms": 1,
           "longTasks": {
             "count": 2,
-            "totalMs": 109,
-            "maxMs": 59
+            "totalMs": 259,
+            "maxMs": 204
           },
-          "taskMs": 2096.11,
-          "scriptMs": 895.013,
-          "layoutMs": 64.722,
-          "styleMs": 501.394
+          "taskMs": 1351.88,
+          "scriptMs": 616.095,
+          "layoutMs": 0.634,
+          "styleMs": 201.292
         },
-        "mapPointer": {
-          "fpsAverage": 75,
-          "fpsP5": 74.07,
-          "frameP50Ms": 13.4,
-          "frameP95Ms": 13.5,
-          "frameMaxMs": 13.8,
+        "heroPointer": {
+          "fpsAverage": 60,
+          "fpsP5": 59.17,
+          "frameP50Ms": 16.7,
+          "frameP95Ms": 16.9,
+          "frameMaxMs": 17,
           "framesOver20Ms": 0,
           "framesOver33Ms": 0,
           "longTasks": {
@@ -63,10 +45,28 @@
             "totalMs": 0,
             "maxMs": 0
           },
-          "taskMs": 1865.565,
-          "scriptMs": 266.423,
-          "layoutMs": 5.717,
-          "styleMs": 240.28
+          "taskMs": 1425.649,
+          "scriptMs": 529.605,
+          "layoutMs": 9.705,
+          "styleMs": 214.412
+        },
+        "mapPointer": {
+          "fpsAverage": 60,
+          "fpsP5": 59.52,
+          "frameP50Ms": 16.7,
+          "frameP95Ms": 16.8,
+          "frameMaxMs": 16.9,
+          "framesOver20Ms": 0,
+          "framesOver33Ms": 0,
+          "longTasks": {
+            "count": 0,
+            "totalMs": 0,
+            "maxMs": 0
+          },
+          "taskMs": 1469.171,
+          "scriptMs": 742.028,
+          "layoutMs": 2.95,
+          "styleMs": 135.327
         }
       },
       "pageErrors": [],
@@ -79,33 +79,33 @@
         "deviceScaleFactor": 1,
         "mobile": true
       },
-      "initialTransferBytes": 2762207,
-      "initialTransferKB": 2697.47,
+      "initialTransferBytes": 2273877,
+      "initialTransferKB": 2220.58,
       "scenarios": {
         "heroScroll": {
-          "fpsAverage": 35,
-          "fpsP5": 10.68,
-          "frameP50Ms": 26.7,
-          "frameP95Ms": 93.6,
-          "frameMaxMs": 133.9,
-          "framesOver20Ms": 76,
-          "framesOver33Ms": 19,
+          "fpsAverage": 57.06,
+          "fpsP5": 59.17,
+          "frameP50Ms": 16.7,
+          "frameP95Ms": 16.9,
+          "frameMaxMs": 166.4,
+          "framesOver20Ms": 2,
+          "framesOver33Ms": 1,
           "longTasks": {
-            "count": 0,
-            "totalMs": 0,
-            "maxMs": 0
+            "count": 2,
+            "totalMs": 233,
+            "maxMs": 180
           },
-          "taskMs": 2828.972,
-          "scriptMs": 201.697,
-          "layoutMs": 73.916,
-          "styleMs": 1772.857
+          "taskMs": 1067.357,
+          "scriptMs": 451.918,
+          "layoutMs": 0.755,
+          "styleMs": 114.608
         },
         "heroPointer": {
-          "fpsAverage": 74.67,
-          "fpsP5": 74.07,
-          "frameP50Ms": 13.4,
-          "frameP95Ms": 13.5,
-          "frameMaxMs": 14.1,
+          "fpsAverage": 60,
+          "fpsP5": 59.52,
+          "frameP50Ms": 16.7,
+          "frameP95Ms": 16.8,
+          "frameMaxMs": 17,
           "framesOver20Ms": 0,
           "framesOver33Ms": 0,
           "longTasks": {
@@ -113,17 +113,17 @@
             "totalMs": 0,
             "maxMs": 0
           },
-          "taskMs": 1221.293,
-          "scriptMs": 123.006,
-          "layoutMs": 34.995,
-          "styleMs": 140.728
+          "taskMs": 817.405,
+          "scriptMs": 121.557,
+          "layoutMs": 30.347,
+          "styleMs": 103.344
         },
         "mapPointer": {
-          "fpsAverage": 75,
-          "fpsP5": 74.07,
-          "frameP50Ms": 13.4,
-          "frameP95Ms": 13.5,
-          "frameMaxMs": 13.7,
+          "fpsAverage": 60,
+          "fpsP5": 59.17,
+          "frameP50Ms": 16.7,
+          "frameP95Ms": 16.9,
+          "frameMaxMs": 17.1,
           "framesOver20Ms": 0,
           "framesOver33Ms": 0,
           "longTasks": {
@@ -131,10 +131,10 @@
             "totalMs": 0,
             "maxMs": 0
           },
-          "taskMs": 1487.004,
-          "scriptMs": 262.98,
+          "taskMs": 1127.245,
+          "scriptMs": 448.832,
           "layoutMs": 0,
-          "styleMs": 205.075
+          "styleMs": 132.468
         }
       },
       "pageErrors": [],

@@ -1,4 +1,4 @@
-import { n as gsap, t as ScrollTrigger } from './index-BXEErpTi.js'
+import { n as gsap, t as ScrollTrigger } from './index-BXEErpTi.js?v=perf-1'
 
 const MANIFEST_URL = '/images/map/manifest.json'
 const INTERPOLATION = 0.08
@@ -275,15 +275,26 @@ async function mountMemoryMap(container) {
     if (!event.relatedTarget) clearPointer()
   }
   const onMotionPreferenceChange = () => start()
+  let pointerListening = false
+  const setPointerListening = (enabled) => {
+    if (enabled === pointerListening) return
+    pointerListening = enabled
+    if (enabled) {
+      window.addEventListener('pointermove', onPointerMove, { passive: true })
+    } else {
+      window.removeEventListener('pointermove', onPointerMove)
+      clearPointer()
+    }
+  }
 
   const intersectionObserver = new IntersectionObserver((entries) => {
     visible = entries[0]?.isIntersecting === true
+    setPointerListening(visible)
     updateActivity()
   }, { threshold: 0.01 })
 
   intersectionObserver.observe(container)
   window.addEventListener('hipocampo:hero-pin-state', updateActivity)
-  window.addEventListener('pointermove', onPointerMove, { passive: true })
   window.addEventListener('blur', clearPointer)
   document.addEventListener('pointerout', onPointerOut, { passive: true })
   reducedMotion.addEventListener('change', onMotionPreferenceChange)
@@ -296,8 +307,8 @@ async function mountMemoryMap(container) {
     stop()
     resizeObserver.disconnect()
     intersectionObserver.disconnect()
+    setPointerListening(false)
     window.removeEventListener('hipocampo:hero-pin-state', updateActivity)
-    window.removeEventListener('pointermove', onPointerMove)
     window.removeEventListener('blur', clearPointer)
     document.removeEventListener('pointerout', onPointerOut)
     reducedMotion.removeEventListener('change', onMotionPreferenceChange)
@@ -322,8 +333,5 @@ function initializeMemoryMap() {
 }
 
 if (!initializeMemoryMap()) {
-  const observer = new MutationObserver(() => {
-    if (initializeMemoryMap()) observer.disconnect()
-  })
-  observer.observe(document.documentElement, { childList: true, subtree: true })
+  window.__hipocampoWhenReady?.(initializeMemoryMap)
 }

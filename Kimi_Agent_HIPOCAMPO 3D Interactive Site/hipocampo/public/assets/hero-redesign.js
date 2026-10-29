@@ -12,7 +12,9 @@ function createHeroMarkup() {
     <h1 class="hipocampo-hero-title">Uma memória desapareceu</h1>
     <div class="hipocampo-hero-visuals">
       <div class="hipocampo-hero-texture" aria-hidden="true"></div>
-      <div class="hipocampo-transition-circle" aria-hidden="true"></div>
+      <div class="hipocampo-transition-circle" aria-hidden="true">
+        <span class="hipocampo-transition-circle-fill"></span>
+      </div>
       <div class="hipocampo-memory-field">${lines}</div>
     </div>
   `
@@ -48,10 +50,5 @@ function initializeHero() {
 }
 
 if (!initializeHero()) {
-  const observer = new MutationObserver(() => {
-    if (initializeHero()) {
-      observer.disconnect()
-    }
-  })
-  observer.observe(document.documentElement, { childList: true, subtree: true })
+  window.__hipocampoWhenReady?.(initializeHero)
 }

@@ -12,8 +12,8 @@ const label = process.env.HIPOCAMPO_PERF_LABEL || 'sample'
 const outputDir = path.join(projectRoot, 'artifacts', 'performance-optimization', label)
 const siteUrl = process.env.HIPOCAMPO_URL || 'http://127.0.0.1:8443/'
 const viewport = {
-  width: Number(process.env.HIPOCAMPO_WIDTH || 1916),
-  height: Number(process.env.HIPOCAMPO_HEIGHT || 851),
+  width: Number(process.env.HIPOCAMPO_WIDTH || 1920),
+  height: Number(process.env.HIPOCAMPO_HEIGHT || 1080),
   deviceScaleFactor: 1,
   mobile: process.env.HIPOCAMPO_MOBILE === '1',
 }
@@ -33,7 +33,7 @@ if (!workerMode) {
   const reportPath = path.resolve(projectRoot, process.argv[2] || 'docs/perf-sample.json')
   const suiteLabel = process.argv[3] || path.basename(reportPath, path.extname(reportPath))
   const viewports = [
-    { key: '1916x851', width: 1916, height: 851, mobile: false },
+    { key: '1920x1080', width: 1920, height: 1080, mobile: false },
     { key: '390x844', width: 390, height: 844, mobile: true },
   ]
 
@@ -359,12 +359,16 @@ try {
   async function measure(name, { duration = 3000, setup, action } = {}) {
     if (setup) await setup()
     await sleep(600)
+    const stopTrace = name === 'heroScroll' && process.env.HIPOCAMPO_TRACE_HERO === '1'
+      ? await startTrace()
+      : null
     const before = metricsMap(await send('Performance.getMetrics', {}, sessionId))
     const processBefore = processCpuByType(await send('SystemInfo.getProcessInfo'))
     await startFrameCollection(duration)
     const actionPromise = action ? action(duration) : Promise.resolve()
     await sleep(duration + 150)
     await actionPromise
+    const traceEvents = stopTrace ? await stopTrace() : []
     const framesResult = await readFrameCollection()
     const after = metricsMap(await send('Performance.getMetrics', {}, sessionId))
     const processAfter = processCpuByType(await send('SystemInfo.getProcessInfo'))
@@ -393,6 +397,22 @@ try {
       domNodes: Math.round(after.Nodes || 0),
       rendererCpuMs: Number((((processAfter.renderer || 0) - (processBefore.renderer || 0)) * 1000).toFixed(3)),
       gpuCpuMs: Number((((processAfter.GPU || 0) - (processBefore.GPU || 0)) * 1000).toFixed(3)),
+    }
+    if (traceEvents.length) {
+      result.traceSummary = summarizeTrace(traceEvents)
+      result.traceLongEvents = traceEvents
+        .filter((event) => (event.dur || 0) >= 40000)
+        .sort((a, b) => (b.dur || 0) - (a.dur || 0))
+        .slice(0, 80)
+        .map((event) => ({
+          name: event.name,
+          category: event.cat,
+          startMs: Number((event.ts / 1000).toFixed(3)),
+          durationMs: Number((event.dur / 1000).toFixed(3)),
+          functionName: event.args?.data?.functionName || null,
+          url: event.args?.data?.url || null,
+          lineNumber: event.args?.data?.lineNumber ?? null,
+        }))
     }
     console.log(`${name}: ${result.estimatedFps} fps, p95 ${result.p95FrameMs} ms, task ${result.taskMs} ms`)
     return result

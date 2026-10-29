@@ -18,6 +18,12 @@
   --hip-ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* O SVG de ruído já usa viewBox 180 × 180 e stitchTiles. Declarar o mosaico
+   evita rasterizar o filtro procedural no tamanho total da viewport. */
+body::before {
+  background-size: 180px 180px;
+}
+
 /* --------------------------------------------------------------------------
    1. BARRA DE PROGRESSO DE NARRATIVA & NAVEGAÇÃO EDITORIAL
    -------------------------------------------------------------------------- */

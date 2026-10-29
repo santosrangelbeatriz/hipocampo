@@ -13,18 +13,13 @@ const photoSources = [
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
 const style = document.createElement('style')
 style.textContent = `
-.hipocampo-photo-trail { position: absolute; inset: 0; z-index: 3; overflow: hidden; pointer-events: none; }
-.hipocampo-trail-photo { position: absolute; width: clamp(88px, 11vw, 150px); height: auto; max-height: 190px; object-fit: contain; pointer-events: none; opacity: 0; transform: translate(-50%, -50%); animation: hipocampo-photo-memory 1.4s cubic-bezier(.2,.8,.2,1) forwards; }
+.hipocampo-photo-trail { position: absolute; inset: 0; z-index: 3; overflow: hidden; pointer-events: none; contain: strict; }
+.hipocampo-trail-photo { position: absolute; width: clamp(88px, 11vw, 150px); height: auto; max-height: 190px; object-fit: contain; pointer-events: none; opacity: 0; transform: translate(-50%, -50%); }
+.hipocampo-trail-photo.is-active { will-change: transform, opacity; }
 .hipocampo-trail-photo--oval { clip-path: ellipse(49% 49% at 50% 50%); }
 .hipocampo-trail-photo--arch { border-radius: 48% 48% 3% 3% / 38% 38% 3% 3%; }
-.hipocampo-trail-photo--torn { clip-path: polygon(3% 2%, 19% 0%, 34% 3%, 52% 1%, 70% 3%, 88% 0%, 98% 4%, 96% 22%, 100% 40%, 97% 59%, 99% 78%, 96% 98%, 80% 96%, 62% 100%, 43% 97%, 24% 100%, 2% 97%, 4% 78%, 0% 59%, 3% 39%, 0% 20%); }
+.hipocampo-trail-photo--torn { -webkit-mask: url('/images/trail/torn-mask.png') 50% 50% / 100% 100% no-repeat; mask: url('/images/trail/torn-mask.png') 50% 50% / 100% 100% no-repeat; }
 .hipocampo-trail-photo--film { width: clamp(55px, 6vw, 80px); }
-@keyframes hipocampo-photo-memory {
-  0% { opacity: 0; transform: translate(-50%, -50%) rotate(var(--photo-rotation)) scale(.6); }
-  12% { opacity: 1; transform: translate(-50%, -50%) rotate(var(--photo-rotation)) scale(1); }
-  70% { opacity: 1; }
-  100% { opacity: 0; transform: translate(-50%, -50%) rotate(var(--photo-rotation)) scale(.85); }
-}
 @media (prefers-reduced-motion: reduce) { .hipocampo-photo-trail { display: none; } }
 `
 document.head.append(style)
@@ -44,7 +39,15 @@ function initializePhotoTrail() {
   let lastSpawn = 0
   let preloaded = false
   let heroRect = null
-  const timers = new Map()
+  const slots = Array.from({ length: 12 }, () => {
+    const image = document.createElement('img')
+    image.alt = ''
+    image.decoding = 'async'
+    image.className = 'hipocampo-trail-photo'
+    layer.append(image)
+    return { image, animation: null }
+  })
+  let slotIndex = 0
   const invalidateRect = () => { heroRect = null }
 
   // Pré-carrega e decodifica as fotos fora do caminho do mouse, para não travar no primeiro hover.
@@ -63,9 +66,12 @@ function initializePhotoTrail() {
 
   function clear() {
     previous = null
-    for (const timer of timers.values()) window.clearTimeout(timer)
-    timers.clear()
-    if (layer.firstChild) layer.replaceChildren()
+    slots.forEach((slot) => {
+      slot.animation?.cancel()
+      slot.animation = null
+      slot.image.classList.remove('is-active')
+      slot.image.style.opacity = '0'
+    })
   }
 
   function move(event) {
@@ -81,25 +87,34 @@ function initializePhotoTrail() {
     preload()
     previous = { x, y }
     lastSpawn = now
-    const image = document.createElement('img')
+    const slot = slots[slotIndex % slots.length]
+    const image = slot.image
     const photo = photoSources[index % photoSources.length]
+    slotIndex += 1
+    slot.animation?.cancel()
     image.src = photo.src
-    image.alt = ''
-    image.decoding = 'async'
     image.className = `hipocampo-trail-photo hipocampo-trail-photo--${photo.shape}`
     image.style.left = `${x}px`
     image.style.top = `${y}px`
-    image.style.setProperty('--photo-rotation', `${(Math.random() - .5) * 12}deg`)
+    const rotation = `${((Math.random() - .5) * 12).toFixed(2)}deg`
     index += 1
-    while (layer.children.length >= 12) {
-      const oldest = layer.firstElementChild
-      if (!oldest) break
-      window.clearTimeout(timers.get(oldest))
-      timers.delete(oldest)
-      oldest.remove()
+    image.classList.add('is-active')
+    const animation = image.animate([
+      { opacity: 0, transform: `translate(-50%, -50%) rotate(${rotation}) scale(.6)`, offset: 0 },
+      { opacity: 1, transform: `translate(-50%, -50%) rotate(${rotation}) scale(1)`, offset: 0.12 },
+      { opacity: 1, offset: 0.7 },
+      { opacity: 0, transform: `translate(-50%, -50%) rotate(${rotation}) scale(.85)`, offset: 1 },
+    ], {
+      duration: 1400,
+      easing: 'cubic-bezier(.2,.8,.2,1)',
+      fill: 'forwards',
+    })
+    slot.animation = animation
+    animation.onfinish = () => {
+      if (slot.animation !== animation) return
+      slot.animation = null
+      image.classList.remove('is-active')
     }
-    layer.append(image)
-    timers.set(image, window.setTimeout(() => { image.remove(); timers.delete(image) }, 1400))
   }
 
   hero.addEventListener('pointermove', move, { passive: true })
@@ -108,7 +123,7 @@ function initializePhotoTrail() {
   window.addEventListener('resize', invalidateRect, { passive: true })
   window.addEventListener('scroll', () => {
     invalidateRect()
-    if (layer.firstChild || previous) clear()
+    if (previous || slots.some((slot) => slot.animation)) clear()
   }, { passive: true })
   reducedMotion.addEventListener('change', clear)
   window.addEventListener('pagehide', clear)
@@ -116,8 +131,5 @@ function initializePhotoTrail() {
 }
 
 if (!initializePhotoTrail()) {
-  const observer = new MutationObserver(() => {
-    if (initializePhotoTrail()) observer.disconnect()
-  })
-  observer.observe(document.documentElement, { childList: true, subtree: true })
+  window.__hipocampoWhenReady?.(initializePhotoTrail)
 }
