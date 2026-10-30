@@ -1,0 +1,56 @@
+#sobre.hipocampo-page4 {
+  position: relative;
+  z-index: 22;
+  min-height: 100svh;
+  background: #fff;
+  color: #7a2a17;
+  padding: 4vw 9vw 3vw;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.page4-title {
+  margin: 0;
+  text-align: center;
+  font-family: "AquilineTwo", Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(3.5rem, 8vw, 9rem);
+  line-height: 1.1;
+  padding-bottom: .45em;
+  transform: none !important;
+}
+.page4-title small { font-size: .5em; margin-right: .35em; }
+.page4-text {
+  max-width: 72rem;
+  margin: 3vw auto 0;
+  font-family: "SquidBoy", sans-serif;
+  font-size: clamp(1rem, 1.55vw, 1.6rem);
+  line-height: 1.05;
+  text-align: center;
+  letter-spacing: .01em;
+}
+.page4-text p { margin: 0 0 1.3em; }
+.page4-photos { position: relative; height: clamp(18rem, 30vw, 30rem); margin-top: 1vw; }
+.page4-photo {
+  position: absolute;
+  margin: 0;
+}
+.page4-photo--envelope { cursor: pointer; }
+.page4-photo img { display: block; width: 100% !important; height: 100% !important; max-width: none !important; object-fit: cover; }
+.page4-photo img.page4-frame { position: absolute; inset: 0; width: 100% !important; height: 100% !important; }
+.page4-photo .page4-frame {
+  position: absolute; inset: 0; opacity: 0; transition: opacity .15s;
+}
+.page4-photo.is-playing .page4-frame { opacity: 1; }
+.page4-photo--retrato { left: 0; bottom: 0; width: 9vw; min-width: 90px; aspect-ratio: 458/760; }
+.page4-photo--retrato, .page4-photo--retrato .page4-frame { clip-path: ellipse(47% 48.5% at 50% 50%); }
+.page4-photo--envelope { right: 30vw; top: 0; width: 18vw; aspect-ratio: 1; mix-blend-mode: multiply; }
+.page4-photo--montanha { right: 6vw; top: 4vw; width: 22vw; aspect-ratio: 576/548; mix-blend-mode: multiply; filter: brightness(1.1) contrast(1.05); }
+.page4-photo--envelope img.page4-frame { left: 16%; top: 7%; width: 66% !important; height: 85% !important; }
+.page4-photo--montanha img.page4-frame { left: 28%; top: 15%; width: 43% !important; height: 72% !important; }
+.page4-photo--envelope:hover { z-index: 2; }
+@media (max-width: 760px) {
+  .page4-photos { height: 70vw; }
+  .page4-photo--envelope { right: 44vw; width: 34vw; }
+  .page4-photo--montanha { right: 0; width: 40vw; top: 12vw; }
+  .page4-photo--retrato { width: 20vw; }
+}
